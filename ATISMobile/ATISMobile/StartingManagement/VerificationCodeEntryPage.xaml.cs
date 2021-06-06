@@ -10,6 +10,8 @@ using Xamarin.Forms.Xaml;
 using ATISMobile.Models;
 using ATISMobile.PublicProcedures;
 using ATISMobile.HttpClientInstance;
+using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement;
 
 namespace ATISMobile
 {
@@ -26,12 +28,11 @@ namespace ATISMobile
         public void SetInf(string YourVerificationCode, string YourMobileNumber)
         { _LabelMobileNumber.Text = YourMobileNumber; }
 
-        protected override bool OnBackButtonPressed()
-        { return true; }
 
         #endregion
 
         #region "Events"
+
         #endregion
 
         #region "Event Handlers"
@@ -46,25 +47,22 @@ namespace ATISMobile
                 string myMobileNumber = _LabelMobileNumber.Text.Trim();
                 string myVerificationCode = _EntryVerificatinCode.Text.Trim();
 
-                //HttpClient _Client = new HttpClient();
-                //_Client.BaseAddress = new Uri(ATISMobileWebApiMClassManagement.GetATISMobileWebApiHostUrl());
-                //_Client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                var nonce = new Nonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "/api/SoftwareUsers/LoginSoftwareUser");
-                request.Headers.Add("AuthCode", ATISMobileWebApiMClassManagement.GetAuthCode2PartHashed());
-                request.Headers.Add("MobileNumber", myMobileNumber);
-                request.Headers.Add("VerificationCode", myVerificationCode);
+                var Content = myMobileNumber + ";" + Hashing.GetSHA256Hash(myVerificationCode + nonce.CurrentNonce );
+                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
-                    var UserId = JsonConvert.DeserializeObject<Int64>(content);
+                    var AMUStatus = JsonConvert.DeserializeObject<string>(content);
                     String TargetPath = System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                     TargetPath = Path.Combine(TargetPath, "AMUStatus.txt");
                     if (System.IO.File.Exists(TargetPath) == false)
                     { await DisplayAlert("ATISMobile-Failed", "بانک اطلاعاتی موجود نیست", "تایید"); }
                     else
                     {
-                        System.IO.File.WriteAllText(TargetPath, "login;" + UserId.ToString() + ";" + _LabelMobileNumber.Text.Trim());
+                        System.IO.File.WriteAllText(TargetPath, AMUStatus);
                         NavigationPage _MenuPage = new NavigationPage(new MenuPage(false));
                         NavigationPage.SetHasNavigationBar(_MenuPage, false);
                         _MenuPage.BarBackgroundColor = Color.Black;
@@ -83,6 +81,9 @@ namespace ATISMobile
         #endregion
 
         #region "Override Methods"
+        protected override bool OnBackButtonPressed()
+        { return true; }
+
         #endregion
 
         #region "Abstract Methods"

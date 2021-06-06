@@ -52,8 +52,6 @@ namespace ATISMobile.AdvertisingManagement
                 Image img = new Image();
                 img.Source = ImageSource.FromStream(() => stream);
                 ImgAdvertising.Source = img.Source;
-                //GrdAdvertising.HeightRequest = (int)Math.Truncate(Xamarin.Forms.Application.Current.MainPage.Width / 1.41);
-                
             }
             catch (System.Net.WebException ex)
             { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
@@ -77,17 +75,41 @@ namespace ATISMobile.AdvertisingManagement
         }
 
         private void ImgWhatsAppGroup6_Clicked(object sender, EventArgs e)
-        { try { OnBtnWhastAppLink("https://chat.whatsapp.com/ES7zELExevM8O2nuwfYsgK"); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } }
+        {
+            try { OnBtnWhastAppLink("https://chat.whatsapp.com/ES7zELExevM8O2nuwfYsgK"); }
+            catch (Exception ex)
+            { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+        }
         private void ImgWhatsAppGroup5_Clicked(object sender, EventArgs e)
-        { try { OnBtnWhastAppLink("https://chat.whatsapp.com/C01QNQhTUysKB405GYFKXx"); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } }
+        {
+            try { OnBtnWhastAppLink("https://chat.whatsapp.com/C01QNQhTUysKB405GYFKXx"); }
+            catch (Exception ex)
+            { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+        }
         private void ImgWhatsAppGroup4_Clicked(object sender, EventArgs e)
-        { try { OnBtnWhastAppLink("https://chat.whatsapp.com/Ef0iSG5KedAAHlgwRSZ6tQ"); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } }
+        {
+            try { OnBtnWhastAppLink("https://chat.whatsapp.com/Ef0iSG5KedAAHlgwRSZ6tQ"); }
+            catch (Exception ex)
+            { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+        }
         private void ImgWhatsAppGroup3_Clicked(object sender, EventArgs e)
-        { try { OnBtnWhastAppLink("https://chat.whatsapp.com/HO16u7VXTga6iGPR8hgOao"); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } }
+        {
+            try { OnBtnWhastAppLink("https://chat.whatsapp.com/HO16u7VXTga6iGPR8hgOao"); }
+            catch (Exception ex)
+            { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+        }
         private void ImgWhatsAppGroup2_Clicked(object sender, EventArgs e)
-        { try { OnBtnWhastAppLink("https://chat.whatsapp.com/ENt7KpOmYyL8BjJBHfUeru"); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } }
+        {
+            try { OnBtnWhastAppLink("https://chat.whatsapp.com/ENt7KpOmYyL8BjJBHfUeru"); }
+            catch (Exception ex)
+            { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+        }
         private void ImgWhatsAppGroup1_Clicked(object sender, EventArgs e)
-        { try { OnBtnWhastAppLink("https://chat.whatsapp.com/IY1f7COQ9YV62Mkynf4AdJ"); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } }
+        {
+            try { OnBtnWhastAppLink("https://chat.whatsapp.com/IY1f7COQ9YV62Mkynf4AdJ"); }
+            catch (Exception ex)
+            { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+        }
 
 
         #endregion

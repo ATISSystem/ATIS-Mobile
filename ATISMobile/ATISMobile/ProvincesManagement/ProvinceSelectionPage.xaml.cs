@@ -14,6 +14,8 @@ using ATISMobile.Enums;
 using ATISMobile.Models;
 using ATISMobile.PublicProcedures;
 using ATISMobile.HttpClientInstance;
+using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement;
 
 namespace ATISMobile.ProvincesManagement
 {
@@ -37,15 +39,9 @@ namespace ATISMobile.ProvincesManagement
             _LoadCapacitorLoadsListType = YourLoadCapacitorLoadsListType;
             try
             {
-                //HttpClient _Client = new HttpClient();
-                //_Client.BaseAddress = new Uri(ATISMobileWebApiMClassManagement.GetATISMobileWebApiHostUrl());
-                //_Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "/api/Provinces/GetProvinces");
-                request.Headers.Add("AuthCode", ATISMobileWebApiMClassManagement.GetAuthCode3PartHashed());
-                request.Headers.Add("ApiKey", ATISMobileWebApiMClassManagement.GetApiKey());
-                request.Headers.Add("AHId", _AHId.ToString());
-                request.Headers.Add("AHSGId", _AHSGId.ToString());
-                request.Headers.Add("LoadCapacitorLoadsListType", ((int)_LoadCapacitorLoadsListType).ToString());
+                var nonce = new Nonce();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/Provinces/GetProvinces");
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce  + _AHId.ToString() + _AHSGId.ToString() + ((int)_LoadCapacitorLoadsListType).ToString()) + ";" + _AHId.ToString() + ";" + _AHSGId.ToString() + ";" + ((int)_LoadCapacitorLoadsListType).ToString();
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
@@ -61,7 +57,6 @@ namespace ATISMobile.ProvincesManagement
                 {
                     await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید");
                     _ListView.IsVisible = false; _StackLayoutEmptyProvince.IsVisible = true;
-
                 }
             }
             catch (System.Net.WebException ex)

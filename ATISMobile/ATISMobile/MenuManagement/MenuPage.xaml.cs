@@ -13,6 +13,9 @@ using System.Net.Http.Headers;
 using ATISMobile.PublicProcedures;
 using ATISMobile.Models;
 using ATISMobile.HttpClientInstance;
+using ATISMobile.SecurityAlgorithmsManagement;
+using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+
 
 namespace ATISMobile
 {
@@ -27,7 +30,6 @@ namespace ATISMobile
         public MenuPage(Boolean YourIsBackButtonActive)
         {
             InitializeComponent();
-            this.Appearing += MenuPage_Appearing;
             _IsBackButtonActive = YourIsBackButtonActive;
             ShowProcesses();
         }
@@ -36,12 +38,10 @@ namespace ATISMobile
         {
             try
             {
-                //HttpClient _Client = new HttpClient();
-                //_Client.BaseAddress = new Uri(ATISMobileWebApiMClassManagement.GetATISMobileWebApiHostUrl());
-                //_Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "/api/MobileProcesses/GetMobileProcesses");
-                request.Headers.Add("AuthCode", ATISMobileWebApiMClassManagement.GetAuthCode3PartHashed());
-                request.Headers.Add("ApiKey", ATISMobileWebApiMClassManagement.GetApiKey());
+                var nonce = new Nonce();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/MobileProcesses/GetMobileProcesses");
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce);
+                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
@@ -68,24 +68,17 @@ namespace ATISMobile
         #endregion
 
         #region "Event Handlers"
-        private void MenuPage_Appearing(object sender, EventArgs e)
-        { }
-
         async void OnTapGestureRecognizerTapped(object sender, EventArgs args)
         {
             try
             {
+                var nonce = new Nonce();
                 string TargetMobileProcess = (((Label)sender).Parent.FindByName("_TargetMobileProcess") as Label).Text;
                 string TargetMobileProcessId = (((Label)sender).Parent.FindByName("_TargetMobileProcessId") as Label).Text;
 
-                //HttpClient _Client = new HttpClient();
-                //_Client.BaseAddress = new Uri(ATISMobileWebApiMClassManagement.GetATISMobileWebApiHostUrl());
-                //_Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, new Uri("/api/Permissions/ExistPermission"));
-                request.Headers.Add("AuthCode", ATISMobileWebApiMClassManagement.GetAuthCode3PartHashed());
-                request.Headers.Add("ApiKey", ATISMobileWebApiMClassManagement.GetApiKey());
-                request.Headers.Add("PermissionTypeId", 1.ToString());
-                request.Headers.Add("EntityIdSecond", TargetMobileProcessId);
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, new Uri("/api/Permissions/ExistPermission"));
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce + TargetMobileProcessId) + ";" + TargetMobileProcessId;
+                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {

@@ -5,6 +5,7 @@ using System.Net.NetworkInformation;
 using System.IO;
 using System.Security.Cryptography;
 using System.Globalization;
+using System.Drawing;
 
 using ATISMobile.Exceptions;
 using System.Net;
@@ -12,6 +13,8 @@ using System.Net.Http.Headers;
 using ATISMobile.PublicProcedures;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using ATISMobile.HttpClientInstance;
 
 namespace ATISMobile
 {
@@ -41,7 +44,10 @@ namespace ATISMobile
                 try
                 {
                     Ping p = new Ping();
-                    if (p.Send(YourIP).Status == IPStatus.Success) { return true; } else { return false; }
+                    if (p.Send(YourIP).Status == IPStatus.Success)
+                    { return true; }
+                    else
+                    { return false; }
                 }
                 catch (Exception ex)
                 { return false; }
@@ -49,8 +55,10 @@ namespace ATISMobile
 
             public static bool IsInternetAvailable()
             {
-                try { return IsThisIPAvailable("www.google.com"); }
-                catch (Exception ex) { return false; }
+                try
+                { return IsThisIPAvailable("www.google.com"); }
+                catch (Exception ex)
+                { return false; }
             }
 
             public static string GetPersianDate(DateTime YourDateTime)
@@ -71,7 +79,7 @@ namespace ATISMobile
         {
             private static string _Last5Digit = String.Empty;
             public static string UserLast5Digit
-            { get { return _Last5Digit; } set { if (value == string.Empty) { _Last5Digit = string.Empty; } else { _Last5Digit = GetMD5Hashe(value); } } }
+            { get { return _Last5Digit; } set { _Last5Digit = value; } }
 
             public static string GetATISMobileWebApiHostUrlFirstWithoutPortNumber()
             { return Properties.Resources.RestfulWebServiceURLFirst; }
@@ -107,61 +115,12 @@ namespace ATISMobile
                         else
                         { throw new Exception(); }
                     }
-                    catch(Exception exx)
+                    catch (Exception exx)
                     { throw new Exception(ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage); }
                 }
             }
 
-            private static string GetAPPId()
-            { return "0D992C8C-3F8A-428A-8638-25B94D04BEA7"; }
-
-            public static string GetAuthCode2PartHashed()
-            { return GetMD5Hashe(GetAPPId() + ":" + DateTime.Now.Day); }
-
-            public static string GetAuthCode3PartHashed()
-            { try { return GetMD5Hashe(GetAPPId() + ":" + DateTime.Now.Day + ":" + GetMD5Hashe(GetCurrentSoftwareUserId().ToString())); } catch (Exception ex) { throw ex; } }
-
-            public static string GetAuthCode4PartHashed()
-            { try { return GetMD5Hashe(GetAPPId() + ":" + DateTime.Now.Day + ":" + GetMD5Hashe(GetCurrentSoftwareUserId().ToString()) + ":" + UserLast5Digit); } catch (Exception ex) { throw ex; } }
-
-            public static string GetMD5Hashe(string input)
-            {
-                StringBuilder hash = new StringBuilder();
-                MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
-                byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
-                for (int i = 0; i < bytes.Length; i++)
-                { hash.Append(bytes[i].ToString("x2")); }
-                return hash.ToString();
-            }
-
-            public static Int64 GetCurrentSoftwareUserId()
-            {
-                try
-                {
-                    String TargetPath = System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                    TargetPath = Path.Combine(TargetPath, "AMUStatus.txt");
-                    if (System.IO.File.Exists(TargetPath) == false)
-                    { throw new AMUStatusFileNotFoundException(null); }
-                    else
-                    { return Convert.ToInt64(System.IO.File.ReadAllText(TargetPath).Split(';')[1]); }
-                }
-                catch (AMUStatusFileNotFoundException ex)
-                { throw ex; }
-                catch (Exception ex)
-                { throw ex; }
-            }
-
             public static string GetApiKey()
-            {
-                try
-                { return ATISMobileWebApiMClassManagement.GetMD5Hashe(GetCurrentSoftwareUserId().ToString()); }
-                catch (AMUStatusFileNotFoundException ex)
-                { throw ex; }
-                catch (Exception ex)
-                { throw ex; }
-            }
-
-            public static String GetAMUStatus()
             {
                 try
                 {
@@ -178,7 +137,7 @@ namespace ATISMobile
                 { throw ex; }
             }
 
-            public static String GetRegisteredMobileNumberIntoWebApi()
+            public static string GetMobileNumber()
             {
                 try
                 {
@@ -187,7 +146,7 @@ namespace ATISMobile
                     if (System.IO.File.Exists(TargetPath) == false)
                     { throw new AMUStatusFileNotFoundException(null); }
                     else
-                    { return System.IO.File.ReadAllText(TargetPath).Split(';')[2]; }
+                    { return System.IO.File.ReadAllText(TargetPath).Split(';')[1]; }
                 }
                 catch (AMUStatusFileNotFoundException ex)
                 { throw ex; }
@@ -277,7 +236,7 @@ namespace ATISMobile
         {
             public class Hashing
             {
-                public string GetSHA256StringHash(String input)
+                public static string GetSHA256Hash(String input)
                 {
                     SHA256 shaM = new SHA256Managed();
                     byte[] data = shaM.ComputeHash(Encoding.UTF8.GetBytes(input));
@@ -289,6 +248,41 @@ namespace ATISMobile
                 }
             }
         }
+
+        public class ImageRawData
+        { public byte[] IRawData; }
+
+        public class Nonce
+        {
+            public Nonce()
+            { GetNonce(); }
+
+            private  string _CurrentNonce = string.Empty;
+            public string CurrentNonce
+            { get { return _CurrentNonce; } }
+
+            private async void GetNonce()
+            {
+                try
+                {
+                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/SoftwareUsers/GetNonce");
+                    request.Content = new StringContent(JsonConvert.SerializeObject(ATISMobileWebApiMClassManagement.GetMobileNumber()), Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var Content = await response.Content.ReadAsStringAsync();
+                        _CurrentNonce = JsonConvert.DeserializeObject<string>(Content);
+                    }
+                    else
+                    { throw new Exception(JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result)); }
+                }
+                catch (Exception ex)
+                { throw ex; }
+            }
+
+        }
+
+
     }
 
     namespace Exceptions
@@ -297,7 +291,7 @@ namespace ATISMobile
         {
             public AMUStatusFileNotFoundException(string message) : base(message)
             {
-                message = "خطای اساسی - مجددا تلاش نمایید";
+                message = "خطای بانک اطلاعاتی - مجددا تلاش نمایید";
             }
         }
     }

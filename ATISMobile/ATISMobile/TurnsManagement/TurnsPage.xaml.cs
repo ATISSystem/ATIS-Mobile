@@ -13,6 +13,8 @@ using Xamarin.Forms.Xaml;
 using ATISMobile.Models;
 using ATISMobile.PublicProcedures;
 using ATISMobile.HttpClientInstance;
+using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement;
 
 namespace ATISMobile.TurnsManagement
 {
@@ -24,18 +26,18 @@ namespace ATISMobile.TurnsManagement
 
         #region "Subroutins And Functions"
         public TurnsPage()
-        { InitializeComponent(); ViewInformation(); }
+        {
+            InitializeComponent();
+            ViewInformation();
+        }
 
         public async void ViewInformation()
         {
             try
             {
-                //HttpClient _Client = new HttpClient();
-                //_Client.BaseAddress = new Uri(ATISMobileWebApiMClassManagement.GetATISMobileWebApiHostUrl());
-                //_Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "/api/Turns/GetTurns");
-                request.Headers.Add("AuthCode", ATISMobileWebApiMClassManagement.GetAuthCode3PartHashed());
-                request.Headers.Add("ApiKey", ATISMobileWebApiMClassManagement.GetApiKey());
+                var nonce = new Nonce();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/Turns/GetTurns");
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce);
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {

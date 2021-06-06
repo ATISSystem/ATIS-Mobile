@@ -18,6 +18,8 @@ using ATISMobile.Enums;
 using ATISMobile.Models;
 using ATISMobile.PublicProcedures;
 using ATISMobile.HttpClientInstance;
+using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement;
 
 namespace ATISMobile.LoadCapacitorManagement
 {
@@ -35,16 +37,9 @@ namespace ATISMobile.LoadCapacitorManagement
         {
             try
             {
-                HttpClient _Client = new HttpClient();
-                //_Client.BaseAddress = new Uri(ATISMobileWebApiMClassManagement.GetATISMobileWebApiHostUrl());
-                //_Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "/api/LoadCapacitor/GetLoadCapacitorLoads");
-                request.Headers.Add("AuthCode", ATISMobileWebApiMClassManagement.GetAuthCode3PartHashed());
-                request.Headers.Add("ApiKey", ATISMobileWebApiMClassManagement.GetApiKey());
-                request.Headers.Add("AHId", YourAHId.ToString());
-                request.Headers.Add("AHSGId", YourAHSGId.ToString());
-                request.Headers.Add("ProvinceId", Int64.MinValue.ToString());
-                request.Headers.Add("ListType", LoadCapacitorLoadsListType.NotSedimented.ToString());
+                var nonce = new Nonce();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/LoadCapacitor/GetLoadCapacitorLoads");
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce  + YourAHId.ToString() + YourAHSGId.ToString() + Int64.MinValue.ToString() + LoadCapacitorLoadsListType.NotSedimented.ToString()) + ";" + YourAHId.ToString() + ";" + YourAHSGId.ToString() + ";" + Int64.MinValue.ToString() + ";" + LoadCapacitorLoadsListType.NotSedimented.ToString();
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
@@ -69,13 +64,9 @@ namespace ATISMobile.LoadCapacitorManagement
         {
             try
             {
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "/api/LoadCapacitor/GetLoadCapacitorLoads");
-                request.Headers.Add("AuthCode", ATISMobileWebApiMClassManagement.GetAuthCode3PartHashed());
-                request.Headers.Add("ApiKey", ATISMobileWebApiMClassManagement.GetApiKey());
-                request.Headers.Add("AHId", YourAHId.ToString());
-                request.Headers.Add("AHSGId", YourAHSGId.ToString());
-                request.Headers.Add("ProvinceId",YourProvinceId.ToString());
-                request.Headers.Add("ListType", ((int)LoadCapacitorLoadsListType.NotSedimented).ToString());
+                var nonce = new Nonce();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/LoadCapacitor/GetLoadCapacitorLoads");
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce  + YourAHId.ToString() + YourAHSGId.ToString() + YourProvinceId.ToString() + ((int)LoadCapacitorLoadsListType.NotSedimented).ToString()) + ";" + YourAHId.ToString() + ";" + YourAHSGId.ToString() + ";" + YourProvinceId.ToString() + ";" + ((int)LoadCapacitorLoadsListType.NotSedimented).ToString();
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
@@ -111,13 +102,9 @@ namespace ATISMobile.LoadCapacitorManagement
                 {
                     var nEstelamId = ((Label)((Button)sender).Parent.FindByName("LblnEstelamId")).Text.Split(':')[1].Trim();
 
-                    //HttpClient _Client = new HttpClient();
-                    //_Client.BaseAddress = new Uri(ATISMobileWebApiMClassManagement.GetATISMobileWebApiHostUrl());
-                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, new Uri("/api/LoadAllocations/LoadAllocationAgent"));
-                    request.Headers.Add("AuthCode", ATISMobileWebApiMClassManagement.GetAuthCode4PartHashed());
-                    request.Headers.Add("ApiKey", ATISMobileWebApiMClassManagement.GetApiKey());
-                    request.Headers.Add("Last5Digit", ATISMobileWebApiMClassManagement.UserLast5Digit);
-                    request.Headers.Add("nEstelamKey", ATISMobileWebApiMClassManagement.GetMD5Hashe(nEstelamId));
+                    var nonce = new Nonce();
+                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/LoadAllocations/LoadAllocationAgent");
+                    var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce + ATISMobileWebApiMClassManagement.UserLast5Digit + nEstelamId.ToString()) + ";" + nEstelamId.ToString();
                     HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                     if (response.IsSuccessStatusCode)
                     { await DisplayAlert("ATISMobile", "تخصیص بار انجام شد", "تایید"); }

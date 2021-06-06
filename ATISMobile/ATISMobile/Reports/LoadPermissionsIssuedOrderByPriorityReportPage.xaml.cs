@@ -13,6 +13,8 @@ using Xamarin.Forms.Xaml;
 using ATISMobile.Models;
 using ATISMobile.PublicProcedures;
 using ATISMobile.HttpClientInstance;
+using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement;
 
 namespace ATISMobile.Reports
 {
@@ -30,17 +32,16 @@ namespace ATISMobile.Reports
             Initialize();
         }
 
+       
         public async void Initialize()
         {
             try
             {
-                //HttpClient _Client = new HttpClient();
-                //_Client.BaseAddress = new Uri(ATISMobileWebApiMClassManagement.GetATISMobileWebApiHostUrl());
-                //_Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "/api/AnnouncementHalls/GetAnnouncementHallsAnnouncementhAllSubGroupsJOINT");
-                request.Headers.Add("AuthCode", ATISMobileWebApiMClassManagement.GetAuthCode3PartHashed());
-                request.Headers.Add("ApiKey", ATISMobileWebApiMClassManagement.GetApiKey());
+                var nonce = new Nonce();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/AnnouncementHalls/GetAnnouncementHallsAnnouncementhAllSubGroupsJOINT");
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce );
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
+
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
@@ -64,8 +65,6 @@ namespace ATISMobile.Reports
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
         }
 
-
-
         #endregion
 
         #region "Events"
@@ -76,13 +75,9 @@ namespace ATISMobile.Reports
         {
             try
             {
-                //HttpClient _Client = new HttpClient();
-                //_Client.BaseAddress = new Uri(ATISMobileWebApiMClassManagement.GetATISMobileWebApiHostUrl());
-                //_Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "/api/Reports/GetLoadPermissionsIssuedOrderByPriorityReport");
-                request.Headers.Add("AuthCode", ATISMobileWebApiMClassManagement.GetAuthCode3PartHashed());
-                request.Headers.Add("ApiKey", ATISMobileWebApiMClassManagement.GetApiKey());
-                request.Headers.Add("AHSGId", _PickerAnnouncementHallSubGroups.SelectedItem.ToString().Split(' ')[0]);
+                var nonce = new Nonce();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/Reports/GetLoadPermissionsIssuedOrderByPriorityReport");
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce + _PickerAnnouncementHallSubGroups.SelectedItem.ToString().Split(' ')[0]) + ";" + _PickerAnnouncementHallSubGroups.SelectedItem.ToString().Split(' ')[0];
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {

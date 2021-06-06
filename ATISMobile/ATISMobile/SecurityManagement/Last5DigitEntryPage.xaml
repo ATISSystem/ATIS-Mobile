@@ -21,6 +21,74 @@
         <ScrollView>
             <StackLayout Padding="20,10,20,10" BackgroundColor="Transparent" >
                 <StackLayout>
+                    <Label x:Name="_LblLast5DigitUserShenaseh" Text="شناسه شخصی را وارد کنید" TextColor="White"    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  FontSize="Large" >
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Samim" />
+                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <Entry x:Name="_EntryLast5DigitUserShenaseh" Text="" Keyboard="Numeric" IsPassword="False"    Placeholder="شناسه شخصی را وارد کنید" TextColor="Yellow"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand"  FontSize="Large"   >
+                        <Entry.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Samim" />
+                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                            </OnPlatform>
+                        </Entry.FontFamily>
+                    </Entry>
+                    <Label x:Name="_LblLast5DigitUserPassword" Text="رمز شخصی را وارد کنید" TextColor="White"    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  FontSize="Large" >
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Samim" />
+                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <Entry x:Name="_EntryLast5DigitUserPassword" Text="" Keyboard="Numeric" IsPassword="False"    Placeholder="رمز شخصی را وارد کنید" TextColor="Yellow"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand"  FontSize="Large"   >
+                        <Entry.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Samim" />
+                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                            </OnPlatform>
+                        </Entry.FontFamily>
+                    </Entry>
+                    <Label x:Name="_LblCaptcha" Text="تصویر امنیتی" TextColor="White"    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  FontSize="Large" >
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Samim" />
+                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <StackLayout Margin="30,10,30,10" BackgroundColor="Transparent">
+                        <Image x:Name="ImgCaptcha"  Aspect="Fill"    Source="TruckNewLightDark.jpg" VerticalOptions="CenterAndExpand"    HorizontalOptions="CenterAndExpand" WidthRequest="{OnPlatform iOS=300, Android=250}" HeightRequest="{OnPlatform iOS=300, Android=50}" />
+                    </StackLayout>
+                    <Entry x:Name="_EntryCaptcha" Text="" IsPassword="False"    Placeholder="تصویر امنیتی را وارد کنید" TextColor="Yellow"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand"  FontSize="Large"   >
+                        <Entry.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Samim" />
+                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                            </OnPlatform>
+                        </Entry.FontFamily>
+                    </Entry>
+                    <Button x:Name="_ButtonConfirmation" BorderWidth="2" BorderColor="Black"  CornerRadius="15" FontSize="Medium"  Text="تایید" BackgroundColor="Green" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"   WidthRequest="100" HeightRequest="100" BorderRadius="50" >
+                        <Button.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Samim" />
+                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                            </OnPlatform>
+                        </Button.FontFamily>
+                    </Button>
+                </StackLayout>
+                <StackLayout>
                     <Label Text="رمز شخصی را از واحد پشتیبانی آتیس دریافت کنید." TextColor="White" HorizontalOptions="EndAndExpand"  VerticalOptions="Start" FontSize="Large"  >
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
@@ -75,35 +143,6 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                </StackLayout>
-                <StackLayout>
-                    <Label x:Name="_LblLast5DigitEntry" Text="رمز شخصی را وارد کنید" TextColor="White"    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  FontSize="Large" >
-                        <Label.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS" Value="Samim" />
-                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                            </OnPlatform>
-                        </Label.FontFamily>
-                    </Label>
-                    <Entry x:Name="_EntryLast5Digit" Text="" Keyboard="Numeric" IsPassword="False"    Placeholder="رمز شخصی را وارد کنید" TextColor="Yellow"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand"  FontSize="Large"   >
-                        <Entry.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS" Value="Samim" />
-                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                            </OnPlatform>
-                        </Entry.FontFamily>
-                    </Entry>
-                    <Button x:Name="_ButtonConfirmation" BorderWidth="2" BorderColor="Black"  CornerRadius="15" FontSize="Medium"  Text="تایید" BackgroundColor="Green" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"   WidthRequest="100" HeightRequest="100" BorderRadius="50" >
-                        <Button.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS" Value="Samim" />
-                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                            </OnPlatform>
-                        </Button.FontFamily>
-                    </Button>
                 </StackLayout>
                 <Label Text="" TextColor="White"    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  FontSize="Large" />
                 <StackLayout>

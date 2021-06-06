@@ -12,6 +12,8 @@ using Xamarin.Forms.Xaml;
 using ATISMobile.Models;
 using ATISMobile.PublicProcedures;
 using ATISMobile.HttpClientInstance;
+using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement;
 
 namespace ATISMobile.MoneyWalletManagement
 {
@@ -24,6 +26,7 @@ namespace ATISMobile.MoneyWalletManagement
         #region "Subroutins And Functions"
         public MoneyWalletChargingPage()
         { InitializeComponent(); }
+
 
         #endregion
 
@@ -57,14 +60,9 @@ namespace ATISMobile.MoneyWalletManagement
                 if (Amount.ToString() == "0" || Amount.ToString() == string.Empty)
                 { throw new Exception("مبلغ مورد نظر خود را انتخاب کنید"); }
 
-                //HttpClient _Client = new HttpClient();
-                //_Client.BaseAddress = new Uri(ATISMobileWebApiMClassManagement.GetATISMobileWebApiHostUrl());
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, new Uri("/api/MoneyWalletChargingAPI/PaymentRequest"));
-                request.Headers.Add("AuthCode", ATISMobileWebApiMClassManagement.GetAuthCode4PartHashed());
-                request.Headers.Add("ApiKey", ATISMobileWebApiMClassManagement.GetApiKey());
-                request.Headers.Add("Last5Digit", ATISMobileWebApiMClassManagement.UserLast5Digit);
-                request.Headers.Add("Amount", Amount.ToString());
-
+                var nonce = new Nonce();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/MoneyWalletChargingAPI/PaymentRequest");
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce  + ATISMobileWebApiMClassManagement.UserLast5Digit + Amount.ToString()) + ";" + Amount.ToString();
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {

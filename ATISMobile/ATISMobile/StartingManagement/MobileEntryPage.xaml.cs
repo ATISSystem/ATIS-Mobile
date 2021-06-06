@@ -15,14 +15,18 @@ namespace ATISMobile
     public partial class MobileEntryPage : ContentPage
     {
         #region "General Properties"
+        private Boolean _IsBackButtonActive = true;
         #endregion
 
         #region "Subroutins And Functions"
         public MobileEntryPage()
         { InitializeComponent(); }
 
-        protected override bool OnBackButtonPressed()
-        { return true; }
+        public MobileEntryPage(Boolean YourIsBackButtonActive)
+        {
+            InitializeComponent();
+            _IsBackButtonActive = YourIsBackButtonActive;
+        }
 
         #endregion
 
@@ -41,23 +45,25 @@ namespace ATISMobile
                 string myMobileNumber = _EntryMobileNumber.Text.Trim();
                 string myNameFamily = _EntryNameFamily.Text.Trim();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, new Uri("/api/SoftwareUsers/RegisterMobileNumber"));
-                request.Headers.Add("AuthCode", ATISMobileWebApiMClassManagement.GetAuthCode2PartHashed());
                 request.Content = new StringContent(JsonConvert.SerializeObject(myMobileNumber), Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
-                if (response.IsSuccessStatusCode)
-                {
-                    VerificationCodeEntryPage _VerificationCodeEntryPage = new VerificationCodeEntryPage();
-                    _VerificationCodeEntryPage.SetInf(myMobileNumber, _EntryMobileNumber.Text);
-                    await Navigation.PushAsync(_VerificationCodeEntryPage);
-                }
-                else
-                { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
+                await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
+                VerificationCodeEntryPage _VerificationCodeEntryPage = new VerificationCodeEntryPage();
+                _VerificationCodeEntryPage.SetInf(myMobileNumber, _EntryMobileNumber.Text);
+                await Navigation.PushAsync(_VerificationCodeEntryPage);
             }
             catch (System.Net.WebException ex)
             { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
             catch (Exception ex)
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
             _ButtonSend.IsEnabled = true; _ButtonSend.BackgroundColor = Color.Green;
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            if (_IsBackButtonActive)
+            { return false; }
+            else
+            { return true; }
         }
 
         #endregion

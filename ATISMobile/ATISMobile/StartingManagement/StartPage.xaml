@@ -50,7 +50,7 @@
                     </OnPlatform>
                 </Label.FontFamily>
             </Label>
-            <Button x:Name="_BtnAppUpdateChecker" BorderWidth="1" BorderColor="RED" IsVisible="False"     CornerRadius="15" FontSize="Medium"  Text="بروز رسانی اپلیکیشن" BackgroundColor="Blue"   TextColor="White"  HorizontalOptions="CenterAndExpand"   VerticalOptions="End"    >
+            <Button x:Name="_BtnAppUpdateChecker" BorderWidth="1" BorderColor="RED" IsVisible="False"     CornerRadius="15" FontSize="Medium"  Text="بروز رسانی اپلیکیشن" BackgroundColor="Blue"   TextColor="White"  HorizontalOptions="CenterAndExpand"   VerticalOptions="End"  Clicked="_BtnAppUpdateChecker_Clicked">
                 <Button.FontFamily>
                     <OnPlatform x:TypeArguments="x:String">
                         <On Platform="iOS" Value="Samim" />

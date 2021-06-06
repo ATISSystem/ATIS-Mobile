@@ -61,7 +61,7 @@ namespace ATISMobile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://www.ATISMobile.ir/Downloads.aspx.
+        ///   Looks up a localized string similar to http://EsfTerminals.ir/Downloads.aspx.
         /// </summary>
         public static string DownloadLinkURL {
             get {
@@ -70,7 +70,7 @@ namespace ATISMobile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 38468.
+        ///   Looks up a localized string similar to 8083.
         /// </summary>
         public static string RestfulWebServicePortNumber {
             get {
@@ -79,7 +79,7 @@ namespace ATISMobile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Http.
+        ///   Looks up a localized string similar to httpS.
         /// </summary>
         public static string RestfulWebServiceProtocol {
             get {
@@ -88,7 +88,7 @@ namespace ATISMobile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to www.ATISMobile.ir.
+        ///   Looks up a localized string similar to EsfTerminals.ir.
         /// </summary>
         public static string RestfulWebServiceURLFirst {
             get {
@@ -97,7 +97,7 @@ namespace ATISMobile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to www.EsfTerminals.ir.
+        ///   Looks up a localized string similar to EsfTerminals.ir.
         /// </summary>
         public static string RestfulWebServiceURLSecond {
             get {

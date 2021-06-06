@@ -13,6 +13,8 @@ using System.Net.Http.Headers;
 using ATISMobile.Models;
 using ATISMobile.PublicProcedures;
 using ATISMobile.HttpClientInstance;
+using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement;
 
 namespace ATISMobile.TruckDriverManagement
 {
@@ -25,18 +27,18 @@ namespace ATISMobile.TruckDriverManagement
         #region "Subroutins And Functions"
 
         public TruckDriverPage()
-        { InitializeComponent(); ViewInformation(); }
+        {
+            InitializeComponent();
+            ViewInformation();
+        }
 
         public async void ViewInformation()
         {
             try
             {
-                //HttpClient _Client = new HttpClient();
-                //_Client.BaseAddress = new Uri(ATISMobileWebApiMClassManagement.GetATISMobileWebApiHostUrl());
-                //_Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "/api/TruckDrivers/GetTruckDriver");
-                request.Headers.Add("AuthCode", ATISMobileWebApiMClassManagement.GetAuthCode3PartHashed());
-                request.Headers.Add("ApiKey", ATISMobileWebApiMClassManagement.GetApiKey());
+                var nonce = new Nonce();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post , "/api/TruckDrivers/GetTruckDriver");
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce );
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
@@ -49,10 +51,6 @@ namespace ATISMobile.TruckDriverManagement
                     LblTel.Text = myTruckDriver.Tel;
                     LblDriverLicenceNo.Text = myTruckDriver.DrivingLicenceNo;
                     LblDriverId.Text = myTruckDriver.DriverId;
-                    LblThisSoftwareUserInformation.Text = "مشخصات کاربری راننده";
-                    LblSoftwareUserId.Text = "شناسه کاربری: " + ATISMobileWebApiMClassManagement.GetCurrentSoftwareUserId().ToString();
-                    LblRegisteredMobileNumberIntoWebApi.Text = "شماره موبایل فعال شده: " + ATISMobileWebApiMClassManagement.GetRegisteredMobileNumberIntoWebApi();
-                    LblCurrentUserStatus.Text = "وضعیت کاربر: " + ATISMobileWebApiMClassManagement.GetAMUStatus();
                 }
                 else
                 { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
