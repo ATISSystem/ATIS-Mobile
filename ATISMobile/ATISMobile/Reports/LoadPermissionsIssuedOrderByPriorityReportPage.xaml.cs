@@ -13,7 +13,7 @@ using Xamarin.Forms.Xaml;
 using ATISMobile.Models;
 using ATISMobile.PublicProcedures;
 using ATISMobile.HttpClientInstance;
-using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
 using ATISMobile.SecurityAlgorithmsManagement;
 
 namespace ATISMobile.Reports
@@ -37,9 +37,10 @@ namespace ATISMobile.Reports
         {
             try
             {
-                var nonce = new Nonce();
+                await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/AnnouncementHalls/GetAnnouncementHallsAnnouncementhAllSubGroupsJOINT");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce );
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce );
+                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
 
                 if (response.IsSuccessStatusCode)
@@ -75,9 +76,10 @@ namespace ATISMobile.Reports
         {
             try
             {
-                var nonce = new Nonce();
+                await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/Reports/GetLoadPermissionsIssuedOrderByPriorityReport");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce + _PickerAnnouncementHallSubGroups.SelectedItem.ToString().Split(' ')[0]) + ";" + _PickerAnnouncementHallSubGroups.SelectedItem.ToString().Split(' ')[0];
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + _PickerAnnouncementHallSubGroups.SelectedItem.ToString().Split(' ')[0]) + ";" + _PickerAnnouncementHallSubGroups.SelectedItem.ToString().Split(' ')[0];
+                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {

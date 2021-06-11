@@ -12,7 +12,7 @@ using System.Net.Http.Headers;
 using ATISMobile.PublicProcedures;
 using ATISMobile.Models;
 using ATISMobile.HttpClientInstance;
-using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
 using ATISMobile.SecurityAlgorithmsManagement;
 
 namespace ATISMobile.MoneyWalletManagement
@@ -29,28 +29,27 @@ namespace ATISMobile.MoneyWalletManagement
             InitializeComponent();
             try
             {
-                ViewMoneyWalletIDandReminderCharge();
+                ViewMoneyWalletReminderCharge();
                 this.Appearing += MoneyWalletMenuPage_Appearing;
             }
             catch (Exception ex)
             { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
         }
 
-        private async void ViewMoneyWalletIDandReminderCharge()
+        private async void ViewMoneyWalletReminderCharge()
         {
             try
             {
-                var nonce = new Nonce();
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/MoneyWalletAccounting/GetMoneyWalletIDandReminderCharge");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce );
+                await Nonce.GetNonce();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/MoneyWalletReminderCharge/GetMoneyWalletReminderCharge");
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce );
+                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     MessageStruct Result = JsonConvert.DeserializeObject<MessageStruct>(content);
-                    _LblMoneyWalletId.Text = Result.Message1;
-                    _LblReminderCharge.Text = Result.Message2;
-                    _LblMoneyWalletIdHeader.IsVisible = true;
+                    _LblReminderCharge.Text = Result.Message1;
                     _LblReminderChargeHeader.IsVisible = true;
                 }
                 else
@@ -76,7 +75,6 @@ namespace ATISMobile.MoneyWalletManagement
         {
             _BtnMoneyWalletTransactions.IsEnabled = false;
             MoneyWalletTransactionsPage _MoneyWallettTransactionsPage = new MoneyWalletTransactionsPage();
-            _MoneyWallettTransactionsPage.ViewInformation();
             await Navigation.PushAsync(_MoneyWallettTransactionsPage);
         }
 

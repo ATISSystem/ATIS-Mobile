@@ -13,7 +13,7 @@ using System.Net.Http.Headers;
 using ATISMobile.Models;
 using ATISMobile.PublicProcedures;
 using ATISMobile.HttpClientInstance;
-using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
 using ATISMobile.SecurityAlgorithmsManagement;
 
 namespace ATISMobile.MoneyWalletManagement
@@ -35,9 +35,10 @@ namespace ATISMobile.MoneyWalletManagement
         {
             try
             {
-                var nonce = new Nonce();
+                await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/MoneyWalletAccounting/GetMoneyWalletAccounting");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce );
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce);
+                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {

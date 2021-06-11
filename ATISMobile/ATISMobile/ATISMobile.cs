@@ -6,6 +6,10 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Globalization;
 using System.Drawing;
+using Xamarin.Essentials;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
 
 using ATISMobile.Exceptions;
 using System.Net;
@@ -15,6 +19,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using ATISMobile.HttpClientInstance;
+using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
+
 
 namespace ATISMobile
 {
@@ -100,7 +106,10 @@ namespace ATISMobile
                     HttpClient _HttpClient = new HttpClient();
                     HttpResponseMessage response = await _HttpClient.GetAsync(GetATISMobileWebApiHostUrlFirst() + "/api/ATISMobileWebApi/ISWebApiLive");
                     if (response.IsSuccessStatusCode)
-                    { ATISMobileWebApiHostUrlHolder = GetATISMobileWebApiHostUrlFirst(); return response; }
+                    {
+                        ATISMobileWebApiHostUrlHolder = GetATISMobileWebApiHostUrlFirst();
+                        return response;
+                    }
                     else
                     { throw new Exception(); }
                 }
@@ -111,7 +120,10 @@ namespace ATISMobile
                         HttpClient _HttpClient = new HttpClient();
                         HttpResponseMessage response = await _HttpClient.GetAsync(GetATISMobileWebApiHostUrlSecond() + "/api/ATISMobileWebApi/ISWebApiLive");
                         if (response.IsSuccessStatusCode)
-                        { ATISMobileWebApiHostUrlHolder = GetATISMobileWebApiHostUrlSecond(); return response; }
+                        {
+                            ATISMobileWebApiHostUrlHolder = GetATISMobileWebApiHostUrlSecond();
+                            return response;
+                        }
                         else
                         { throw new Exception(); }
                     }
@@ -129,7 +141,7 @@ namespace ATISMobile
                     if (System.IO.File.Exists(TargetPath) == false)
                     { throw new AMUStatusFileNotFoundException(null); }
                     else
-                    { return System.IO.File.ReadAllText(TargetPath).Split(';')[0]; }
+                    { return System.IO.File.ReadAllText(TargetPath).Split(';')[1]; }
                 }
                 catch (AMUStatusFileNotFoundException ex)
                 { throw ex; }
@@ -146,7 +158,7 @@ namespace ATISMobile
                     if (System.IO.File.Exists(TargetPath) == false)
                     { throw new AMUStatusFileNotFoundException(null); }
                     else
-                    { return System.IO.File.ReadAllText(TargetPath).Split(';')[1]; }
+                    { return System.IO.File.ReadAllText(TargetPath).Split(';')[0]; }
                 }
                 catch (AMUStatusFileNotFoundException ex)
                 { throw ex; }
@@ -154,6 +166,12 @@ namespace ATISMobile
                 { throw ex; }
             }
 
+            public static string GetTargetPath()
+            {
+                String TargetPath = System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                TargetPath = Path.Combine(TargetPath, "AMUStatus.txt");
+                return TargetPath;
+            }
 
         }
 
@@ -232,7 +250,7 @@ namespace ATISMobile
 
     namespace SecurityAlgorithmsManagement
     {
-        namespace Hashing
+        namespace HashingAlgorithms
         {
             public class Hashing
             {
@@ -255,26 +273,28 @@ namespace ATISMobile
         public class Nonce
         {
             public Nonce()
-            { GetNonce(); }
+            { }
 
-            private  string _CurrentNonce = string.Empty;
-            public string CurrentNonce
+            private static string _CurrentNonce = string.Empty;
+            public static string CurrentNonce
             { get { return _CurrentNonce; } }
 
-            private async void GetNonce()
+            public static async Task<HttpResponseMessage> GetNonce()
             {
                 try
                 {
                     HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/SoftwareUsers/GetNonce");
-                    request.Content = new StringContent(JsonConvert.SerializeObject(ATISMobileWebApiMClassManagement.GetMobileNumber()), Encoding.UTF8, "application/json");
+                    var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey());
+                    request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                     if (response.IsSuccessStatusCode)
                     {
-                        var Content = await response.Content.ReadAsStringAsync();
-                        _CurrentNonce = JsonConvert.DeserializeObject<string>(Content);
+                        var content = await response.Content.ReadAsStringAsync();
+                        _CurrentNonce = JsonConvert.DeserializeObject<string>(content);
                     }
                     else
                     { throw new Exception(JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result)); }
+                    return response;
                 }
                 catch (Exception ex)
                 { throw ex; }

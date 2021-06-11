@@ -107,6 +107,13 @@ namespace ATISMobile
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
         }
 
+        private async void ActivateSoftwareUser()
+        {
+            System.IO.File.WriteAllText(ATISMobileWebApiMClassManagement.GetTargetPath(), "");
+            MobileEntryPage _MobileEntryPage = new MobileEntryPage(false);
+            await Navigation.PushAsync(_MobileEntryPage);
+        }
+
         #endregion
 
         #region "Events"
@@ -125,11 +132,10 @@ namespace ATISMobile
         {
             try
             {
-                String TargetPath = System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                TargetPath = Path.Combine(TargetPath, "AMUStatus.txt");
+                var TargetPath = ATISMobileWebApiMClassManagement.GetTargetPath();
                 if (System.IO.File.Exists(TargetPath) == false) { System.IO.File.WriteAllText(TargetPath, ""); }
                 string AMUStatus = System.IO.File.ReadAllText(TargetPath);
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, new Uri("/api/DataBase/ConfirmAMUStatus"));
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, new Uri("/api/DataBase/ConfirmAMUStatus"));
                 request.Content = new StringContent(JsonConvert.SerializeObject(AMUStatus), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
@@ -138,16 +144,18 @@ namespace ATISMobile
                     bool Confirmed = JsonConvert.DeserializeObject<bool>(content);
                     if (!Confirmed)
                     {
-                        System.IO.File.WriteAllText(TargetPath, "");
-                        MobileEntryPage _MobileEntryPage = new MobileEntryPage(false);
-                        await Navigation.PushAsync(_MobileEntryPage);
+                        ActivateSoftwareUser();
+                        return;
+                    }
+                    else
+                    {
+                        MenuPage _MenuPage = new MenuPage(true);
+                        await Navigation.PushAsync(_MenuPage);
                         return;
                     }
                 }
                 else
                 { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
-                MenuPage _MenuPage = new MenuPage(true);
-                await Navigation.PushAsync(_MenuPage);
             }
             catch (Exception ex)
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }

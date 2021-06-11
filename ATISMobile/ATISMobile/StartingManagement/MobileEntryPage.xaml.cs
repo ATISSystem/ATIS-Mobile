@@ -46,10 +46,16 @@ namespace ATISMobile
                 string myNameFamily = _EntryNameFamily.Text.Trim();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, new Uri("/api/SoftwareUsers/RegisterMobileNumber"));
                 request.Content = new StringContent(JsonConvert.SerializeObject(myMobileNumber), Encoding.UTF8, "application/json");
-                await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
-                VerificationCodeEntryPage _VerificationCodeEntryPage = new VerificationCodeEntryPage();
-                _VerificationCodeEntryPage.SetInf(myMobileNumber, _EntryMobileNumber.Text);
-                await Navigation.PushAsync(_VerificationCodeEntryPage);
+                HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+
+                    VerificationCodeEntryPage _VerificationCodeEntryPage = new VerificationCodeEntryPage();
+                    _VerificationCodeEntryPage.SetInf(myMobileNumber, _EntryMobileNumber.Text);
+                    await Navigation.PushAsync(_VerificationCodeEntryPage);
+                }
+                else
+                { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
             }
             catch (System.Net.WebException ex)
             { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }

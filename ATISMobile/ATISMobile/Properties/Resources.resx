@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DownloadLinkURL" xml:space="preserve">
-    <value>http://EsfTerminals.ir/Downloads.aspx</value>
+    <value>https://www.ATISMobile.ir/Downloads.aspx</value>
   </data>
   <data name="RestfulWebServicePortNumber" xml:space="preserve">
     <value>8083</value>
   </data>
   <data name="RestfulWebServiceProtocol" xml:space="preserve">
-    <value>httpS</value>
+    <value>https</value>
   </data>
   <data name="RestfulWebServiceURLFirst" xml:space="preserve">
-    <value>EsfTerminals.ir</value>
+    <value>ATISMobile.ir</value>
   </data>
   <data name="RestfulWebServiceURLSecond" xml:space="preserve">
-    <value>EsfTerminals.ir</value>
+    <value>Esfterminals.ir</value>
   </data>
 </root>

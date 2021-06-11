@@ -14,7 +14,7 @@ using ATISMobile.Enums;
 using ATISMobile.Models;
 using ATISMobile.PublicProcedures;
 using ATISMobile.HttpClientInstance;
-using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
 using ATISMobile.SecurityAlgorithmsManagement;
 
 namespace ATISMobile.ProvincesManagement
@@ -39,9 +39,10 @@ namespace ATISMobile.ProvincesManagement
             _LoadCapacitorLoadsListType = YourLoadCapacitorLoadsListType;
             try
             {
-                var nonce = new Nonce();
+                await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/Provinces/GetProvinces");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce  + _AHId.ToString() + _AHSGId.ToString() + ((int)_LoadCapacitorLoadsListType).ToString()) + ";" + _AHId.ToString() + ";" + _AHSGId.ToString() + ";" + ((int)_LoadCapacitorLoadsListType).ToString();
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce  + _AHId.ToString() + _AHSGId.ToString() + ((int)_LoadCapacitorLoadsListType).ToString()) + ";" + _AHId.ToString() + ";" + _AHSGId.ToString() + ";" + ((int)_LoadCapacitorLoadsListType).ToString();
+                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {

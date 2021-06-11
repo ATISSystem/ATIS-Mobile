@@ -12,7 +12,7 @@ using Xamarin.Forms.Xaml;
 
 using ATISMobile.PublicProcedures;
 using ATISMobile.HttpClientInstance;
-using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
 using ATISMobile.SecurityAlgorithmsManagement;
 
 
@@ -29,11 +29,18 @@ namespace ATISMobile.SecurityManagement
         {
             InitializeComponent();
             _ButtonConfirmation.Clicked += _ButtonConfirmation_Clicked;
+            _ButtonVisibleEnterInf.Clicked += _ButtonVisibleEnterInf_Clicked;
             CheckforLastEntry();
             LblMilladiDateTime.Text = DateTime.Now.ToString("yyyy-MM-dd");
             LblShamsiDateTime.Text = ATISMobileMClassPublicProcedures.GetPersianDate(DateTime.Now);
             FillCaptcha();
             _EntryLast5DigitUserShenaseh.Focus();
+        }
+
+        private void _ButtonVisibleEnterInf_Clicked(object sender, EventArgs e)
+        {
+            _InfHolder.IsVisible = true;
+            _DocHolder.IsVisible = false;
         }
 
         public class ImageRawData
@@ -43,9 +50,10 @@ namespace ATISMobile.SecurityManagement
         {
             try
             {
-                var nonce = new Nonce();
+                await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/SoftwareUsers/GetCaptcha");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce );
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce);
+                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
@@ -80,35 +88,31 @@ namespace ATISMobile.SecurityManagement
         {
             try
             {
-                var nonce = new Nonce();
+                await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/SoftwareUsers/GetPersonalNonce");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce  + _EntryLast5DigitUserShenaseh.Text  + _EntryLast5DigitUserPassword.Text + _EntryCaptcha.Text) +";"+ _EntryLast5DigitUserShenaseh.Text + ";"+ _EntryLast5DigitUserPassword.Text + ";"+ _EntryCaptcha.Text;
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + _EntryLast5DigitUserShenaseh.Text + _EntryLast5DigitUserPassword.Text + _EntryCaptcha.Text);
+                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     var PersonalNonce = JsonConvert.DeserializeObject<string>(content);
                     ATISMobileWebApiMClassManagement.UserLast5Digit = PersonalNonce;
-                    _LblLast5DigitUserShenaseh.IsVisible = false;
-                    _EntryLast5DigitUserShenaseh.IsVisible = false;
-                    _LblLast5DigitUserPassword.IsVisible = false;
-                    _EntryLast5DigitUserPassword.IsVisible = false;
-                    _ButtonConfirmation.IsVisible = false;
-                    _LblCaptcha.IsVisible = false;
-                    _EntryCaptcha.IsVisible = false;
+                    _DocHolder.IsVisible = true;
+                    _InfHolder.IsVisible = false;
+                    _ButtonVisibleEnterInf.IsVisible = false;
                     await DisplayAlert("ATISMobile", "رمز شخصی با موفقیت ثبت گردید", "تایید");
+                    return;
                 }
                 else
-                {
-                    ATISMobileWebApiMClassManagement.UserLast5Digit = string.Empty;
-                    FillCaptcha();
-                    await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید");
-                }
+                { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
             }
             catch (System.Net.WebException ex)
             { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
             catch (Exception ex)
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+            ATISMobileWebApiMClassManagement.UserLast5Digit = string.Empty;
+            FillCaptcha();
         }
 
         #endregion

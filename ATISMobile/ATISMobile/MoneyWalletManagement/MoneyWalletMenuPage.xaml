@@ -23,24 +23,6 @@
             <ScrollView BackgroundColor="Transparent">
                 <StackLayout Padding="40,10,40,10">
                     <Label Text="" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" ></Label>
-                    <Label x:Name="_LblMoneyWalletIdHeader" BackgroundColor="Transparent"  IsVisible="False"   TextColor="Blue"    HorizontalTextAlignment="Center" FontSize="Small"     FontAttributes="None" Text = "شاخص کیف پول" >
-                        <Label.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS" Value="Samim" />
-                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                            </OnPlatform>
-                        </Label.FontFamily>
-                    </Label>
-                    <Label x:Name="_LblMoneyWalletId" BackgroundColor="Transparent"  TextColor="Blue"   HorizontalTextAlignment="Center" FontSize="Large"    FontAttributes="None" Text = "" >
-                        <Label.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS" Value="Samim" />
-                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                            </OnPlatform>
-                        </Label.FontFamily>
-                    </Label>
                     <Button x:Name="_BtnMoneyWalletTransactions" BorderWidth="2" BorderColor="Black"  CornerRadius="15" FontSize="Large" HeightRequest="80"  Text="تراکنش های کیف پول" BackgroundColor="Yellow"    TextColor="Black"     Clicked="_BtnMoneyWalletTransactions_ClickedEvent" >
                             <Button.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">

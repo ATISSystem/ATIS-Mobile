@@ -13,7 +13,7 @@ using System.Net.Http.Headers;
 using ATISMobile.Models;
 using ATISMobile.PublicProcedures;
 using ATISMobile.HttpClientInstance;
-using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
 using ATISMobile.SecurityAlgorithmsManagement;
 
 namespace ATISMobile.LoadAllocationsManagement
@@ -35,9 +35,10 @@ namespace ATISMobile.LoadAllocationsManagement
         {
             try
             {
-                var nonce = new Nonce();
+                await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/LoadAllocations/GetLoadAllocationsforTruckDriver");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce );
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce );
+                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
@@ -74,9 +75,10 @@ namespace ATISMobile.LoadAllocationsManagement
                 {
                     var LoadAllocationId = (((StackLayout)((ImageButton)sender).Parent.Parent.FindByName("_StackLayoutInformation")).FindByName("_LabelLAId") as Label).Text.Split('-')[0].Split(':')[1].Trim();
 
-                    var nonce = new Nonce();
+                    await Nonce.GetNonce();
                     HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/LoadAllocations/LoadAllocationCancelling");
-                    var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce + ATISMobileWebApiMClassManagement.UserLast5Digit + LoadAllocationId) + ";" + LoadAllocationId;
+                    var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + ATISMobileWebApiMClassManagement.UserLast5Digit + LoadAllocationId) + ";" + LoadAllocationId;
+                    request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                     if (response.IsSuccessStatusCode)
                     {
@@ -102,9 +104,10 @@ namespace ATISMobile.LoadAllocationsManagement
                 {
                     var LoadAllocationId = (((StackLayout)((ImageButton)sender).Parent.Parent.FindByName("_StackLayoutInformation")).FindByName("_LabelLAId") as Label).Text.Split('-')[0].Split(':')[1].Trim();
 
-                    var nonce = new Nonce();
+                    await Nonce.GetNonce();
                     HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/LoadAllocations/IncreasePriority");
-                    var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce + ATISMobileWebApiMClassManagement.UserLast5Digit + LoadAllocationId) + ";" + LoadAllocationId;
+                    var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + ATISMobileWebApiMClassManagement.UserLast5Digit + LoadAllocationId) + ";" + LoadAllocationId;
+                    request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                     if (response.IsSuccessStatusCode)
                     { ViewLoadAllocations(); await DisplayAlert("ATISMobile", "افزایش اولویت انجام شد", "تایید"); }
@@ -128,9 +131,10 @@ namespace ATISMobile.LoadAllocationsManagement
                 {
                     var LoadAllocationId = (((StackLayout)((ImageButton)sender).Parent.Parent.FindByName("_StackLayoutInformation")).FindByName("_LabelLAId") as Label).Text.Split('-')[0].Split(':')[1].Trim();
 
-                    var nonce = new Nonce();
+                    await Nonce.GetNonce();
                     HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/LoadAllocations/DecreasePriority");
-                    var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce + ATISMobileWebApiMClassManagement.UserLast5Digit + LoadAllocationId) + ";" + LoadAllocationId;
+                    var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + ATISMobileWebApiMClassManagement.UserLast5Digit + LoadAllocationId) + ";" + LoadAllocationId;
+                    request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                     if (response.IsSuccessStatusCode)
                     { ViewLoadAllocations(); await DisplayAlert("ATISMobile", "کاهش اولویت انجام شد", "تایید"); }

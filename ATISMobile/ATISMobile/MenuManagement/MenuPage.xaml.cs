@@ -14,7 +14,7 @@ using ATISMobile.PublicProcedures;
 using ATISMobile.Models;
 using ATISMobile.HttpClientInstance;
 using ATISMobile.SecurityAlgorithmsManagement;
-using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
 
 
 namespace ATISMobile
@@ -34,13 +34,20 @@ namespace ATISMobile
             ShowProcesses();
         }
 
-        private async void ShowProcesses()
+        private async void ActivateSoftwareUser()
+        {
+            System.IO.File.WriteAllText(ATISMobileWebApiMClassManagement.GetTargetPath(), "");
+            MobileEntryPage _MobileEntryPage = new MobileEntryPage(false);
+            await Navigation.PushAsync(_MobileEntryPage);
+        }
+
+        public async void ShowProcesses()
         {
             try
             {
-                var nonce = new Nonce();
+                await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/MobileProcesses/GetMobileProcesses");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce);
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce);
                 request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
@@ -51,6 +58,7 @@ namespace ATISMobile
                     {; }
                     else
                     { _ListView.ItemsSource = _Lst; }
+                    return;
                 }
                 else
                 { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
@@ -59,6 +67,7 @@ namespace ATISMobile
             { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
             catch (Exception ex)
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+            ActivateSoftwareUser();
         }
 
 
@@ -72,12 +81,12 @@ namespace ATISMobile
         {
             try
             {
-                var nonce = new Nonce();
+                await Nonce.GetNonce();
                 string TargetMobileProcess = (((Label)sender).Parent.FindByName("_TargetMobileProcess") as Label).Text;
                 string TargetMobileProcessId = (((Label)sender).Parent.FindByName("_TargetMobileProcessId") as Label).Text;
 
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, new Uri("/api/Permissions/ExistPermission"));
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce + TargetMobileProcessId) + ";" + TargetMobileProcessId;
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + TargetMobileProcessId) + ";" + TargetMobileProcessId;
                 request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)

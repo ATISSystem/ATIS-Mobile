@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 using ATISMobile.Models;
 using ATISMobile.PublicProcedures;
 using ATISMobile.HttpClientInstance;
-using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
 using ATISMobile.SecurityAlgorithmsManagement;
 
 namespace ATISMobile
@@ -19,6 +19,7 @@ namespace ATISMobile
     public partial class VerificationCodeEntryPage : ContentPage
     {
         #region "General Properties"
+        private Boolean _IsBackButtonActive = true;
         #endregion
 
         #region "Subroutins And Functions"
@@ -47,9 +48,8 @@ namespace ATISMobile
                 string myMobileNumber = _LabelMobileNumber.Text.Trim();
                 string myVerificationCode = _EntryVerificatinCode.Text.Trim();
 
-                var nonce = new Nonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "/api/SoftwareUsers/LoginSoftwareUser");
-                var Content = myMobileNumber + ";" + Hashing.GetSHA256Hash(myVerificationCode + nonce.CurrentNonce );
+                var Content = myMobileNumber + ";" + Hashing.GetSHA256Hash(myVerificationCode);
                 request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
@@ -67,9 +67,11 @@ namespace ATISMobile
                         NavigationPage.SetHasNavigationBar(_MenuPage, false);
                         _MenuPage.BarBackgroundColor = Color.Black;
                         await Navigation.PushAsync(_MenuPage);
+                        return;
                     }
                 }
-                else { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
+                else
+                { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
             }
             catch (System.Net.WebException ex)
             { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }

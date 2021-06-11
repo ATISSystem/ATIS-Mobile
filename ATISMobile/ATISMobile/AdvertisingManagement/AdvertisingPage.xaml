@@ -20,10 +20,10 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout  BackgroundColor="White">
-                <StackLayout Margin="30,10,30,10" BackgroundColor="Transparent">
-                    <Image x:Name="ImgAdvertising"  Aspect="Fill"    Source="TruckNewLightDark.jpg" VerticalOptions="CenterAndExpand"    HorizontalOptions="CenterAndExpand" WidthRequest="{OnPlatform iOS=300, Android=250}" HeightRequest="{OnPlatform iOS=300, Android=250}" />
-                </StackLayout>
-                <!--<Image x:Name="ImgAdvertising"  Aspect="Fill"   Source="TruckNewLightDark.jpg" VerticalOptions="FillAndExpand"   HorizontalOptions="FillAndExpand"  />-->
+                <!--<StackLayout Margin="30,10,30,10" BackgroundColor="Transparent" VerticalOptions="StartAndExpand" >
+                    <Image x:Name="ImgAdvertising"  Aspect="Fill"    Source="TruckNewLightDark.jpg" VerticalOptions="CenterAndExpand"    HorizontalOptions="CenterAndExpand" WidthRequest="{OnPlatform iOS=300, Android=250}" HeightRequest="{OnPlatform iOS=300, Android=500}" />
+                </StackLayout>-->
+                <Image x:Name="ImgAdvertising"  Aspect="Fill"   Source="TruckNewLightDark.jpg" VerticalOptions="FillAndExpand"   HorizontalOptions="FillAndExpand"  />
                 <StackLayout  Margin="30,0,30,5" HorizontalOptions="CenterAndExpand" VerticalOptions="End">
                     <Button x:Name="BtnDownloadATISMobileLastVersion" BorderWidth="1" BorderColor="Black"  CornerRadius="10" FontSize="Medium" TextColor="White" BackgroundColor="DodgerBlue" Text="دانلود آخرین نسخه آتیس موبایل" >
                         <Button.FontFamily>

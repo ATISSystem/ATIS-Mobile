@@ -12,7 +12,7 @@ using Xamarin.Forms.Xaml;
 using ATISMobile.Models;
 using ATISMobile.PublicProcedures;
 using ATISMobile.HttpClientInstance;
-using ATISMobile.SecurityAlgorithmsManagement.Hashing;
+using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
 using ATISMobile.SecurityAlgorithmsManagement;
 
 namespace ATISMobile.MoneyWalletManagement
@@ -60,16 +60,15 @@ namespace ATISMobile.MoneyWalletManagement
                 if (Amount.ToString() == "0" || Amount.ToString() == string.Empty)
                 { throw new Exception("مبلغ مورد نظر خود را انتخاب کنید"); }
 
-                var nonce = new Nonce();
+                await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/MoneyWalletChargingAPI/PaymentRequest");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + nonce.CurrentNonce  + ATISMobileWebApiMClassManagement.UserLast5Digit + Amount.ToString()) + ";" + Amount.ToString();
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce  + ATISMobileWebApiMClassManagement.UserLast5Digit + Amount.ToString()) + ";" + Amount.ToString();
+                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     var myMS = JsonConvert.DeserializeObject<MessageStruct>(content);
-                    //NoError : Message2=https://sandbox.zarinpal.com/pg/StartPay/ Message1=Autority
-                    //Error   : Message1=Error Message String
                     if (myMS.ErrorCode == false)
                     { Device.OpenUri(new Uri(myMS.Message2 + myMS.Message1)); }
                     else

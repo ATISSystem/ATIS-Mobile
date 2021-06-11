@@ -18,7 +18,6 @@
             </Label>
         </StackLayout>
     </NavigationPage.TitleView>
-
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
@@ -86,7 +85,7 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
-                <Label BackgroundColor="White"  TextColor="Red"   FontSize="Large"   FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
+                <Label BackgroundColor="White"  TextColor="Red"   FontSize="Large"   FontAttributes="Bold" Text = "" VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" >
                     <Label.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS" Value="Samim" />

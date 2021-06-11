@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ATISMobile.SecurityManagement.Last5DigitEntryPage"
-             BackgroundColor="White"  
-             BackgroundImage="@drawable/TruckNewLightDark">
+             BackgroundColor="White">
     <NavigationPage.TitleView>
         <StackLayout>
             <Label Text="رمز شخصی" TextColor="White" HorizontalTextAlignment="Center">
@@ -20,8 +19,8 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="20,10,20,10" BackgroundColor="Transparent" >
-                <StackLayout>
-                    <Label x:Name="_LblLast5DigitUserShenaseh" Text="شناسه شخصی را وارد کنید" TextColor="White"    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  FontSize="Large" >
+                <StackLayout x:Name="_InfHolder" IsVisible="False" VerticalOptions="StartAndExpand" >
+                    <Label Text="" TextColor="OrangeRed" HorizontalOptions="EndAndExpand"  VerticalOptions="Start" FontSize="Large"  >
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -30,7 +29,16 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                    <Entry x:Name="_EntryLast5DigitUserShenaseh" Text="" Keyboard="Numeric" IsPassword="False"    Placeholder="شناسه شخصی را وارد کنید" TextColor="Yellow"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand"  FontSize="Large"   >
+                    <Label x:Name="_LblLast5DigitUserShenaseh" Text="شناسه شخصی را وارد کنید" TextColor="Blue"    HorizontalOptions="CenterAndExpand" VerticalOptions="Start"  FontSize="Large" >
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Samim" />
+                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <Entry x:Name="_EntryLast5DigitUserShenaseh" Text="" Keyboard="Numeric" IsPassword="False"    Placeholder="شناسه شخصی را وارد کنید" TextColor="Black"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="Start"  FontSize="Large"   >
                         <Entry.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -39,7 +47,7 @@
                             </OnPlatform>
                         </Entry.FontFamily>
                     </Entry>
-                    <Label x:Name="_LblLast5DigitUserPassword" Text="رمز شخصی را وارد کنید" TextColor="White"    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  FontSize="Large" >
+                    <Label x:Name="_LblLast5DigitUserPassword" Text="رمز شخصی را وارد کنید" TextColor="Blue"    HorizontalOptions="CenterAndExpand" VerticalOptions="Start"  FontSize="Large" >
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -48,7 +56,7 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                    <Entry x:Name="_EntryLast5DigitUserPassword" Text="" Keyboard="Numeric" IsPassword="False"    Placeholder="رمز شخصی را وارد کنید" TextColor="Yellow"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand"  FontSize="Large"   >
+                    <Entry x:Name="_EntryLast5DigitUserPassword" Text="" Keyboard="Numeric" IsPassword="False"    Placeholder="رمز شخصی را وارد کنید" TextColor="Black"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="Start"  FontSize="Large"   >
                         <Entry.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -57,7 +65,7 @@
                             </OnPlatform>
                         </Entry.FontFamily>
                     </Entry>
-                    <Label x:Name="_LblCaptcha" Text="تصویر امنیتی" TextColor="White"    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  FontSize="Large" >
+                    <Label x:Name="_LblCaptcha" Text="تصویر امنیتی" TextColor="DarkRed"    HorizontalOptions="CenterAndExpand" VerticalOptions="Start"  FontSize="Large" >
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -66,10 +74,10 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                    <StackLayout Margin="30,10,30,10" BackgroundColor="Transparent">
+                    <StackLayout x:Name="_ImgCaptchaHolder" Margin="30,10,30,10" BackgroundColor="Transparent" VerticalOptions="Start">
                         <Image x:Name="ImgCaptcha"  Aspect="Fill"    Source="TruckNewLightDark.jpg" VerticalOptions="CenterAndExpand"    HorizontalOptions="CenterAndExpand" WidthRequest="{OnPlatform iOS=300, Android=250}" HeightRequest="{OnPlatform iOS=300, Android=50}" />
                     </StackLayout>
-                    <Entry x:Name="_EntryCaptcha" Text="" IsPassword="False"    Placeholder="تصویر امنیتی را وارد کنید" TextColor="Yellow"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="CenterAndExpand"  FontSize="Large"   >
+                    <Entry x:Name="_EntryCaptcha" Text="" IsPassword="False"    Placeholder="تصویر امنیتی را وارد کنید" TextColor="Black"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="Start"  FontSize="Large"   >
                         <Entry.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -78,7 +86,7 @@
                             </OnPlatform>
                         </Entry.FontFamily>
                     </Entry>
-                    <Button x:Name="_ButtonConfirmation" BorderWidth="2" BorderColor="Black"  CornerRadius="15" FontSize="Medium"  Text="تایید" BackgroundColor="Green" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"   WidthRequest="100" HeightRequest="100" BorderRadius="50" >
+                    <Button x:Name="_ButtonConfirmation" BorderWidth="2" BorderColor="Black"  CornerRadius="15" FontSize="Medium"  Text="تایید" BackgroundColor="Green" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   WidthRequest="100" HeightRequest="100" BorderRadius="50" >
                         <Button.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -88,8 +96,8 @@
                         </Button.FontFamily>
                     </Button>
                 </StackLayout>
-                <StackLayout>
-                    <Label Text="رمز شخصی را از واحد پشتیبانی آتیس دریافت کنید." TextColor="White" HorizontalOptions="EndAndExpand"  VerticalOptions="Start" FontSize="Large"  >
+                <StackLayout  x:Name="_DocHolder" IsVisible="True" VerticalOptions="StartAndExpand">
+                    <Label Text="" TextColor="OrangeRed" HorizontalOptions="EndAndExpand"  VerticalOptions="Start" FontSize="Large"  >
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -98,7 +106,7 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                    <Label Text="به منظور افزایش امنیت ، همواره تاریخ تلفن همراه خود را کنترل نموده و بروز تنظیم نمایید." TextColor="White" HorizontalOptions="EndAndExpand"  VerticalOptions="Start" FontSize="Medium"  >
+                    <Label Text="شناسه و رمز شخصی را از واحد پشتیبانی آتیس دریافت کنید." TextColor="Green" HorizontalOptions="EndAndExpand"  VerticalOptions="Start" FontSize="Large"  >
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -107,7 +115,7 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                    <Label Text="تاریخ شمسی تلفن همراه" TextColor="Yellow"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="Medium">
+                    <Label Text="به منظور افزایش امنیت ، همواره تاریخ تلفن همراه خود را کنترل نموده و بروز تنظیم نمایید." TextColor="Green" HorizontalOptions="EndAndExpand"  VerticalOptions="Start" FontSize="Medium"  >
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -116,7 +124,7 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                    <Label x:Name="LblShamsiDateTime" Text="" TextColor="Yellow"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="Large" >
+                    <Label Text="شناسه و رمز شخصی را در محل امن محفوظ نگاه دارید و دراختیار دیگران قرار ندهید." TextColor="DarkGreen"  HorizontalOptions="EndAndExpand" VerticalOptions="Start" FontSize="Medium" >
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -125,7 +133,7 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                    <Label Text="تاریخ میلادی تلفن همراه" TextColor="Yellow"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="Medium">
+                    <Label Text="شناسه و رمز شخصی بعد از خروج از اپلیکیشن از حافظه حذف می شود." TextColor="Green" HorizontalOptions="EndAndExpand" VerticalOptions="Start" FontSize="Medium" >
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -134,7 +142,7 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                    <Label x:Name="LblMilladiDateTime" Text="" TextColor="Yellow"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="Large" >
+                    <Label Text="شناسه و رمز شخصی را قبل از انجام عملیاتی مثل تخصیص بار و یا شارژ کیف پول وارد نمایید." TextColor="Green" HorizontalOptions="EndAndExpand" VerticalOptions="Start" FontSize="Medium" >
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -143,10 +151,7 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                </StackLayout>
-                <Label Text="" TextColor="White"    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"  FontSize="Large" />
-                <StackLayout>
-                    <Label Text="رمز شخصی را در محل امن محفوظ نگاه دارید و دراختیار دیگران قرار ندهید." TextColor="White" HorizontalOptions="EndAndExpand" VerticalOptions="End" FontSize="Medium" >
+                    <Label Text="تاریخ شمسی تلفن همراه" TextColor="Red"   HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="Medium">
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -155,7 +160,7 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                    <Label Text="رمز شخصی بعد از خروج از اپلیکیشن از حافظه حذف می شود." TextColor="White" HorizontalOptions="EndAndExpand" VerticalOptions="End" FontSize="Medium" >
+                    <Label x:Name="LblShamsiDateTime" Text="" TextColor="Red"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="Large" >
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -164,7 +169,7 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                    <Label Text="رمز شخصی را قبل از انجام عملیاتی مثل تخصیص بار و یا شارژ کیف پول وارد نمایید." TextColor="White" HorizontalOptions="EndAndExpand" VerticalOptions="End" FontSize="Medium" >
+                    <Label Text="تاریخ میلادی تلفن همراه" TextColor="Red"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="Medium">
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -173,6 +178,24 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
+                    <Label x:Name="LblMilladiDateTime" Text="" TextColor="Red"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start" FontSize="Large" >
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Samim" />
+                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <Button x:Name="_ButtonVisibleEnterInf" BorderWidth="2" BorderColor="Black"  CornerRadius="15" FontSize="Medium"  Text="ورود شناسه و رمز شخصی" BackgroundColor="Green" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   WidthRequest="270" HeightRequest="70" BorderRadius="15" >
+                        <Button.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Samim" />
+                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                            </OnPlatform>
+                        </Button.FontFamily>
+                    </Button>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

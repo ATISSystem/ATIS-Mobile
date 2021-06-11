@@ -31,7 +31,7 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
-                <Entry x:Name="_EntryVerificatinCode" Text="" IsPassword="False" Keyboard="Numeric" Placeholder="VerificatinCode" TextColor="White" HorizontalTextAlignment="Center"  HorizontalOptions="Center" VerticalOptions="Start" FontSize="Large"   >
+                <Entry x:Name="_EntryVerificatinCode" Text="" IsPassword="False" Placeholder="VerificatinCode" TextColor="White" HorizontalTextAlignment="Center"  HorizontalOptions="Center" VerticalOptions="Start" FontSize="Large"   >
                     <Entry.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS" Value="Samim" />
