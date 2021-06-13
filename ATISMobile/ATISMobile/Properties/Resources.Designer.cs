@@ -61,7 +61,7 @@ namespace ATISMobile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://www.ATISMobile.ir/Downloads.aspx.
+        ///   Looks up a localized string similar to https://ATISMobile.ir/Downloads.aspx.
         /// </summary>
         public static string DownloadLinkURL {
             get {
