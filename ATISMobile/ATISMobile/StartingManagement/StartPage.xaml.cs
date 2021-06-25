@@ -132,6 +132,7 @@ namespace ATISMobile
         {
             try
             {
+                _StartApplication.IsEnabled = false;
                 var TargetPath = ATISMobileWebApiMClassManagement.GetTargetPath();
                 if (System.IO.File.Exists(TargetPath) == false) { System.IO.File.WriteAllText(TargetPath, ""); }
                 string AMUStatus = System.IO.File.ReadAllText(TargetPath);

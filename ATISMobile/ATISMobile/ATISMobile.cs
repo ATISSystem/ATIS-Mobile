@@ -104,31 +104,39 @@ namespace ATISMobile
                 try
                 {
                     HttpClient _HttpClient = new HttpClient();
-                    HttpResponseMessage response = await _HttpClient.GetAsync(GetATISMobileWebApiHostUrlFirst() + "/api/ATISMobileWebApi/ISWebApiLive");
+
+                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get , GetATISMobileWebApiHostUrlFirst() + "/api/ATISMobileWebApi/ISWebApiLive");
+                    HttpResponseMessage response = await _HttpClient.SendAsync(request);
+
+                    //HttpResponseMessage response = await _HttpClient.GetAsync(GetATISMobileWebApiHostUrlFirst() + "/api/ATISMobileWebApi/ISWebApiLive");
                     if (response.IsSuccessStatusCode)
                     {
                         ATISMobileWebApiHostUrlHolder = GetATISMobileWebApiHostUrlFirst();
                         return response;
                     }
                     else
-                    { throw new Exception(); }
+                    {
+                        throw new Exception(JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result));
+                        //throw new Exception();
+                    }
                 }
                 catch (Exception ex)
                 {
-                    try
-                    {
-                        HttpClient _HttpClient = new HttpClient();
-                        HttpResponseMessage response = await _HttpClient.GetAsync(GetATISMobileWebApiHostUrlSecond() + "/api/ATISMobileWebApi/ISWebApiLive");
-                        if (response.IsSuccessStatusCode)
-                        {
-                            ATISMobileWebApiHostUrlHolder = GetATISMobileWebApiHostUrlSecond();
-                            return response;
-                        }
-                        else
-                        { throw new Exception(); }
-                    }
-                    catch (Exception exx)
-                    { throw new Exception(ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage); }
+                    throw ex;
+                    //try
+                    //{
+                    //    HttpClient _HttpClient = new HttpClient();
+                    //    HttpResponseMessage response = await _HttpClient.GetAsync(GetATISMobileWebApiHostUrlSecond() + "/api/ATISMobileWebApi/ISWebApiLive");
+                    //    if (response.IsSuccessStatusCode)
+                    //    {
+                    //        ATISMobileWebApiHostUrlHolder = GetATISMobileWebApiHostUrlSecond();
+                    //        return response;
+                    //    }
+                    //    else
+                    //    { throw new Exception(); }
+                    //}
+                    //catch (Exception exx)
+                    //{ throw new Exception(ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage); }
                 }
             }
 

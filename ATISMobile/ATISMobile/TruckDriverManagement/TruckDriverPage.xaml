@@ -20,7 +20,7 @@
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout>
+            <StackLayout Padding="20,10,20,10" BackgroundColor="Transparent">
                 <Label BackgroundColor="White"  TextColor="Blue"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="CenterAndExpand"    HorizontalOptions="CenterAndExpand" />
                 <Label x:Name="LblDriverId" BackgroundColor="White"  TextColor="Red"     FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
                     <Label.FontFamily>
@@ -93,7 +93,7 @@
                             <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
                         </OnPlatform>
                     </Label.FontFamily>
-                </Label>                
+                </Label>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

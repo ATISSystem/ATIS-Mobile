@@ -77,7 +77,7 @@
                     <StackLayout x:Name="_ImgCaptchaHolder" Margin="30,10,30,10" BackgroundColor="Transparent" VerticalOptions="Start">
                         <Image x:Name="ImgCaptcha"  Aspect="Fill"    Source="TruckNewLightDark.jpg" VerticalOptions="CenterAndExpand"    HorizontalOptions="CenterAndExpand" WidthRequest="{OnPlatform iOS=300, Android=250}" HeightRequest="{OnPlatform iOS=300, Android=50}" />
                     </StackLayout>
-                    <Entry x:Name="_EntryCaptcha" Text="" IsPassword="False"    Placeholder="تصویر امنیتی را وارد کنید" TextColor="Black"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="Start"  FontSize="Large"   >
+                    <Entry x:Name="_EntryCaptcha" Text="" IsPassword="False"  Keyboard="Numeric"  Placeholder="تصویر امنیتی را وارد کنید" TextColor="Black"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="Start"  FontSize="Large"   >
                         <Entry.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />

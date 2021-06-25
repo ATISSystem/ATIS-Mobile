@@ -48,7 +48,7 @@ namespace ATISMobile
                 string myMobileNumber = _LabelMobileNumber.Text.Trim();
                 string myVerificationCode = _EntryVerificatinCode.Text.Trim();
 
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "/api/SoftwareUsers/LoginSoftwareUser");
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post , "/api/SoftwareUsers/LoginSoftwareUser");
                 var Content = myMobileNumber + ";" + Hashing.GetSHA256Hash(myVerificationCode);
                 request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);

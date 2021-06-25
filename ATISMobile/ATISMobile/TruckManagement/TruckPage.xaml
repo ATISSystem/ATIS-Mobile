@@ -21,65 +21,64 @@
 
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout>
-            <Label BackgroundColor="White"  TextColor="Blue"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="CenterAndExpand"    HorizontalOptions="CenterAndExpand" />
-            <Label x:Name="LblTruckId" BackgroundColor="White"  TextColor="Red"    FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
-                <Label.FontFamily>
-                    <OnPlatform x:TypeArguments="x:String">
-                        <On Platform="iOS" Value="Samim" />
-                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                    </OnPlatform>
-                </Label.FontFamily>
-            </Label>
-            <Label x:Name="LblLPString" BackgroundColor="White"  TextColor="Blue"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"   HorizontalOptions="CenterAndExpand" >
-                <Label.FontFamily>
-                    <OnPlatform x:TypeArguments="x:String">
-                        <On Platform="iOS" Value="Samim" />
-                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                    </OnPlatform>
-                </Label.FontFamily>
-            </Label>
-            <Label x:Name="LblLoaderTitle" BackgroundColor="White"  TextColor="Brown"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
-                <Label.FontFamily>
-                    <OnPlatform x:TypeArguments="x:String">
-                        <On Platform="iOS" Value="Samim" />
-                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                    </OnPlatform>
-                </Label.FontFamily>
-            </Label>
-            <Label x:Name="LblSmartCardNo" BackgroundColor="White"  TextColor="Green"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
-                <Label.FontFamily>
-                    <OnPlatform x:TypeArguments="x:String">
-                        <On Platform="iOS" Value="Samim" />
-                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                    </OnPlatform>
-                </Label.FontFamily>
-            </Label>
-            <Label x:Name="LblAnnouncementHallSubGroups" Margin="10,0,10,0" BackgroundColor="White"  TextColor="Black"    FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
-                <Label.FontFamily>
-                    <OnPlatform x:TypeArguments="x:String">
-                        <On Platform="iOS" Value="Samim" />
-                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                    </OnPlatform>
-                </Label.FontFamily>
-            </Label>
-            <Label x:Name="LblErrorMessage" BackgroundColor="White"  TextColor="Red"    FontSize="Large"   FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
-                <Label.FontFamily>
-                    <OnPlatform x:TypeArguments="x:String">
-                        <On Platform="iOS" Value="Samim" />
-                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                    </OnPlatform>
-                </Label.FontFamily>
-            </Label>
-
-            <Label BackgroundColor="White"  TextColor="Blue"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="CenterAndExpand"    HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-            </ScrollView>
+            <StackLayout Padding="20,10,20,10" BackgroundColor="Transparent">
+                <Label BackgroundColor="White"  TextColor="Blue"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="CenterAndExpand"    HorizontalOptions="CenterAndExpand" />
+                <Label x:Name="LblTruckId" BackgroundColor="White"  TextColor="Red"    FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Label x:Name="LblLPString" BackgroundColor="White"  TextColor="Blue"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"   HorizontalOptions="CenterAndExpand" >
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Label x:Name="LblLoaderTitle" BackgroundColor="White"  TextColor="Brown"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Label x:Name="LblSmartCardNo" BackgroundColor="White"  TextColor="Green"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Label x:Name="LblAnnouncementHallSubGroups" Margin="10,0,10,0" BackgroundColor="White"  TextColor="Black"    FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Label x:Name="LblErrorMessage" BackgroundColor="White"  TextColor="Red"    FontSize="Large"   FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Label BackgroundColor="White"  TextColor="Blue"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="CenterAndExpand"    HorizontalOptions="CenterAndExpand" />
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
