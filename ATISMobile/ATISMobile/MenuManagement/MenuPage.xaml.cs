@@ -15,7 +15,7 @@ using ATISMobile.Models;
 using ATISMobile.HttpClientInstance;
 using ATISMobile.SecurityAlgorithmsManagement;
 using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
-
+using System.Net;
 
 namespace ATISMobile
 {
@@ -52,22 +52,38 @@ namespace ATISMobile
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
-                    var content = await response.Content.ReadAsStringAsync();
-                    var _Lst = JsonConvert.DeserializeObject<List<MobileProcess>>(content);
-                    if (_Lst.Count == 0)
-                    {; }
-                    else
-                    { _ListView.ItemsSource = _Lst; }
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        var _Lst = JsonConvert.DeserializeObject<List<MobileProcess>>(content);
+                        if (_Lst.Count == 0)
+                        {; }
+                        else
+                        { _ListView.ItemsSource = _Lst; }
+                        return;
+                    }
+                    else if (response.StatusCode == HttpStatusCode.NonAuthoritativeInformation)
+                    {
+                        await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید");
+                        ActivateSoftwareUser();
+                        return;
+                    }
+                }
+                else if (response.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید");
                     return;
                 }
                 else
-                { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
+                {
+                    await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید");
+                    return;
+                }
             }
             catch (System.Net.WebException ex)
             { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
             catch (Exception ex)
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
-            ActivateSoftwareUser();
         }
 
 
