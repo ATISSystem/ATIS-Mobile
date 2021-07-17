@@ -22,6 +22,9 @@ namespace ATISMobile
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage : ContentPage
     {
+        private List<MobileProcess> _Lst = null;
+
+
         #region "General Properties"
         private Boolean _IsBackButtonActive = true;
         #endregion
@@ -31,6 +34,7 @@ namespace ATISMobile
         {
             InitializeComponent();
             _IsBackButtonActive = YourIsBackButtonActive;
+            this.Appearing += MenuPage_Appearing;
             ShowProcesses();
         }
 
@@ -55,7 +59,7 @@ namespace ATISMobile
                     if (response.StatusCode == HttpStatusCode.OK)
                     {
                         var content = await response.Content.ReadAsStringAsync();
-                        var _Lst = JsonConvert.DeserializeObject<List<MobileProcess>>(content);
+                        _Lst = JsonConvert.DeserializeObject<List<MobileProcess>>(content);
                         if (_Lst.Count == 0)
                         {; }
                         else
@@ -97,6 +101,7 @@ namespace ATISMobile
         {
             try
             {
+                ((Label)sender).IsEnabled = false;
                 await Nonce.GetNonce();
                 string TargetMobileProcess = (((Label)sender).Parent.FindByName("_TargetMobileProcess") as Label).Text;
                 string TargetMobileProcessId = (((Label)sender).Parent.FindByName("_TargetMobileProcessId") as Label).Text;
@@ -114,6 +119,7 @@ namespace ATISMobile
                         var pageType = Type.GetType(TargetMobileProcess);
                         var page = Activator.CreateInstance(pageType) as Page;
                         await Navigation.PushAsync(page);
+                        return;
                     }
                     else
                     { await DisplayAlert("ATISMobile", "مجوز دسترسی به این فرآیند را ندارید", "تایید"); }
@@ -125,7 +131,11 @@ namespace ATISMobile
             { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
             catch (Exception ex)
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+            ((Label)sender).IsEnabled = true ;
         }
+
+        private void MenuPage_Appearing(object sender, EventArgs e)
+        { _ListView.ItemsSource = null; _ListView.ItemsSource = _Lst; }
 
         protected override bool OnBackButtonPressed()
         {

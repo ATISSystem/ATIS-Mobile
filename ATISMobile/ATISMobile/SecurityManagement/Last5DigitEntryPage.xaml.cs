@@ -88,7 +88,8 @@ namespace ATISMobile.SecurityManagement
         {
             try
             {
-                await Nonce.GetNonce();
+                _ButtonConfirmation.IsEnabled = false;
+                   await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/SoftwareUsers/GetPersonalNonce");
                 var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + _EntryLast5DigitUserShenaseh.Text + _EntryLast5DigitUserPassword.Text + _EntryCaptcha.Text);
                 request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
@@ -113,6 +114,7 @@ namespace ATISMobile.SecurityManagement
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
             ATISMobileWebApiMClassManagement.UserLast5Digit = string.Empty;
             FillCaptcha();
+            _ButtonConfirmation.IsEnabled = true;
         }
 
         #endregion

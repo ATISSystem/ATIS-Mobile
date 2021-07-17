@@ -29,7 +29,7 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                    <Label x:Name="_LblLast5DigitUserShenaseh" Text="شناسه شخصی را وارد کنید" TextColor="Blue"    HorizontalOptions="CenterAndExpand" VerticalOptions="Start"  FontSize="Large" >
+                    <Label x:Name="_LblLast5DigitUserShenaseh" Text="شناسه شخصی" TextColor="Blue"    HorizontalOptions="CenterAndExpand" VerticalOptions="Start"  FontSize="Large" >
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -47,7 +47,7 @@
                             </OnPlatform>
                         </Entry.FontFamily>
                     </Entry>
-                    <Label x:Name="_LblLast5DigitUserPassword" Text="رمز شخصی را وارد کنید" TextColor="Blue"    HorizontalOptions="CenterAndExpand" VerticalOptions="Start"  FontSize="Large" >
+                    <Label x:Name="_LblLast5DigitUserPassword" Text="رمز شخصی" TextColor="Blue"    HorizontalOptions="CenterAndExpand" VerticalOptions="Start"  FontSize="Large" >
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -115,34 +115,16 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
+                    <Button x:Name="_ButtonVisibleEnterInf" BorderWidth="2" BorderColor="Black"  CornerRadius="15" FontSize="Medium"  Text="ورود شناسه و رمز شخصی" BackgroundColor="Green" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   WidthRequest="270" HeightRequest="70" BorderRadius="15" >
+                        <Button.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Samim" />
+                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                            </OnPlatform>
+                        </Button.FontFamily>
+                    </Button>
                     <Label Text="به منظور افزایش امنیت ، همواره تاریخ تلفن همراه خود را کنترل نموده و بروز تنظیم نمایید." TextColor="Green" HorizontalOptions="EndAndExpand"  VerticalOptions="Start" FontSize="Medium"  >
-                        <Label.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS" Value="Samim" />
-                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                            </OnPlatform>
-                        </Label.FontFamily>
-                    </Label>
-                    <Label Text="شناسه و رمز شخصی را در محل امن محفوظ نگاه دارید و دراختیار دیگران قرار ندهید." TextColor="DarkGreen"  HorizontalOptions="EndAndExpand" VerticalOptions="Start" FontSize="Medium" >
-                        <Label.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS" Value="Samim" />
-                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                            </OnPlatform>
-                        </Label.FontFamily>
-                    </Label>
-                    <Label Text="شناسه و رمز شخصی بعد از خروج از اپلیکیشن از حافظه حذف می شود." TextColor="Green" HorizontalOptions="EndAndExpand" VerticalOptions="Start" FontSize="Medium" >
-                        <Label.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS" Value="Samim" />
-                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                            </OnPlatform>
-                        </Label.FontFamily>
-                    </Label>
-                    <Label Text="شناسه و رمز شخصی را قبل از انجام عملیاتی مثل تخصیص بار و یا شارژ کیف پول وارد نمایید." TextColor="Green" HorizontalOptions="EndAndExpand" VerticalOptions="Start" FontSize="Medium" >
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -187,15 +169,33 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                    <Button x:Name="_ButtonVisibleEnterInf" BorderWidth="2" BorderColor="Black"  CornerRadius="15" FontSize="Medium"  Text="ورود شناسه و رمز شخصی" BackgroundColor="Green" TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   WidthRequest="270" HeightRequest="70" BorderRadius="15" >
-                        <Button.FontFamily>
+                    <Label Text="شناسه و رمز شخصی را در محل امن محفوظ نگاه دارید و دراختیار دیگران قرار ندهید." TextColor="DarkGreen"  HorizontalOptions="EndAndExpand" VerticalOptions="Start" FontSize="Medium" >
+                        <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
                                 <On Platform="Android" Value="Samim-Bold.otf#Samim" />
                                 <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
                             </OnPlatform>
-                        </Button.FontFamily>
-                    </Button>
+                        </Label.FontFamily>
+                    </Label>
+                    <Label Text="شناسه و رمز شخصی بعد از خروج از اپلیکیشن از حافظه حذف می شود." TextColor="Green" HorizontalOptions="EndAndExpand" VerticalOptions="Start" FontSize="Medium" >
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Samim" />
+                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <Label Text="شناسه و رمز شخصی را قبل از انجام عملیاتی مثل تخصیص بار و یا شارژ کیف پول وارد نمایید." TextColor="Green" HorizontalOptions="EndAndExpand" VerticalOptions="Start" FontSize="Medium" >
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Samim" />
+                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

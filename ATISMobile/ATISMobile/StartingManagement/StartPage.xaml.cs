@@ -27,7 +27,10 @@ namespace ATISMobile
         {
             InitializeComponent();
             try
-            { WebApiConnect(); }
+            {
+                this.Appearing += StartPage_Appearing;
+                WebApiConnect();
+            }
             catch (Exception ex)
             { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
         }
@@ -160,7 +163,11 @@ namespace ATISMobile
             }
             catch (Exception ex)
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+            _StartApplication.IsEnabled = true;
         }
+
+        private void StartPage_Appearing(object sender, EventArgs e)
+        { _StartApplication.IsEnabled = true; }
 
         #endregion
 
