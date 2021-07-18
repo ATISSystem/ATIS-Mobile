@@ -37,12 +37,6 @@ namespace ATISMobile.SecurityManagement
             _EntryLast5DigitUserShenaseh.Focus();
         }
 
-        private void _ButtonVisibleEnterInf_Clicked(object sender, EventArgs e)
-        {
-            _InfHolder.IsVisible = true;
-            _DocHolder.IsVisible = false;
-        }
-
         public class ImageRawData
         { public byte[] IRawData; }
 
@@ -115,6 +109,12 @@ namespace ATISMobile.SecurityManagement
             ATISMobileWebApiMClassManagement.UserLast5Digit = string.Empty;
             FillCaptcha();
             _ButtonConfirmation.IsEnabled = true;
+        }
+
+        private void _ButtonVisibleEnterInf_Clicked(object sender, EventArgs e)
+        {
+            _InfHolder.IsVisible = true;
+            _DocHolder.IsVisible = false;
         }
 
         #endregion

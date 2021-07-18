@@ -39,7 +39,7 @@ namespace ATISMobile.LoadCapacitorManagement
             {
                 await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/LoadCapacitor/GetLoadCapacitorLoads");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce  + YourAHId.ToString() + YourAHSGId.ToString() + Int64.MinValue.ToString() + LoadCapacitorLoadsListType.NotSedimented.ToString()) + ";" + YourAHId.ToString() + ";" + YourAHSGId.ToString() + ";" + Int64.MinValue.ToString() + ";" + LoadCapacitorLoadsListType.NotSedimented.ToString();
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + YourAHId.ToString() + YourAHSGId.ToString() + Int64.MinValue.ToString() + LoadCapacitorLoadsListType.NotSedimented.ToString()) + ";" + YourAHId.ToString() + ";" + YourAHSGId.ToString() + ";" + Int64.MinValue.ToString() + ";" + LoadCapacitorLoadsListType.NotSedimented.ToString();
                 request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
@@ -67,7 +67,7 @@ namespace ATISMobile.LoadCapacitorManagement
             {
                 await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/LoadCapacitor/GetLoadCapacitorLoads");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce  + YourAHId.ToString() + YourAHSGId.ToString() + YourProvinceId.ToString() + ((int)LoadCapacitorLoadsListType.NotSedimented).ToString()) + ";" + YourAHId.ToString() + ";" + YourAHSGId.ToString() + ";" + YourProvinceId.ToString() + ";" + ((int)LoadCapacitorLoadsListType.NotSedimented).ToString();
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + YourAHId.ToString() + YourAHSGId.ToString() + YourProvinceId.ToString() + ((int)LoadCapacitorLoadsListType.NotSedimented).ToString()) + ";" + YourAHId.ToString() + ";" + YourAHSGId.ToString() + ";" + YourProvinceId.ToString() + ";" + ((int)LoadCapacitorLoadsListType.NotSedimented).ToString();
                 request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
@@ -99,6 +99,7 @@ namespace ATISMobile.LoadCapacitorManagement
         {
             try
             {
+                ((Button)sender).IsEnabled = false;
                 var Action = await DisplayAlert("ATISMobile", "انتخاب بار را تایید می کنید؟", "بله", "خیر");
                 if (Action)
                 {
@@ -110,7 +111,10 @@ namespace ATISMobile.LoadCapacitorManagement
                     request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                     if (response.IsSuccessStatusCode)
-                    { await DisplayAlert("ATISMobile", "تخصیص بار انجام شد", "تایید"); }
+                    {
+                        await DisplayAlert("ATISMobile", "تخصیص بار انجام شد", "تایید");
+                        return;
+                    }
                     else
                     { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
                 }
@@ -119,6 +123,7 @@ namespace ATISMobile.LoadCapacitorManagement
             { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
             catch (Exception ex)
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+            ((Button)sender).IsEnabled = true;
         }
 
         #endregion
