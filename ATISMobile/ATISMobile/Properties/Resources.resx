@@ -132,4 +132,7 @@
   <data name="RestfulWebServiceURLSecond" xml:space="preserve">
     <value>Esfterminals.ir</value>
   </data>
+  <data name="SubVersion" xml:space="preserve">
+    <value>01</value>
+  </data>
 </root>

@@ -53,9 +53,9 @@ namespace ATISMobile
                     var content = await response.Content.ReadAsStringAsync();
                     bool AppVersionIsNew = JsonConvert.DeserializeObject<bool>(content);
                     if (AppVersionIsNew)
-                    { Disable_StartApplicationButton(VersionNumber + "." + VersionName); }
+                    { Disable_StartApplicationButton(VersionNumber + "." + VersionName + "." + Properties.Resources.SubVersion); }
                     else
-                    { Enable_StartApplicationButton(VersionNumber + "." + VersionName); }
+                    { Enable_StartApplicationButton(VersionNumber + "." + VersionName + "." + Properties.Resources.SubVersion); }
                 }
                 else
                 {

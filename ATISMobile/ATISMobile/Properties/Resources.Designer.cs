@@ -104,5 +104,14 @@ namespace ATISMobile.Properties {
                 return ResourceManager.GetString("RestfulWebServiceURLSecond", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 01.
+        /// </summary>
+        public static string SubVersion {
+            get {
+                return ResourceManager.GetString("SubVersion", resourceCulture);
+            }
+        }
     }
 }
