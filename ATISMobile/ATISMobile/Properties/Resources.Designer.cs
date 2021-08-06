@@ -106,7 +106,7 @@ namespace ATISMobile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 01.
+        ///   Looks up a localized string similar to 02.
         /// </summary>
         public static string SubVersion {
             get {

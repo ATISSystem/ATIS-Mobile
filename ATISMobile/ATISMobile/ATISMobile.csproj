@@ -32,9 +32,6 @@
     <EmbeddedResource Update="AdvertisingManagement\AdvertisingPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="AnnouncementHallsManagement\AnnouncementHallsPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="AnnouncementHallsManagement\AnnouncementHallsSelectionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
