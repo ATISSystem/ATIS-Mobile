@@ -67,7 +67,7 @@ namespace ATISMobile.LoadCapacitorManagement
             {
                 await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/LoadCapacitor/GetLoadCapacitorLoads");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + YourAHId.ToString() + YourAHSGId.ToString() + YourProvinceId.ToString() + ((int)LoadCapacitorLoadsListType.NotSedimented).ToString()) + ";" + YourAHId.ToString() + ";" + YourAHSGId.ToString() + ";" + YourProvinceId.ToString() + ";" + ((int)LoadCapacitorLoadsListType.NotSedimented).ToString();
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + YourAHId.ToString() + YourAHSGId.ToString() + YourProvinceId.ToString() + ((int)YourLoadCapacitorLoadsListType).ToString()) + ";" + YourAHId.ToString() + ";" + YourAHSGId.ToString() + ";" + YourProvinceId.ToString() + ";" + ((int)YourLoadCapacitorLoadsListType).ToString();
                 request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
