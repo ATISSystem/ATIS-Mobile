@@ -22,11 +22,19 @@ namespace ATISMobile.LoadAllocationsManagement
     public partial class LoadAllocationsPage : ContentPage
     {
         #region "General Properties"
+
+        private string _title;
+        public new string   Title
+        {
+            get { return _title; }
+            set { _title = value; OnPropertyChanged(); }
+        }
         #endregion
 
         #region "Subroutins And Functions"
         public LoadAllocationsPage()
         {
+            this.BindingContext = this;
             InitializeComponent();
             ViewLoadAllocations();
         }

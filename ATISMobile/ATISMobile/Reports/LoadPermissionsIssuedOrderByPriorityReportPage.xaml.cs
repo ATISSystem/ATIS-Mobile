@@ -22,11 +22,19 @@ namespace ATISMobile.Reports
     public partial class LoadPermissionsIssuedOrderByPriorityReportPage : ContentPage
     {
         #region "General Properties"
+
+        private string _title;
+        public new string Title
+        {
+            get { return _title; }
+            set { _title = value; OnPropertyChanged(); }
+        }
         #endregion
 
         #region "Subroutins And Functions"
         public LoadPermissionsIssuedOrderByPriorityReportPage()
         {
+            this.BindingContext = this;
             InitializeComponent();
             _PickerAnnouncementHallSubGroups.SelectedIndexChanged += _PickerAnnouncementHallSubGroups_SelectedIndexChanged;
             Initialize();

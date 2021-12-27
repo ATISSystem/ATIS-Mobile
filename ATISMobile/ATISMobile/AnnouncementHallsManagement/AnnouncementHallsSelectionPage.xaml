@@ -2,8 +2,9 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ATISMobile.AnnouncementHallsManagement.AnnouncementHallsSelectionPage"
-            Padding="30">
-    <NavigationPage.TitleView>
+            Padding="30"
+            Title="{Binding Title}">
+    <!--<NavigationPage.TitleView>
         <StackLayout>
             <Label Text="نوع بار" TextColor="White" HorizontalTextAlignment="Center">
                 <Label.FontFamily>
@@ -15,7 +16,8 @@
                 </Label.FontFamily>
             </Label>
         </StackLayout>
-    </NavigationPage.TitleView>
+    </NavigationPage.TitleView>-->
+    
     <ContentPage Title="تریلی" FlowDirection="RightToLeft"   Padding="10" >
         <ContentPage.Content>
             <StackLayout>

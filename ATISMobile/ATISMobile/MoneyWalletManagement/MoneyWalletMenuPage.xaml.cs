@@ -21,11 +21,18 @@ namespace ATISMobile.MoneyWalletManagement
     public partial class MoneyWalletMenuPage : ContentPage
     {
         #region "General Properties"
+        private string _title;
+        public new string Title
+        {
+            get { return _title; }
+            set { _title = value; OnPropertyChanged(); }
+        }
         #endregion
 
         #region "Subroutins And Functions"
         public MoneyWalletMenuPage()
         {
+            this.BindingContext = this;
             InitializeComponent();
             try
             {
@@ -75,6 +82,7 @@ namespace ATISMobile.MoneyWalletManagement
         {
             _BtnMoneyWalletTransactions.IsEnabled = false;
             MoneyWalletTransactionsPage _MoneyWallettTransactionsPage = new MoneyWalletTransactionsPage();
+            _MoneyWallettTransactionsPage.Title = "تراکنش های کیف پول";
             await Navigation.PushAsync(_MoneyWallettTransactionsPage);
         }
 
@@ -82,6 +90,7 @@ namespace ATISMobile.MoneyWalletManagement
         {
             _BtnMoneyWalletCharging.IsEnabled = false;
             MoneyWalletChargingPage _MoneyWalletChargingPage = new MoneyWalletChargingPage();
+            _MoneyWalletChargingPage.Title = "شارژ موجودی کیف پول";
             await Navigation.PushAsync(_MoneyWalletChargingPage);
         }
 

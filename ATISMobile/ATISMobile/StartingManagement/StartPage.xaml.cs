@@ -114,6 +114,7 @@ namespace ATISMobile
         {
             System.IO.File.WriteAllText(ATISMobileWebApiMClassManagement.GetTargetPath(), "");
             MobileEntryPage _MobileEntryPage = new MobileEntryPage(false);
+            _MobileEntryPage.Title = "شماره موبایل";
             await Navigation.PushAsync(_MobileEntryPage);
         }
 

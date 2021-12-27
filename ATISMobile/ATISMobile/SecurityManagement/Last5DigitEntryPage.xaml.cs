@@ -22,11 +22,19 @@ namespace ATISMobile.SecurityManagement
     public partial class Last5DigitEntryPage : ContentPage
     {
         #region "General Properties"
+
+        private string _title;
+        public new string Title
+        {
+            get { return _title; }
+            set { _title = value; OnPropertyChanged(); }
+        }
         #endregion
 
         #region "Subroutins And Functions"
         public Last5DigitEntryPage()
         {
+            this.BindingContext = this;
             InitializeComponent();
             _ButtonConfirmation.Clicked += _ButtonConfirmation_Clicked;
             _ButtonVisibleEnterInf.Clicked += _ButtonVisibleEnterInf_Clicked;

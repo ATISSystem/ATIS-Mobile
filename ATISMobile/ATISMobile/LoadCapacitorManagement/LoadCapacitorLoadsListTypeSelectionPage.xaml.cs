@@ -18,11 +18,21 @@ namespace ATISMobile.LoadCapacitorManagement
         private Int64 _AHId, _AHSGId;
         private LoadCapacitorLoadsListType _LoadCapacitorLoadsListType;
 
+        private string _title;
+        public new string Title
+        {
+            get { return _title; }
+            set { _title = value; OnPropertyChanged(); }
+        }
+
         #endregion
 
         #region "Subroutins And Functions"
         public LoadCapacitorLoadsListTypeSelectionPage()
-        { InitializeComponent(); }
+        {
+            this.BindingContext = this;
+            InitializeComponent();
+        }
 
         public void ViewInformation(Int64 YourAHId, Int64 YourAHSGId)
         { _AHId = YourAHId; _AHSGId = YourAHSGId; }
@@ -33,6 +43,7 @@ namespace ATISMobile.LoadCapacitorManagement
             {
                 ProvincesManagement.ProvinceSelectionPage _ProvinceSelectionPage = new ProvincesManagement.ProvinceSelectionPage();
                 _ProvinceSelectionPage.ViewInformation(_AHId, _AHSGId, YourLoadCapacitorLoadsListType);
+                _ProvinceSelectionPage.Title = "استان های دارای بار";
                 await Navigation.PushAsync(_ProvinceSelectionPage);
             }
             catch (Exception ex)

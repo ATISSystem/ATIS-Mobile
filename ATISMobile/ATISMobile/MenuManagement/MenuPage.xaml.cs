@@ -42,6 +42,7 @@ namespace ATISMobile
         {
             System.IO.File.WriteAllText(ATISMobileWebApiMClassManagement.GetTargetPath(), "");
             MobileEntryPage _MobileEntryPage = new MobileEntryPage(false);
+            _MobileEntryPage.Title = "شماره موبایل";
             await Navigation.PushAsync(_MobileEntryPage);
         }
 
@@ -105,6 +106,7 @@ namespace ATISMobile
                 await Nonce.GetNonce();
                 string TargetMobileProcess = (((Label)sender).Parent.FindByName("_TargetMobileProcess") as Label).Text;
                 string TargetMobileProcessId = (((Label)sender).Parent.FindByName("_TargetMobileProcessId") as Label).Text;
+                string ProcessTitle = (((Label)sender).Parent.FindByName("_ProcessTitle") as Label).Text;
 
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, new Uri("/api/Permissions/ExistPermission"));
                 var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + TargetMobileProcessId) + ";" + TargetMobileProcessId;
@@ -118,6 +120,7 @@ namespace ATISMobile
                     {
                         var pageType = Type.GetType(TargetMobileProcess);
                         var page = Activator.CreateInstance(pageType) as Page;
+                        page.Title = ProcessTitle;
                         await Navigation.PushAsync(page);
                         return;
                     }

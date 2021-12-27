@@ -21,12 +21,19 @@ namespace ATISMobile.AdvertisingManagement
     {
 
         #region "General Properties"
+        private string _title;
+        public new string Title
+        {
+            get { return _title; }
+            set { _title = value; OnPropertyChanged(); }
+        }
         #endregion
 
         #region "Subroutins And Functions"
 
         public AdvertisingPage()
         {
+            this.BindingContext = this;
             InitializeComponent();
             BtnDownloadATISMobileLastVersion.Clicked += BtnDownloadATISMobileLastVersion_Clicked;
             ImgWhatsAppGroup1.Clicked += ImgWhatsAppGroup1_Clicked;

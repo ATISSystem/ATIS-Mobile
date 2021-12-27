@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ATISMobile.TruckDriverManagement.TruckDriverPage"  
              BackgroundColor="White"
-             Padding="15">
+             Padding="15"
+             Title="{Binding Title}">
 
-    <NavigationPage.TitleView>
+    <!--<NavigationPage.TitleView>
         <StackLayout>
             <Label Text="مشخصات راننده" TextColor="White" HorizontalTextAlignment="Center">
                 <Label.FontFamily>
@@ -17,7 +18,8 @@
                 </Label.FontFamily>
             </Label>
         </StackLayout>
-    </NavigationPage.TitleView>
+    </NavigationPage.TitleView>-->
+    
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="20,10,20,10" BackgroundColor="Transparent">

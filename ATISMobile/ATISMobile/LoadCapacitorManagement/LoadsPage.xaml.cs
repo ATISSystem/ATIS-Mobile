@@ -27,11 +27,20 @@ namespace ATISMobile.LoadCapacitorManagement
     public partial class LoadsPage : ContentPage
     {
         #region "General Properties"
+        private string _title;
+        public new string Title
+        {
+            get { return _title; }
+            set { _title = value; OnPropertyChanged(); }
+        }
         #endregion
 
         #region "Subroutins And Functions"
         public LoadsPage()
-        { InitializeComponent(); }
+        {
+            this.BindingContext = this;
+            InitializeComponent();
+        }
 
         public async void ViewLoads(int YourAHId, int YourAHSGId)
         {

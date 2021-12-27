@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ATISMobile.TruckDriverManagement.SendTruckAndTruckDriverChangeRequest"
+             BackgroundColor="White"   
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <ScrollView Padding="30,20,30,20">
+            <StackLayout Padding="10,10,10,10" BackgroundColor="Transparent" >
+                <Frame HasShadow="False" BorderColor="Transparent" BackgroundColor="Transparent"  CornerRadius="15">
+                    <StackLayout Margin="0" Padding="0,0,0,0" BackgroundColor="Transparent" >
+                        <Label Text="درخواست تغییر راننده" TextColor="Red"     BackgroundColor="Transparent"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   FontSize="Large"  >
+                            <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
+                        <StackLayout  VerticalOptions="CenterAndExpand"   HorizontalOptions="Center"  >
+                            <Grid BackgroundColor="Transparent" >
+                                <Grid.ColumnDefinitions >
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                    <ColumnDefinition Width="20"></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Entry x:Name="EntryPelakforTruckDriverChange" Grid.Column="0" Placeholder="پلاک ناوگان" Text="" IsPassword="False" TextColor="Black"  BackgroundColor="Transparent"    HorizontalTextAlignment="Center"     HorizontalOptions="End"         VerticalOptions="Center"   FontSize="Medium"    >
+                                    <Entry.FontFamily>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="iOS" Value="Samim" />
+                                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                        </OnPlatform>
+                                    </Entry.FontFamily>
+                                </Entry>
+                                <Label Text="-" Grid.Column ="1"  TextColor="Blue" BackgroundColor="Transparent"  HorizontalOptions="Center"   VerticalOptions="Center"   FontSize="Large" >
+                                    <Label.FontFamily>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="iOS" Value="Samim" />
+                                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                        </OnPlatform>
+                                    </Label.FontFamily>
+                                </Label>
+                                <Entry x:Name="EntrySerialforTruckDriverChange" Grid.Column="2" Placeholder="سریال" Text="" Keyboard="Numeric" IsPassword="False" TextColor="Black" BackgroundColor="Transparent"    HorizontalTextAlignment="Center"  HorizontalOptions="Start"     VerticalOptions="Center"   FontSize="Medium"    >
+                                    <Entry.FontFamily>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="iOS" Value="Samim" />
+                                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                        </OnPlatform>
+                                    </Entry.FontFamily>
+                                </Entry>
+                            </Grid>
+                        </StackLayout>
+                        <Entry x:Name="EntryTruckDriverNationalCode" Text="" Placeholder="کد ملی راننده جدید را وارد کنید" Keyboard="Numeric" IsPassword="False" TextColor="Black"  BackgroundColor="Transparent"  HorizontalTextAlignment="Center"    HorizontalOptions="CenterAndExpand"   VerticalOptions="Start"    FontSize="Medium"     >
+                            <Entry.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Entry.FontFamily>
+                        </Entry>
+                        <Button x:Name="BtnCurrentTruckDriverInqueryforTruckDriverChange" BackgroundColor="ForestGreen"     TextColor="White"    BorderWidth="2" BorderColor="Black"  CornerRadius="10" FontSize="Medium"      Text="استعلام"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   WidthRequest="100" HeightRequest="100" BorderRadius="50">
+                            <Button.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Button.FontFamily>
+                        </Button>
+                        <Label x:Name="LblCurrentTruckDriverforTruckDriverChange"  Text="" TextColor="Blue" BackgroundColor="Transparent"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   FontSize="Large"  >
+                            <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
+                        <Button x:Name="BtnSendTruckDriverChangeRequest" IsEnabled="False" BackgroundColor="Yellow"     TextColor="Black" BorderWidth="2" BorderColor="Black"  CornerRadius="10" FontSize="Small"     Text="ارسال درخواست"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   WidthRequest="100" HeightRequest="100" BorderRadius="50">
+                            <Button.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Button.FontFamily>
+                        </Button>
+                        <Label Text=""></Label>
+                    </StackLayout>
+                </Frame>
+                <Label Text=""></Label>
+                <Frame HasShadow="False" BorderColor="Transparent" BackgroundColor="Transparent"  CornerRadius="15">
+                    <StackLayout Margin="0" Padding="0,0,0,0" BackgroundColor="Transparent" >
+                        <Label Text="درخواست تغییر ناوگان" TextColor="Red"     BackgroundColor="Transparent"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   FontSize="Large"  >
+                            <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
+                        <StackLayout  VerticalOptions="CenterAndExpand"   HorizontalOptions="Center"  >
+                            <Grid BackgroundColor="Transparent" >
+                                <Grid.ColumnDefinitions >
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                    <ColumnDefinition Width="20"></ColumnDefinition>
+                                    <ColumnDefinition Width="150"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Entry x:Name="EntryPelakforTruckChange" Grid.Column="0" Placeholder="پلاک ناوگان" Text="" IsPassword="False" TextColor="Black"  BackgroundColor="Transparent"    HorizontalTextAlignment="Center"     HorizontalOptions="End"         VerticalOptions="Center"   FontSize="Medium"    >
+                                    <Entry.FontFamily>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="iOS" Value="Samim" />
+                                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                        </OnPlatform>
+                                    </Entry.FontFamily>
+                                </Entry>
+                                <Label Text="-" Grid.Column ="1"  TextColor="Blue" BackgroundColor="Transparent"  HorizontalOptions="Center"   VerticalOptions="Center"   FontSize="Large" >
+                                    <Label.FontFamily>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="iOS" Value="Samim" />
+                                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                        </OnPlatform>
+                                    </Label.FontFamily>
+                                </Label>
+                                <Entry x:Name="EntrySerialforTruckChange" Grid.Column="2" Placeholder="سریال" Text="" Keyboard="Numeric" IsPassword="False" TextColor="Black" BackgroundColor="Transparent"    HorizontalTextAlignment="Center"  HorizontalOptions="Start"     VerticalOptions="Center"   FontSize="Medium"    >
+                                    <Entry.FontFamily>
+                                        <OnPlatform x:TypeArguments="x:String">
+                                            <On Platform="iOS" Value="Samim" />
+                                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                        </OnPlatform>
+                                    </Entry.FontFamily>
+                                </Entry>
+                            </Grid>
+                        </StackLayout>
+                        <Entry x:Name="EntryNewTruckLicensePlate" Text="" Placeholder="پلاک جدید را وارد کنید"  IsPassword="False" TextColor="Black"   BackgroundColor="Transparent"  HorizontalTextAlignment="Center"    HorizontalOptions="CenterAndExpand"   VerticalOptions="Start"    FontSize="Medium"     >
+                            <Entry.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Entry.FontFamily>
+                        </Entry>
+                        <Button x:Name="BtnCurrentTruckDriverInqueryforTruckChange" BackgroundColor="ForestGreen"     TextColor="White"    BorderWidth="2" BorderColor="Black"  CornerRadius="10" FontSize="Medium"      Text="استعلام"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   WidthRequest="100" HeightRequest="100" BorderRadius="50">
+                            <Button.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Button.FontFamily>
+                        </Button>
+                        <Label x:Name="LblCurrentTruckDriverforTruckChange"  Text="" TextColor="Blue" BackgroundColor="Transparent"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   FontSize="Large"  >
+                            <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
+                        <Button x:Name="BtnSendTruckChangeRequest" IsEnabled="False" BackgroundColor="Yellow"     TextColor="Black" BorderWidth="2" BorderColor="Black"  CornerRadius="10" FontSize="Small"     Text="ارسال درخواست"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   WidthRequest="100" HeightRequest="100" BorderRadius="50">
+                            <Button.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Button.FontFamily>
+                        </Button>
+                        <Label Text=""></Label>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

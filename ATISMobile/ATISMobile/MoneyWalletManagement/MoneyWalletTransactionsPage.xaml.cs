@@ -22,11 +22,18 @@ namespace ATISMobile.MoneyWalletManagement
     public partial class MoneyWalletTransactionsPage : ContentPage
     {
         #region "General Properties"
+        private string _title;
+        public new string Title
+        {
+            get { return _title; }
+            set { _title = value; OnPropertyChanged(); }
+        }
         #endregion
 
         #region "Subroutins And Functions"
         public MoneyWalletTransactionsPage()
         {
+            this.BindingContext = this;
             InitializeComponent();
             ViewInformation();
         }

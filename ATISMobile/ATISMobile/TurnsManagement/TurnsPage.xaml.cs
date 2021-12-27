@@ -22,11 +22,19 @@ namespace ATISMobile.TurnsManagement
     public partial class TurnsPage : ContentPage
     {
         #region "General Properties"
+
+        private string _title;
+        public new string Title
+        {
+            get { return _title; }
+            set { _title = value; OnPropertyChanged(); }
+        }
         #endregion
 
         #region "Subroutins And Functions"
         public TurnsPage()
         {
+            this.BindingContext = this;
             InitializeComponent();
             ViewInformation();
         }

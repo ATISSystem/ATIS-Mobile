@@ -20,11 +20,21 @@ namespace ATISMobile
     {
         #region "General Properties"
         private Boolean _IsBackButtonActive = true;
+
+        private string _title;
+        public new string Title
+        {
+            get { return _title; }
+            set { _title = value; OnPropertyChanged(); }
+        }
         #endregion
 
         #region "Subroutins And Functions"
         public VerificationCodeEntryPage()
-        { InitializeComponent(); }
+        {
+            this.BindingContext = this;
+            InitializeComponent();
+        }
 
         public void SetInf(string YourVerificationCode, string YourMobileNumber)
         { _LabelMobileNumber.Text = YourMobileNumber; }
@@ -48,7 +58,7 @@ namespace ATISMobile
                 string myMobileNumber = _LabelMobileNumber.Text.Trim();
                 string myVerificationCode = _EntryVerificatinCode.Text.Trim();
 
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post , "/api/SoftwareUsers/LoginSoftwareUser");
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/SoftwareUsers/LoginSoftwareUser");
                 var Content = myMobileNumber + ";" + Hashing.GetSHA256Hash(myVerificationCode);
                 request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);

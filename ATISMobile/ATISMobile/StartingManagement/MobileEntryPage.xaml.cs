@@ -16,11 +16,21 @@ namespace ATISMobile
     {
         #region "General Properties"
         private Boolean _IsBackButtonActive = true;
+
+        private string _title;
+        public new string Title
+        {
+            get { return _title; }
+            set { _title = value; OnPropertyChanged(); }
+        }
         #endregion
 
         #region "Subroutins And Functions"
         public MobileEntryPage()
-        { InitializeComponent(); }
+        {
+            this.BindingContext = this;
+            InitializeComponent();
+        }
 
         public MobileEntryPage(Boolean YourIsBackButtonActive)
         {
@@ -52,6 +62,7 @@ namespace ATISMobile
 
                     VerificationCodeEntryPage _VerificationCodeEntryPage = new VerificationCodeEntryPage();
                     _VerificationCodeEntryPage.SetInf(myMobileNumber, _EntryMobileNumber.Text);
+                    _VerificationCodeEntryPage.Title = "ارسال کد تایید هویت";
                     await Navigation.PushAsync(_VerificationCodeEntryPage);
                 }
                 else

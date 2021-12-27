@@ -23,11 +23,19 @@ namespace ATISMobile.TruckManagement
     {
 
         #region "General Properties"
+
+        private string _title;
+        public new string Title
+        {
+            get { return _title; }
+            set { _title = value; OnPropertyChanged(); }
+        }
         #endregion
 
         #region "Subroutins And Functions"
         public TruckPage()
         {
+            this.BindingContext = this;
             InitializeComponent();
             ViewInformation();
         }

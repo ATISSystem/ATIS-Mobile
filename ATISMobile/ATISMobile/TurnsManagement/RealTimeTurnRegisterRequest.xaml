@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ATISMobile.TurnsManagement.RealTimeTurnRegisterRequest"
+             BackgroundColor="AliceBlue"  
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="20,10,20,10"  BackgroundColor="Transparent" >
+                <Label Text="" TextColor="Blue" BackgroundColor="Transparent"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   FontSize="Large"  >
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="پلاک را وارد کنید" TextColor="Black" BackgroundColor="Transparent"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   FontSize="Large"  >
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <StackLayout  VerticalOptions="Center"  HorizontalOptions="Center"  >
+                    <Grid BackgroundColor="Transparent" >
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Entry x:Name="_LPPelak" Grid.Column="0" Placeholder="پلاک ناوگان" Text="" IsPassword="False" TextColor="Black"  BackgroundColor="Transparent"  HorizontalTextAlignment="Center"    HorizontalOptions="End"     VerticalOptions="Center"   FontSize="Large"   >
+                            <Entry.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Entry.FontFamily>
+                        </Entry>
+                        <Label Text="-" Grid.Column ="1"  TextColor="Blue" BackgroundColor="Transparent"  HorizontalOptions="Center"   VerticalOptions="Center"   FontSize="Large" >
+                            <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
+                        <Entry x:Name="_LPSerial" Grid.Column="2" Placeholder="سریال" Text="" Keyboard="Numeric" IsPassword="False" TextColor="Black" BackgroundColor="Transparent"    HorizontalTextAlignment="Center"  HorizontalOptions="Start"   VerticalOptions="Center"   FontSize="Large"   >
+                            <Entry.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Entry.FontFamily>
+                        </Entry>
+                    </Grid>
+                </StackLayout>
+                <Button x:Name="BtnInquiry" BackgroundColor="Blue"   TextColor="White"   BorderWidth="2" BorderColor="White"   CornerRadius="20" FontSize="Medium"  Text="استعلام"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"     WidthRequest="100" HeightRequest="100" BorderRadius="50">
+                    <Button.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Button.FontFamily>
+                </Button>
+                <Label x:Name="_LblTruckDriver" Text="" TextColor="OrangeRed" HorizontalOptions="CenterAndExpand"   VerticalOptions="Start" FontSize="Large"  >
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Button x:Name="BtnSendRequest" IsEnabled="False" BackgroundColor="OrangeRed"    TextColor="White"    BorderWidth="2" BorderColor="Black"  CornerRadius="10" FontSize="Small"     Text="ارسال درخواست"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   WidthRequest="100" HeightRequest="100" BorderRadius="50">
+                    <Button.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Button.FontFamily>
+                </Button>
+                <Label Text="" TextColor="OrangeRed" HorizontalOptions="EndAndExpand"  VerticalOptions="Start" FontSize="Large"  >
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -14,11 +14,22 @@ namespace ATISMobile.AnnouncementHallsManagement
     public partial class AnnouncementHallsSelectionPage : TabbedPage
     {
         #region "General Properties"
+
+        private string _title;
+        public new string Title
+        {
+            get { return _title; }
+            set { _title = value; OnPropertyChanged(); }
+        }
+
         #endregion
 
         #region "Subroutins And Functions"
         public AnnouncementHallsSelectionPage()
-        { InitializeComponent(); }
+        {
+            this.BindingContext = this;
+            InitializeComponent();
+        }
 
         private async void ViewProvinces(int YourAHId, int YourAHSGId)
         {
@@ -26,6 +37,7 @@ namespace ATISMobile.AnnouncementHallsManagement
             {
                 LoadCapacitorManagement.LoadCapacitorLoadsListTypeSelectionPage _LoadCapacitorLoadsListTypeSelectionPage = new LoadCapacitorManagement.LoadCapacitorLoadsListTypeSelectionPage();
                 _LoadCapacitorLoadsListTypeSelectionPage.ViewInformation(YourAHId, YourAHSGId);
+                _LoadCapacitorLoadsListTypeSelectionPage.Title = string.Empty;
                 await Navigation.PushAsync(_LoadCapacitorLoadsListTypeSelectionPage);
             }
             catch (Exception ex)
@@ -49,46 +61,19 @@ namespace ATISMobile.AnnouncementHallsManagement
         private void RoadCoil_ClickedEvent(Object sender, EventArgs e)
         { try { ViewProvinces(2, 11); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } }
         private void RoadWareHouse_ClickedEvent(Object sender, EventArgs e)
-        { try { ViewProvinces(2, 14); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } }
+        { try { ViewProvinces(3, 14); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } }
         private void UrbanIron_ClickedEvent(Object sender, EventArgs e)
         { try { ViewProvinces(5, 12); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } }
         private void UrbanCoil_ClickedEvent(Object sender, EventArgs e)
         { try { ViewProvinces(5, 13); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } }
         private void UrbanWareHouse_ClickedEvent(Object sender, EventArgs e)
-        { try { ViewProvinces(5, 15); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } }
-        private async void _RoomyKhavar_ClickedEvent(Object sender, EventArgs e)
-        {
-            try
-            {
-                ProvincesManagement.ProvinceSelectionPage _ProvinceSelectionPage = new ProvincesManagement.ProvinceSelectionPage();
-                _ProvinceSelectionPage.ViewInformation(4, 1, LoadCapacitorLoadsListType.NotSedimented);
-                await Navigation.PushAsync(_ProvinceSelectionPage);
-            }
-            catch (Exception ex)
-            { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
-        }
-        private async void _Roomy6Wheel_ClickedEvent(Object sender, EventArgs e)
-        {
-            try
-            {
-                ProvincesManagement.ProvinceSelectionPage _ProvinceSelectionPage = new ProvincesManagement.ProvinceSelectionPage();
-                _ProvinceSelectionPage.ViewInformation(4, 2, LoadCapacitorLoadsListType.NotSedimented);
-                await Navigation.PushAsync(_ProvinceSelectionPage);
-            }
-            catch (Exception ex)
-            { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
-        }
-        private async void _Roomy10Wheel_ClickedEvent(Object sender, EventArgs e)
-        {
-            try
-            {
-                ProvincesManagement.ProvinceSelectionPage _ProvinceSelectionPage = new ProvincesManagement.ProvinceSelectionPage();
-                _ProvinceSelectionPage.ViewInformation(4, 3, LoadCapacitorLoadsListType.NotSedimented);
-                await Navigation.PushAsync(_ProvinceSelectionPage);
-            }
-            catch (Exception ex)
-            { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
-        }
+        { try { ViewProvinces(3, 15); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } }
+        private void _RoomyKhavar_ClickedEvent(Object sender, EventArgs e)
+        { try { ViewProvinces(4, 1); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } }
+        private void _Roomy6Wheel_ClickedEvent(Object sender, EventArgs e)
+        { { try { ViewProvinces(4, 2); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } } }
+        private void _Roomy10Wheel_ClickedEvent(Object sender, EventArgs e)
+        { { { try { ViewProvinces(4, 3); } catch (Exception ex) { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); } } } }
 
         #endregion
 

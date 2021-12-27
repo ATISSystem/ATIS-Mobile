@@ -2,8 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ATISMobile.SecurityManagement.Last5DigitEntryPage"
-             BackgroundColor="White">
-    <NavigationPage.TitleView>
+             BackgroundColor="White"
+             Title="{Binding Title}">
+    <!--<NavigationPage.TitleView>
         <StackLayout>
             <Label Text="رمز شخصی" TextColor="White" HorizontalTextAlignment="Center">
                 <Label.FontFamily>
@@ -15,7 +16,8 @@
                 </Label.FontFamily>
             </Label>
         </StackLayout>
-    </NavigationPage.TitleView>
+    </NavigationPage.TitleView>-->
+    
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="20,10,20,10" BackgroundColor="Transparent" >

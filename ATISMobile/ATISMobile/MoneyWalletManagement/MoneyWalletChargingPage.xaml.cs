@@ -21,11 +21,22 @@ namespace ATISMobile.MoneyWalletManagement
     public partial class MoneyWalletChargingPage : ContentPage
     {
         #region "General Properties"
+
+        private string _title;
+        public new string Title
+        {
+            get { return _title; }
+            set { _title = value; OnPropertyChanged(); }
+        }
+
         #endregion
 
         #region "Subroutins And Functions"
         public MoneyWalletChargingPage()
-        { InitializeComponent(); }
+        {
+            this.BindingContext = this;
+            InitializeComponent();
+        }
 
 
         #endregion
@@ -62,7 +73,7 @@ namespace ATISMobile.MoneyWalletManagement
 
                 await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/MoneyWalletChargingAPI/PaymentRequest");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce  + ATISMobileWebApiMClassManagement.UserLast5Digit + Amount.ToString()) + ";" + Amount.ToString();
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + ATISMobileWebApiMClassManagement.UserLast5Digit + Amount.ToString()) + ";" + Amount.ToString();
                 request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)

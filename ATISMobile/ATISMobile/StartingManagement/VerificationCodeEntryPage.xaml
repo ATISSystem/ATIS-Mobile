@@ -4,8 +4,9 @@
              x:Class="ATISMobile.VerificationCodeEntryPage"      
              BackgroundColor="White"
              BackgroundImage="@drawable/TruckNewLightDark"
-             NavigationPage.HasNavigationBar="false">
-    <NavigationPage.TitleView>
+             NavigationPage.HasNavigationBar="false"
+             Title="{Binding Title}">
+    <!--<NavigationPage.TitleView>
         <StackLayout>
             <Label Text="سامانه اطلاع رسانی بار آتیس - استان اصفهان" TextColor="White" HorizontalTextAlignment="Center">
                 <Label.FontFamily>
@@ -17,7 +18,8 @@
                 </Label.FontFamily>
             </Label>
         </StackLayout>
-    </NavigationPage.TitleView>
+    </NavigationPage.TitleView>-->
+    
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="20,10,20,10" BackgroundColor="Transparent">

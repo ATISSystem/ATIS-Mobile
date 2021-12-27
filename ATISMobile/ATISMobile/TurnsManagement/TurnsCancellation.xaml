@@ -1,30 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ATISMobile.TruckManagement.TruckPage"    
-             BackgroundColor="White"
-             Padding="15"
+             x:Class="ATISMobile.TurnsManagement.TurnsCancellation"
+             BackgroundColor="AliceBlue"  
              Title="{Binding Title}">
-
-    <!--<NavigationPage.TitleView>
-        <StackLayout>
-            <Label Text="مشخصات ناوگان" TextColor="White" HorizontalTextAlignment="Center">
-                <Label.FontFamily>
-                    <OnPlatform x:TypeArguments="x:String">
-                        <On Platform="iOS" Value="Samim" />
-                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                    </OnPlatform>
-                </Label.FontFamily>
-            </Label>
-        </StackLayout>
-    </NavigationPage.TitleView>-->
-
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Padding="20,10,20,10" BackgroundColor="Transparent">
-                <Label BackgroundColor="White"  TextColor="Blue"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="CenterAndExpand"    HorizontalOptions="CenterAndExpand" />
-                <Label x:Name="LblTruckId" BackgroundColor="White"  TextColor="Red"    FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
+            <StackLayout Padding="20,10,20,10"  BackgroundColor="Transparent" >
+                <Label Text="" TextColor="Blue" BackgroundColor="Transparent"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   FontSize="Large"  >
                     <Label.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS" Value="Samim" />
@@ -33,7 +16,7 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
-                <Label x:Name="LblLPString" BackgroundColor="White"  TextColor="Blue"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"   HorizontalOptions="CenterAndExpand" >
+                <Label Text="شماره اعتبار" TextColor="Red" BackgroundColor="Transparent"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   FontSize="Large"  >
                     <Label.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS" Value="Samim" />
@@ -42,7 +25,16 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
-                <Label x:Name="LblLoaderTitle" BackgroundColor="White"  TextColor="Brown"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
+                <Entry x:Name="EntryTopSequentialTurnNumber" Text="" Placeholder="شماره اعتبار را وارد کنید"  IsPassword="False" TextColor="Black"  BackgroundColor="Transparent"  HorizontalTextAlignment="Center"    HorizontalOptions="CenterAndExpand"   VerticalOptions="Start"    FontSize="Medium"     >
+                    <Entry.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Entry.FontFamily>
+                </Entry>
+                <Label Text="سال شمسی" TextColor="Blue" BackgroundColor="Transparent"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   FontSize="Large"  >
                     <Label.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS" Value="Samim" />
@@ -51,7 +43,25 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
-                <Label x:Name="LblSmartCardNo" BackgroundColor="White"  TextColor="Green"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
+                <Entry x:Name="EntryYearShamsi" Text="" Placeholder="سال شمسی را وارد کنید" IsPassword="False" Keyboard="Numeric" TextColor="Black"  BackgroundColor="Transparent"  HorizontalTextAlignment="Center"    HorizontalOptions="CenterAndExpand"   VerticalOptions="Start"    FontSize="Medium"    >
+                    <Entry.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Entry.FontFamily>
+                </Entry>
+                <Button x:Name="BtnSendRequest" IsEnabled="False" BackgroundColor="OrangeRed"    TextColor="White"    BorderWidth="2" BorderColor="Black"  CornerRadius="10" FontSize="Small"     Text="ارسال درخواست"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   WidthRequest="100" HeightRequest="100" BorderRadius="50">
+                    <Button.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Button.FontFamily>
+                </Button>
+                <Label Text="" TextColor="OrangeRed" HorizontalOptions="EndAndExpand"  VerticalOptions="Start" FontSize="Large"  >
                     <Label.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS" Value="Samim" />
@@ -60,25 +70,7 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
-                <Label x:Name="LblAnnouncementHallSubGroups" Margin="10,0,10,0" BackgroundColor="White"  TextColor="Black"    FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
-                    <Label.FontFamily>
-                        <OnPlatform x:TypeArguments="x:String">
-                            <On Platform="iOS" Value="Samim" />
-                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                        </OnPlatform>
-                    </Label.FontFamily>
-                </Label>
-                <Label x:Name="LblErrorMessage" BackgroundColor="White"  TextColor="Red"    FontSize="Large"   FontAttributes="Bold" Text = "" VerticalOptions="Center"  HorizontalOptions="CenterAndExpand" >
-                    <Label.FontFamily>
-                        <OnPlatform x:TypeArguments="x:String">
-                            <On Platform="iOS" Value="Samim" />
-                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                        </OnPlatform>
-                    </Label.FontFamily>
-                </Label>
-                <Label BackgroundColor="White"  TextColor="Blue"   FontSize="Medium"  FontAttributes="Bold" Text = "" VerticalOptions="CenterAndExpand"    HorizontalOptions="CenterAndExpand" />
+
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
