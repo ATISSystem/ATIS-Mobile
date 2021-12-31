@@ -25,7 +25,16 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
-                <Entry x:Name="EntryTopSequentialTurnNumber" Text="" Placeholder="شماره اعتبار را وارد کنید"  IsPassword="False" TextColor="Black"  BackgroundColor="Transparent"  HorizontalTextAlignment="Center"    HorizontalOptions="CenterAndExpand"   VerticalOptions="Start"    FontSize="Medium"     >
+                <Label x:Name="LblLastTurnIdWhichCancelledDuringTurnsCancellationProcess" Text="شماره اعتبار قبلی" TextColor="Gray"  BackgroundColor="Transparent"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   FontSize="Medium"    >
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Entry x:Name="EntryTopSequentialTurnNumber" Text="" Placeholder="شماره اعتبار جدید را وارد کنید"  IsPassword="False" TextColor="Black"  BackgroundColor="Transparent"  HorizontalTextAlignment="Center"    HorizontalOptions="CenterAndExpand"   VerticalOptions="Start"    FontSize="Medium"     >
                     <Entry.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS" Value="Samim" />
@@ -70,7 +79,6 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
-
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

@@ -33,16 +33,45 @@ namespace ATISMobile.TurnsManagement
 
         public TurnsCancellation()
         {
-            this.BindingContext = this;
-            InitializeComponent();
-            BtnSendRequest.Clicked += BtnSendRequest_Clicked;
-            EntryTopSequentialTurnNumber.Focused += EntryTopSequentialTurnNumber_Focused;
-            EntryYearShamsi.Focused += EntryYearShamsi_Focused;
+            try
+            {
+                this.BindingContext = this;
+                InitializeComponent();
+                BtnSendRequest.Clicked += BtnSendRequest_Clicked;
+                EntryTopSequentialTurnNumber.Focused += EntryTopSequentialTurnNumber_Focused;
+                EntryYearShamsi.Focused += EntryYearShamsi_Focused;
+                ViewLastTurnIdWhichCancelledDuringTurnsCancellationProcess();
+            }
+            catch (Exception ex)
+            { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
         }
 
         private void ClearandReady(Entry Sender)
         { Sender.Text = string.Empty; BtnSendRequest.IsEnabled = true; }
 
+        private async void ViewLastTurnIdWhichCancelledDuringTurnsCancellationProcess()
+        {
+            try
+            {
+                await Nonce.GetNonce();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/Turns/GetLastTurnIdWhichCancelledDuringTurnsCancellationProcess");
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce);
+                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    var LastTurnIdWhichCancelledDuringTurnsCancellationProcess = JsonConvert.DeserializeObject<string>(content);
+                    LblLastTurnIdWhichCancelledDuringTurnsCancellationProcess.Text = LastTurnIdWhichCancelledDuringTurnsCancellationProcess;
+                }
+                else
+                { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
+            }
+            catch (System.Net.WebException ex)
+            { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
+            catch (Exception ex)
+            { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+        }
 
 
         #endregion
@@ -66,8 +95,8 @@ namespace ATISMobile.TurnsManagement
                 var Action = await DisplayAlert("ATISMobile", "اطلاعات وارد شده را تایید می کنید؟", "بله", "خیر");
                 if (Action)
                 {
-                    var TopSequentialTurnNumber =EntryTopSequentialTurnNumber.Text.Trim();
-                    var YearShamsi =EntryYearShamsi.Text.Trim();
+                    var TopSequentialTurnNumber = EntryTopSequentialTurnNumber.Text.Trim();
+                    var YearShamsi = EntryYearShamsi.Text.Trim();
 
                     await Nonce.GetNonce();
                     HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/Turns/TurnsCancellation");
