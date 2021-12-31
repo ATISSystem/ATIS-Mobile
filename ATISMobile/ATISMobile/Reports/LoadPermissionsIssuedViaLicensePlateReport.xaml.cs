@@ -35,8 +35,14 @@ namespace ATISMobile.Reports
         {
             this.BindingContext = this;
             InitializeComponent();
+            _LPPelak.Focused += _LPPelak_Focused;
+            _LPSerial.Focused += _LPSerial_Focused;
             BtnViewReport.Clicked += BtnViewReport_Clicked;
         }
+
+        private void ClearandReady(Entry Sender)
+        { Sender.Text = string.Empty; }
+
 
         #endregion
 
@@ -44,6 +50,12 @@ namespace ATISMobile.Reports
         #endregion
 
         #region "Event Handlers"
+
+        private void _LPSerial_Focused(object sender, FocusEventArgs e)
+        { ClearandReady((Entry)sender); }
+
+        private void _LPPelak_Focused(object sender, FocusEventArgs e)
+        { ClearandReady((Entry)sender); }
 
         private async void BtnViewReport_Clicked(object sender, EventArgs e)
         {
@@ -65,11 +77,15 @@ namespace ATISMobile.Reports
                     _List = JsonConvert.DeserializeObject<List<LoadAllocationsforTruckDriver>>(content);
                     if (_List.Count == 0)
                     {
+                        FrameFirst.BorderColor = Color.White;
+                        FrameSecond.BorderColor = Color.White;
                         _ListView.IsVisible = false;
                         await DisplayAlert("ATISMobile", "اطلاعاتی یافت نشد", "OK");
                     }
                     else
                     {
+                        FrameFirst.BorderColor = Color.Green;
+                        FrameSecond.BorderColor = Color.Green;
                         _ListView.IsVisible = true;
                         _ListView.ItemsSource = _List;
                     }
