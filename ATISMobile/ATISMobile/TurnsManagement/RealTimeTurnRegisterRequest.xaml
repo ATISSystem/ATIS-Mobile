@@ -28,11 +28,11 @@
                 <StackLayout  VerticalOptions="Center"  HorizontalOptions="Center"  >
                     <Grid BackgroundColor="Transparent" >
                         <Grid.ColumnDefinitions >
-                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="20"></ColumnDefinition>
-                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Entry x:Name="_LPPelak" Grid.Column="0" Placeholder="پلاک ناوگان" Text="" IsPassword="False" TextColor="Black"  BackgroundColor="Transparent"  HorizontalTextAlignment="Center"    HorizontalOptions="End"     VerticalOptions="Center"   FontSize="Large"   >
+                        <Entry x:Name="_LPPelak" Grid.Column="0" Placeholder="پلاک ناوگان" Text="" IsPassword="False" TextColor="Black"  BackgroundColor="Transparent"  HorizontalTextAlignment="Center"    HorizontalOptions="Center"      VerticalOptions="Center"   FontSize="Small"    >
                             <Entry.FontFamily>
                                 <OnPlatform x:TypeArguments="x:String">
                                     <On Platform="iOS" Value="Samim" />
@@ -50,7 +50,7 @@
                                 </OnPlatform>
                             </Label.FontFamily>
                         </Label>
-                        <Entry x:Name="_LPSerial" Grid.Column="2" Placeholder="سریال" Text="" Keyboard="Numeric" IsPassword="False" TextColor="Black" BackgroundColor="Transparent"    HorizontalTextAlignment="Center"  HorizontalOptions="Start"   VerticalOptions="Center"   FontSize="Large"   >
+                        <Entry x:Name="_LPSerial" Grid.Column="2" Placeholder="سریال" Text="" Keyboard="Numeric" IsPassword="False" TextColor="Black" BackgroundColor="Transparent"    HorizontalTextAlignment="Center"  HorizontalOptions="Center"    VerticalOptions="Center"   FontSize="Small"    >
                             <Entry.FontFamily>
                                 <OnPlatform x:TypeArguments="x:String">
                                     <On Platform="iOS" Value="Samim" />
