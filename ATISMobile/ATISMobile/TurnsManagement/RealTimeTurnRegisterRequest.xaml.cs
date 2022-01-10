@@ -48,12 +48,13 @@ namespace ATISMobile.TurnsManagement
             this.BindingContext = this;
             InitializeComponent();
             BtnSendRequest.Clicked += BtnSendRequest_Clicked; BtnInquiry.Clicked += BtnInquiry_Clicked;
+            BtnTurnCancellationSendRequest.Clicked += BtnTurnCancellationSendRequest_Clicked;
             _LPPelak.Focused += _LPPelak_Focused;
             _LPSerial.Focused += _LPSerial_Focused;
         }
 
         private void ClearandReady(Entry Sender)
-        { Sender.Text = string.Empty; BtnSendRequest.IsEnabled = false ; BtnInquiry.IsEnabled = true ; }
+        { _LblTruckDriver.Text = string.Empty; Sender.Text = string.Empty; BtnSendRequest.IsEnabled = false ; BtnInquiry.IsEnabled = true ; BtnTurnCancellationSendRequest.IsEnabled = false; }
 
 
 
@@ -93,6 +94,35 @@ namespace ATISMobile.TurnsManagement
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
         }
 
+        private async void BtnTurnCancellationSendRequest_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                ((Button)sender).IsEnabled = false;
+                var Action = await DisplayAlert("ATISMobile", "پلاک را تایید می کنید؟", "بله", "خیر");
+                if (Action)
+                {
+                    var LPPelak = _LPPelak.Text.Trim();
+                    var LPSerial = _LPSerial.Text.Trim();
+
+                    await Nonce.GetNonce();
+                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/Turns/TurnCancellation");
+                    var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + ATISMobileWebApiMClassManagement.UserLast5Digit + LPPelak + LPSerial) + ";" + LPPelak + ";" + LPSerial;
+                    request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
+                    if (response.IsSuccessStatusCode)
+                    { await DisplayAlert("ATISMobile", "فرآیند با موفقیت انجام شد", "تایید"); return; }
+                    else
+                    { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
+                }
+            }
+            catch (System.Net.WebException ex)
+            { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
+            catch (Exception ex)
+            { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+
+        }
+
         private async void BtnInquiry_Clicked(object sender, EventArgs e)
         {
             try
@@ -111,6 +141,7 @@ namespace ATISMobile.TurnsManagement
                     var myTruckDriver = JsonConvert.DeserializeObject<string>(content);
                     _LblTruckDriver.Text = myTruckDriver;
                     BtnSendRequest.IsEnabled  = IsEnabled = true;
+                    BtnTurnCancellationSendRequest.IsEnabled = true;
                 }
                 else
                 { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }

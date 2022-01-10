@@ -50,10 +50,18 @@ namespace ATISMobile.TruckDriverManagement
         }
 
         private void ClearandReadyforTruckDriverChange(Entry Sender)
-        { Sender.Text = string.Empty; BtnSendTruckDriverChangeRequest.IsEnabled = false; }
+        {
+            LblCurrentTruckDriverforTruckDriverChange.Text = string.Empty;
+            Sender.Text = string.Empty;
+            BtnSendTruckDriverChangeRequest.IsEnabled = false;
+        }
 
         private void ClearandReadyforTruckChange(Entry Sender)
-        { Sender.Text = string.Empty; BtnSendTruckChangeRequest.IsEnabled = false; }
+        {
+            LblCurrentTruckDriverforTruckChange.Text = string.Empty;
+            Sender.Text = string.Empty;
+            BtnSendTruckChangeRequest.IsEnabled = false;
+        }
 
 
         #endregion
@@ -97,8 +105,8 @@ namespace ATISMobile.TruckDriverManagement
             try
             {
                 ((Button)sender).IsEnabled = false;
-                var LPPelak =EntryPelakforTruckDriverChange .Text.Trim();
-                var LPSerial =EntrySerialforTruckDriverChange .Text.Trim();
+                var LPPelak = EntryPelakforTruckDriverChange.Text.Trim();
+                var LPSerial = EntrySerialforTruckDriverChange.Text.Trim();
                 var NewTruckDriverNationalCode = EntryTruckDriverNationalCode.Text.Trim();
                 await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/TruckDrivers/SendTruckDriverChangeRequestMessage");

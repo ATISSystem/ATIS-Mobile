@@ -40,7 +40,7 @@ namespace ATISMobile.TurnsManagement
                 BtnSendRequest.Clicked += BtnSendRequest_Clicked;
                 EntryTopSequentialTurnNumber.Focused += EntryTopSequentialTurnNumber_Focused;
                 EntryYearShamsi.Focused += EntryYearShamsi_Focused;
-                ViewLastTurnIdWhichCancelledDuringTurnsCancellationProcess();
+                ViewFirstActiveTurn();
             }
             catch (Exception ex)
             { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
@@ -49,12 +49,12 @@ namespace ATISMobile.TurnsManagement
         private void ClearandReady(Entry Sender)
         { Sender.Text = string.Empty; BtnSendRequest.IsEnabled = true; }
 
-        private async void ViewLastTurnIdWhichCancelledDuringTurnsCancellationProcess()
+        private async void ViewFirstActiveTurn()
         {
             try
             {
                 await Nonce.GetNonce();
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/Turns/GetLastTurnIdWhichCancelledDuringTurnsCancellationProcess");
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/Turns/GetFirstActiveTurn");
                 var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce);
                 request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
