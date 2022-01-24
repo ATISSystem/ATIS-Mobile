@@ -77,14 +77,12 @@ namespace ATISMobile.Reports
                     _List = JsonConvert.DeserializeObject<List<LoadAllocationsforTruckDriver>>(content);
                     if (_List.Count == 0)
                     {
-                        FrameFirst.BorderColor = Color.White;
                         FrameSecond.BorderColor = Color.White;
                         _ListView.IsVisible = false;
                         await DisplayAlert("ATISMobile", "اطلاعاتی یافت نشد", "OK");
                     }
                     else
                     {
-                        FrameFirst.BorderColor = Color.Green;
                         FrameSecond.BorderColor = Color.Green;
                         _ListView.IsVisible = true;
                         _ListView.ItemsSource = _List;
