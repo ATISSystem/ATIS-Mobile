@@ -44,6 +44,9 @@
     <EmbeddedResource Update="MenuManagement\MenuPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Reports\AnnouncedLoadsReportClearanceLoadsReport.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Reports\LoadPermissionsIssuedOrderByPriorityReportPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

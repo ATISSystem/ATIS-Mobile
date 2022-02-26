@@ -4,19 +4,6 @@
              x:Class="ATISMobile.AnnouncementHallsManagement.AnnouncementHallsSelectionPage"
             Padding="30"
             Title="{Binding Title}">
-    <!--<NavigationPage.TitleView>
-        <StackLayout>
-            <Label Text="نوع بار" TextColor="White" HorizontalTextAlignment="Center">
-                <Label.FontFamily>
-                    <OnPlatform x:TypeArguments="x:String">
-                        <On Platform="iOS" Value="Samim" />
-                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                    </OnPlatform>
-                </Label.FontFamily>
-            </Label>
-        </StackLayout>
-    </NavigationPage.TitleView>-->
     
     <ContentPage Title="تریلی" FlowDirection="RightToLeft"   Padding="10" >
         <ContentPage.Content>

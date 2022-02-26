@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ATISMobile.Reports.AnnouncedLoadsReportClearanceLoadsReport"
+             BackgroundColor="White"
+             Title="{Binding Title}">
+
+    <ContentPage Title="بار اعلام شده" FlowDirection="RightToLeft">
+        <ContentPage.Content>
+            <StackLayout BackgroundColor="White">
+                <StackLayout BackgroundColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
+                    <Picker x:Name="_PickerAnnouncementHallSubGroupsAnnouncedLoadsReport"   Margin="10" Title="گروه اعلام بار را انتخاب کنید ..." TitleColor="Red" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </StackLayout>
+                <StackLayout Padding="15,0,15,0" BackgroundColor="White" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                    <StackLayout x:Name="_StackLayoutEmptyPermissionsAnnouncedLoadsReport" IsVisible="False"  BackgroundColor="White" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+                        <Label Text="موردی در سامانه یافت نشد" TextColor="Red" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Medium" >
+                            <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
+                    </StackLayout>
+                    <ListView x:Name="_ListViewAnnouncedLoadsReport"  BackgroundColor="White"  Margin="15" HasUnevenRows = "True"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell  >
+                                    <Frame HasShadow="true" Margin="1" BorderColor="BlueViolet"    CornerRadius="15" BackgroundColor="Blue" >
+                                        <StackLayout Orientation="Vertical" BackgroundColor="Blue"   Padding="1,0,1,0"  >
+                                            <Label x:Name="ReportItemHeaderAnnouncedLoadsReport" BackgroundColor="Blue"   TextColor="White"   FontSize="Large"  FontAttributes="Bold" Text="{Binding ReportItemHeader}">
+                                                <Label.FontFamily>
+                                                    <OnPlatform x:TypeArguments="x:String">
+                                                        <On Platform="iOS" Value="Samim" />
+                                                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                                    </OnPlatform>
+                                                </Label.FontFamily>
+                                            </Label>
+                                            <Label x:Name="ReportItemDetailsAnnouncedLoadsReport" BackgroundColor="Blue"  TextColor="White"   FontSize="Medium"  FontAttributes="Bold" Text="{Binding ReportItemDetails}">
+                                                <Label.FontFamily>
+                                                    <OnPlatform x:TypeArguments="x:String">
+                                                        <On Platform="iOS" Value="Samim" />
+                                                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                                    </OnPlatform>
+                                                </Label.FontFamily>
+                                            </Label>
+                                        </StackLayout>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+
+    <ContentPage Title="بار آزاد شده" FlowDirection="RightToLeft">
+        <ContentPage.Content>
+            <StackLayout BackgroundColor="White">
+                <StackLayout BackgroundColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
+                    <Picker x:Name="_PickerAnnouncementHallSubGroupsClearanceLoadsReport"   Margin="10" Title="گروه اعلام بار را انتخاب کنید ..." TitleColor="Red" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </StackLayout>
+                <StackLayout  Padding="15,0,15,0" BackgroundColor="White" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                    <StackLayout x:Name="_StackLayoutEmptyPermissionsClearanceLoadsReport" IsVisible="False"  BackgroundColor="White" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+                        <Label Text="موردی در سامانه یافت نشد" TextColor="Red" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Medium" >
+                            <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
+                    </StackLayout>
+                    <ListView x:Name="_ListViewClearanceLoadsReport" BackgroundColor="White"  Margin="15" HasUnevenRows = "True"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell  >
+                                    <Frame HasShadow="true" Margin="1" BorderColor="GreenYellow"    CornerRadius="15" BackgroundColor="Green" >
+                                        <StackLayout Orientation="Vertical" BackgroundColor="Green"   Padding="1,0,1,0"  >
+                                            <Label x:Name="ReportItemHeaderClearanceLoadsReport" BackgroundColor="Green"  TextColor="White"   FontSize="Large"  FontAttributes="Bold" Text="{Binding ReportItemHeader}">
+                                                <Label.FontFamily>
+                                                    <OnPlatform x:TypeArguments="x:String">
+                                                        <On Platform="iOS" Value="Samim" />
+                                                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                                    </OnPlatform>
+                                                </Label.FontFamily>
+                                            </Label>
+                                            <Label x:Name="ReportItemDetailsClearanceLoadsReport" BackgroundColor="Green"  TextColor="White"   FontSize="Medium"  FontAttributes="Bold" Text="{Binding ReportItemDetails}">
+                                                <Label.FontFamily>
+                                                    <OnPlatform x:TypeArguments="x:String">
+                                                        <On Platform="iOS" Value="Samim" />
+                                                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                                    </OnPlatform>
+                                                </Label.FontFamily>
+                                            </Label>
+                                        </StackLayout>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+
+</TabbedPage>
