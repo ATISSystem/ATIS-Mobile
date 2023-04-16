@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ATISMobile.DriverSelfDeclaration.DriverSelfDeclarationPage"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White" >
+            <!--<Frame HasShadow="true" Margin="20" CornerRadius="15" BackgroundColor="YellowGreen" >
+                <StackLayout BackgroundColor="YellowGreen" Padding="0,0,0,0" Margin="0">
+                    <Label x:Name="_LblDSDAction" Text = "{Binding Title}"   BackgroundColor="YellowGreen"  TextColor="Black"   FontSize="Large" FontAttributes="Bold"  HorizontalTextAlignment="Center">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Samim" />
+                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                </StackLayout>
+            </Frame>-->
+            <ListView x:Name="_ListView" BackgroundColor="White"  Margin="15" HasUnevenRows = "True"  >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell  >
+                            <Frame HasShadow="true" Margin="2" BorderColor="LightGray" CornerRadius="15" BackgroundColor="White" >
+                                <StackLayout Orientation="Vertical" BackgroundColor="White" Padding="1,0,1,0"  >
+                                    <Label BackgroundColor="White" TextColor="Red"  FontSize="Medium"   FontAttributes="Bold" Text = "{Binding DSDTitle}" >
+                                        <Label.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS" Value="Samim" />
+                                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                            </OnPlatform>
+                                        </Label.FontFamily>
+                                    </Label>
+                                    <Label  BackgroundColor="White"  TextColor="LightGray"  FontSize="Small"   Text = "{Binding DefaultValue}" >
+                                        <Label.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS" Value="Samim" />
+                                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                            </OnPlatform>
+                                        </Label.FontFamily>
+                                    </Label>
+                                    <Entry x:Name="_EntryDSDValue" IsPassword="False"  Placeholder="اطلاعات مورد نظر را وارد کنید" TextColor="Black"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="Start"  FontSize="Small" Text = "{Binding DSDValue}">
+                                        <Entry.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS" Value="Samim" />
+                                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                            </OnPlatform>
+                                        </Entry.FontFamily>
+                                    </Entry>
+                                    <Label x:Name="_LblDSDId" IsVisible="False"  BackgroundColor="Transparent"  TextColor="Yellow" FontSize="Small" FontAttributes="Bold"   Text = "{Binding DSDId}">
+                                        <Label.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS" Value="Samim" />
+                                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                            </OnPlatform>
+                                        </Label.FontFamily>
+                                    </Label>
+                                </StackLayout>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate> 
+            </ListView>
+            <Button x:Name="BtnSubmit" BorderWidth="2"  WidthRequest="150" BorderColor="White"  CornerRadius="13" FontSize="Medium"  Text="تایید و ارسال" BackgroundColor="Orange"  TextColor="White" VerticalOptions="Start" HorizontalOptions="CenterAndExpand"    Clicked="BtnSubmit_ClickedEvent" >
+                <Button.FontFamily>
+                    <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="iOS" Value="Samim" />
+                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                    </OnPlatform>
+                </Button.FontFamily>
+            </Button>
+            <Label BackgroundColor="White" TextColor="Red"  FontSize="Large"   FontAttributes="Bold" Text = "" >
+                <Label.FontFamily>
+                    <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="iOS" Value="Samim" />
+                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                    </OnPlatform>
+                </Label.FontFamily>
+            </Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -96,4 +96,14 @@ namespace ATISMobile.Models
     public class PermissionsIssued
     { public string ReportItemHeader { get; set; } public string ReportItemDetails { get; set; } }
 
+    public class DriverSelfDeclaration
+    {
+        public Int64 DSDId { get; set; }
+        public string DSDName { get; set; }
+        public string DSDTitle { get; set; }
+        public string DefaultValue { get; set; }
+        public string DSDValue { get; set; }
+    }
+
+
 }

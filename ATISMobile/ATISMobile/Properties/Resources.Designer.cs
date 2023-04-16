@@ -79,7 +79,7 @@ namespace ATISMobile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https.
+        ///   Looks up a localized string similar to Https.
         /// </summary>
         public static string RestfulWebServiceProtocol {
             get {
@@ -106,7 +106,7 @@ namespace ATISMobile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 04.
+        ///   Looks up a localized string similar to 0.
         /// </summary>
         public static string SubVersion {
             get {

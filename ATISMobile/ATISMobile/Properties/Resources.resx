@@ -124,7 +124,7 @@
     <value>8083</value>
   </data>
   <data name="RestfulWebServiceProtocol" xml:space="preserve">
-    <value>https</value>
+    <value>Https</value>
   </data>
   <data name="RestfulWebServiceURLFirst" xml:space="preserve">
     <value>ATISMobile.ir</value>
@@ -133,6 +133,6 @@
     <value>Esfterminals.ir</value>
   </data>
   <data name="SubVersion" xml:space="preserve">
-    <value>04</value>
+    <value>0</value>
   </data>
 </root>
