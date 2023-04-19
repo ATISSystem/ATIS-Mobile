@@ -36,16 +36,18 @@ namespace ATISMobile.AdvertisingManagement
             this.BindingContext = this;
             InitializeComponent();
             BtnDownloadATISMobileLastVersion.Clicked += BtnDownloadATISMobileLastVersion_Clicked;
-            ImgWhatsAppGroup1.Clicked += ImgWhatsAppGroup1_Clicked;
-            ImgWhatsAppGroup2.Clicked += ImgWhatsAppGroup2_Clicked;
-            ImgWhatsAppGroup3.Clicked += ImgWhatsAppGroup3_Clicked;
-            ImgWhatsAppGroup4.Clicked += ImgWhatsAppGroup4_Clicked;
-            ImgWhatsAppGroup5.Clicked += ImgWhatsAppGroup5_Clicked;
-            ImgWhatsAppGroup6.Clicked += ImgWhatsAppGroup6_Clicked;
+            BtnVirtualNet.Clicked += BtnVirtualNet_Clicked;
             DownloadAndViewAdvertisingImg();
         }
 
-        private void OnBtnWhastAppLink(string YourLink)
+        private void BtnVirtualNet_Clicked(object sender, EventArgs e)
+        {
+            try { OnBtnVirtualNet("https://eitaa.com/joinchat/1708654968C25ccccaab1"); }
+            catch (Exception ex)
+            { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+        }
+
+        private void OnBtnVirtualNet(string YourLink)
         { try { Device.OpenUri(new Uri(YourLink)); } catch (Exception ex) { throw ex; } }
 
         private async void DownloadAndViewAdvertisingImg()
@@ -80,44 +82,6 @@ namespace ATISMobile.AdvertisingManagement
             catch (Exception ex)
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
         }
-
-        private void ImgWhatsAppGroup6_Clicked(object sender, EventArgs e)
-        {
-            try { OnBtnWhastAppLink("https://chat.whatsapp.com/ES7zELExevM8O2nuwfYsgK"); }
-            catch (Exception ex)
-            { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
-        }
-        private void ImgWhatsAppGroup5_Clicked(object sender, EventArgs e)
-        {
-            try { OnBtnWhastAppLink("https://chat.whatsapp.com/C01QNQhTUysKB405GYFKXx"); }
-            catch (Exception ex)
-            { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
-        }
-        private void ImgWhatsAppGroup4_Clicked(object sender, EventArgs e)
-        {
-            try { OnBtnWhastAppLink("https://chat.whatsapp.com/Ef0iSG5KedAAHlgwRSZ6tQ"); }
-            catch (Exception ex)
-            { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
-        }
-        private void ImgWhatsAppGroup3_Clicked(object sender, EventArgs e)
-        {
-            try { OnBtnWhastAppLink("https://chat.whatsapp.com/HO16u7VXTga6iGPR8hgOao"); }
-            catch (Exception ex)
-            { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
-        }
-        private void ImgWhatsAppGroup2_Clicked(object sender, EventArgs e)
-        {
-            try { OnBtnWhastAppLink("https://chat.whatsapp.com/ENt7KpOmYyL8BjJBHfUeru"); }
-            catch (Exception ex)
-            { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
-        }
-        private void ImgWhatsAppGroup1_Clicked(object sender, EventArgs e)
-        {
-            try { OnBtnWhastAppLink("https://chat.whatsapp.com/IY1f7COQ9YV62Mkynf4AdJ"); }
-            catch (Exception ex)
-            { DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
-        }
-
 
         #endregion
 

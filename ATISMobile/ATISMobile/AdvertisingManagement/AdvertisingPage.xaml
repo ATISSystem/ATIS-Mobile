@@ -4,29 +4,20 @@
              x:Class="ATISMobile.AdvertisingManagement.AdvertisingPage"
              BackgroundColor="White"
              Title="{Binding Title}">
-    <!--<NavigationPage.TitleView>
-        <StackLayout>
-            <Label Text="اعلانات آتیس" TextColor="White" HorizontalTextAlignment="Center">
-                <Label.FontFamily>
-                    <OnPlatform x:TypeArguments="x:String">
-                        <On Platform="iOS" Value="Samim" />
-                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                    </OnPlatform>
-                </Label.FontFamily>
-            </Label>
-        </StackLayout>
-    </NavigationPage.TitleView>-->
 
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout  BackgroundColor="White">
-                <!--<StackLayout Margin="30,10,30,10" BackgroundColor="Transparent" VerticalOptions="StartAndExpand" >
-                    <Image x:Name="ImgAdvertising"  Aspect="Fill"    Source="TruckNewLightDark.jpg" VerticalOptions="CenterAndExpand"    HorizontalOptions="CenterAndExpand" WidthRequest="{OnPlatform iOS=300, Android=250}" HeightRequest="{OnPlatform iOS=300, Android=500}" />
-                </StackLayout>-->
-                <Image x:Name="ImgAdvertising"  Aspect="Fill"   Source="TruckNewLightDark.jpg" VerticalOptions="FillAndExpand"   HorizontalOptions="FillAndExpand"  />
-                <StackLayout  Margin="30,0,30,5" HorizontalOptions="CenterAndExpand" VerticalOptions="End">
-                    <Button x:Name="BtnDownloadATISMobileLastVersion" BorderWidth="1" BorderColor="Black"  CornerRadius="10" FontSize="Medium" TextColor="White" BackgroundColor="DodgerBlue" Text="دانلود آخرین نسخه آتیس موبایل" >
+        <StackLayout  BackgroundColor="White">
+            <Image x:Name="ImgAdvertising"  Aspect="Fill"    Source="TruckNewLightDark.jpg" VerticalOptions="FillAndExpand"   HorizontalOptions="FillAndExpand"  />
+            <StackLayout  Margin="15,0,15,5" HorizontalOptions="EndAndExpand"   VerticalOptions="End">
+                <Grid  x:Name="_Grid"  >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="BtnDownloadATISMobileLastVersion" Margin="5,0,5,5" Grid.Row="0" Grid.Column="0" BorderWidth="1" BorderColor="Gray"  CornerRadius="10" FontSize="Small" TextColor="Black" BackgroundColor="White"  Text="دانلود آخرین نسخه آتیس موبایل" >
                         <Button.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -35,59 +26,17 @@
                             </OnPlatform>
                         </Button.FontFamily>
                     </Button>
-                </StackLayout>
-                <StackLayout VerticalOptions="End" Margin="10,0,10,0">
-                    <Label TextColor="Green" Margin="20,0,20,0" FontSize="Medium"  Text="عضویت در گروه واتساپ آتیس موبایل" BackgroundColor="White" VerticalOptions="End" HorizontalOptions="CenterAndExpand">
-                        <Label.FontFamily>
+                    <Button x:Name="BtnVirtualNet" Margin="5,0,5,5" Grid.Row="0" Grid.Column="1" BorderWidth="1" BorderColor="Gray"  CornerRadius="10" FontSize="Small"  TextColor="Black" BackgroundColor="White" Text="عضویت در گروه مجازی آتیس موبایل" >
+                        <Button.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
                                 <On Platform="Android" Value="Samim-Bold.otf#Samim" />
                                 <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
                             </OnPlatform>
-                        </Label.FontFamily>
-                    </Label>
-                    <Label TextColor="Green" Margin="20,0,20,0" FontSize="Small"  Text="فقط یکی از تصاویر زیر را لمس کنید" BackgroundColor="White" VerticalOptions="End" HorizontalOptions="CenterAndExpand">
-                        <Label.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS" Value="Samim" />
-                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                            </OnPlatform>
-                        </Label.FontFamily>
-                    </Label>
-                    <Grid  x:Name="_GridWhatsApp" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" VerticalOptions="End" >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="100" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <StackLayout Grid.Row="0" Grid.Column="0" BackgroundColor="White"  >
-                            <ImageButton x:Name="ImgWhatsAppGroup1" Source="ATISWhatsAppGroupsIcon.jpg"  BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" VerticalOptions="End"  />
-                        </StackLayout>
-                        <StackLayout Grid.Row="0" Grid.Column="1" BackgroundColor="White"  >
-                            <ImageButton  x:Name="ImgWhatsAppGroup2" Source="ATISWhatsAppGroupsIcon.jpg"  BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" VerticalOptions="End"  />
-                        </StackLayout>
-                        <StackLayout Grid.Row="0" Grid.Column="2" BackgroundColor="White"  >
-                            <ImageButton  x:Name="ImgWhatsAppGroup3" Source="ATISWhatsAppGroupsIcon.jpg"  BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" VerticalOptions="End"  />
-                        </StackLayout>
-                        <StackLayout Grid.Row="0" Grid.Column="3" BackgroundColor="White"  >
-                            <ImageButton  x:Name="ImgWhatsAppGroup4" Source="ATISWhatsAppGroupsIcon.jpg"  BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" VerticalOptions="End"  />
-                        </StackLayout>
-                        <StackLayout Grid.Row="0" Grid.Column="4" BackgroundColor="White"  >
-                            <ImageButton  x:Name="ImgWhatsAppGroup5" Source="ATISWhatsAppGroupsIcon.jpg"  BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" VerticalOptions="End"  />
-                        </StackLayout>
-                        <StackLayout Grid.Row="0" Grid.Column="5" BackgroundColor="White"  >
-                            <ImageButton  x:Name="ImgWhatsAppGroup6" Source="ATISWhatsAppGroupsIcon.jpg"  BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand"  VerticalOptions="End"  />
-                        </StackLayout>
-                    </Grid>
-                </StackLayout>
+                        </Button.FontFamily>
+                    </Button>
+                </Grid>
             </StackLayout>
-        </ScrollView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
