@@ -7,8 +7,8 @@
 
     <ContentPage.Content>
         <StackLayout  BackgroundColor="White">
-            <Image x:Name="ImgAdvertising"  Aspect="Fill"    Source="TruckNewLightDark.jpg" VerticalOptions="FillAndExpand"   HorizontalOptions="FillAndExpand"  />
-            <StackLayout  Margin="15,0,15,5" HorizontalOptions="EndAndExpand"   VerticalOptions="End">
+            <Image x:Name="ImgAdvertising"  Aspect="Fill"    Source="TruckNewLightDark.jpg" VerticalOptions="StartAndExpand"   HorizontalOptions="FillAndExpand"  />
+            <StackLayout  Margin="3,0,3,5" HorizontalOptions="CenterAndExpand"    VerticalOptions="EndAndExpand" >
                 <Grid  x:Name="_Grid"  >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
@@ -17,7 +17,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="BtnDownloadATISMobileLastVersion" Margin="5,0,5,5" Grid.Row="0" Grid.Column="0" BorderWidth="1" BorderColor="Gray"  CornerRadius="10" FontSize="Small" TextColor="Black" BackgroundColor="White"  Text="دانلود آخرین نسخه آتیس موبایل" >
+                    <Button x:Name="BtnDownloadATISMobileLastVersion" Margin="0,0,1,5" Grid.Row="0" Grid.Column="0" BorderWidth="1" BorderColor="Gray"  CornerRadius="10" FontSize="Micro"  TextColor="Black" BackgroundColor="White"  Text="دانلود آخرین نسخه آتیس موبایل" >
                         <Button.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -26,7 +26,7 @@
                             </OnPlatform>
                         </Button.FontFamily>
                     </Button>
-                    <Button x:Name="BtnVirtualNet" Margin="5,0,5,5" Grid.Row="0" Grid.Column="1" BorderWidth="1" BorderColor="Gray"  CornerRadius="10" FontSize="Small"  TextColor="Black" BackgroundColor="White" Text="عضویت در گروه مجازی آتیس موبایل" >
+                    <Button x:Name="BtnVirtualNet" Margin="1,0,0,5" Grid.Row="0" Grid.Column="1" BorderWidth="1" BorderColor="Gray"  CornerRadius="10" FontSize="Micro"   TextColor="Black" BackgroundColor="White" Text="عضویت در گروه مجازی آتیس موبایل" >
                         <Button.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />

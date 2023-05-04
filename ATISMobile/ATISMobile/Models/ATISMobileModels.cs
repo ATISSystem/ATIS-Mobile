@@ -1,9 +1,11 @@
 ﻿
 
+
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Drawing;
+
+
 
 namespace ATISMobile.Models
 {
@@ -27,7 +29,7 @@ namespace ATISMobile.Models
     {
         public string LoadAllocationId { get; set; }
         public string Description { get; set; }
-        public Color DescriptionColor { get; set; }
+        public System.Drawing.Color DescriptionColor { get; set; }
     }
 
     public class TruckDriver
@@ -89,8 +91,8 @@ namespace ATISMobile.Models
         public string PTitle { get; set; }
         public string TargetMobilePage { get; set; }
         public string Description { get; set; }
-        public Color PForeColor { get; set; }
-        public Color PBackColor { get; set; }
+        public System.Drawing.Color PForeColor { get; set; }
+        public System.Drawing.Color PBackColor { get; set; }
     }
 
     public class PermissionsIssued
@@ -103,6 +105,7 @@ namespace ATISMobile.Models
         public string DSDTitle { get; set; }
         public string DefaultValue { get; set; }
         public string DSDValue { get; set; }
+        public bool HasAttachement { get; set; }
     }
 
 

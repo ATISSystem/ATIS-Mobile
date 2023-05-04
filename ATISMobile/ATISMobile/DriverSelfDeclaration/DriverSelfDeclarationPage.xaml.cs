@@ -1,20 +1,25 @@
 ﻿
+extern alias MonoAndroid;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
+using System.IO;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
 
 using ATISMobile.PublicProcedures;
 using ATISMobile.SecurityAlgorithmsManagement;
 using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
 using Newtonsoft.Json;
 using ATISMobile.HttpClientInstance;
-using System.Reflection;
+
 
 namespace ATISMobile.DriverSelfDeclaration
 {
@@ -36,7 +41,10 @@ namespace ATISMobile.DriverSelfDeclaration
         {
             this.BindingContext = this;
             InitializeComponent();
-            ViewDSDs();
+            try
+            { ViewDSDs(); }
+            catch (Exception ex)
+            { throw ex; }
         }
 
         public async void ViewDSDs()
@@ -60,11 +68,71 @@ namespace ATISMobile.DriverSelfDeclaration
                 }
                 else
                 { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
+
+                //request = new HttpRequestMessage(HttpMethod.Post, "/api/DriverSelfDeclaration/GetAllowedLoadingCapacity");
+                //Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce);
+                //request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
+                //response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
+                //if (response.IsSuccessStatusCode)
+                //{
+                //    var content = await response.Content.ReadAsStringAsync();
+                //    Int64 Allowed = JsonConvert.DeserializeObject<Int64>(content);
+                //    _LblAllowedLoadingCapacity.Text = "ظرفیت مجاز بارگیری: " + Allowed.ToString() + " تن";
+                //}
+                //else
+                //{ await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
+
             }
             catch (System.Net.WebException ex)
             { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
             catch (Exception ex)
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+        }
+
+        async Task TakePhotoAsync(Object sender)
+        {
+            try
+            {
+                var photo = await Xamarin.Essentials.MediaPicker.CapturePhotoAsync();
+                await LoadPhotoAsync(photo, sender);
+            }
+            catch (FeatureNotSupportedException ex)
+            { throw ex; }
+            catch (PermissionException ex)
+            { throw ex; }
+            catch (Exception ex)
+            { throw ex; }
+        }
+
+        async Task LoadPhotoAsync(FileResult Photo, Object sender)
+        {
+            try
+            {
+                if (Photo == null) { throw new Exception("خطا در بارگذاری تصویر"); }
+                var Stream = await Photo.OpenReadAsync();
+                MemoryStream MS = new MemoryStream();
+                Stream.CopyTo(MS);
+                byte[] ImageDataTemp = MS.ToArray();
+                MonoAndroid.Android.Graphics.Bitmap originalImage = MonoAndroid.Android.Graphics.BitmapFactory.DecodeByteArray(ImageDataTemp, 0, ImageDataTemp.Length);
+                MonoAndroid.Android.Graphics.Bitmap resizedImage = MonoAndroid.Android.Graphics.Bitmap.CreateScaledBitmap(originalImage, (int)1000, (int)1000, true );
+                MemoryStream MSTemp = new MemoryStream();
+                resizedImage.Compress(MonoAndroid.Android.Graphics.Bitmap.CompressFormat.Jpeg,50, MSTemp);
+                
+                var DSDImage = Convert.ToBase64String(MSTemp.ToArray());
+                var DSDId = ((Label)((Button)sender).Parent.FindByName("_LblDSDId")).Text;
+
+                await Nonce.GetNonce();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/DriverSelfDeclaration/SaveDSDImage");
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + ATISMobileWebApiMClassManagement.UserLast5Digit) + ";" + DSDId + ";" + DSDImage;
+                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                { await DisplayAlert("ATISMobile", "بارگذاری تصویر با موفقیت انجام شد", "تایید"); }
+                else
+                { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
+            }
+            catch (Exception ex)
+            { throw ex; }
         }
 
         #endregion
@@ -89,7 +157,7 @@ namespace ATISMobile.DriverSelfDeclaration
                     if (templatedItems != null)
                     {
                         var cells = templatedItems.GetValue(_ListView);
-                        Xamarin.Forms.ITemplatedItemsList<Xamarin.Forms.Cell> listCell = cells as Xamarin.Forms.ITemplatedItemsList<Xamarin.Forms.Cell>;
+                        //Xamarin.Forms.ITemplatedItemsList<Xamarin.Forms.Cell> listCell = cells as Xamarin.Forms.ITemplatedItemsList<Xamarin.Forms.Cell>;
                         foreach (ViewCell cell in cells as Xamarin.Forms.ITemplatedItemsList<Xamarin.Forms.Cell>)
                         {
                             string DSDValue = ((Entry)cell.FindByName("_EntryDSDValue")).Text;
@@ -104,7 +172,7 @@ namespace ATISMobile.DriverSelfDeclaration
                     request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                     HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                     if (response.IsSuccessStatusCode)
-                    { await DisplayAlert("ATISMobile", "اطلاعات با موفقیت ارسال شد", "تایید");}
+                    { await DisplayAlert("ATISMobile", "اطلاعات با موفقیت ارسال شد", "تایید"); }
                     else
                     { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
                 }
@@ -117,6 +185,43 @@ namespace ATISMobile.DriverSelfDeclaration
             ((Button)sender).IsEnabled = true;
         }
 
+        private async void BtnGetAllowedLoadingCapacity_ClickedEvent(Object sender, EventArgs e)
+        {
+            try
+            {
+                await Nonce.GetNonce();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/DriverSelfDeclaration/GetAllowedLoadingCapacity");
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce);
+                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    Int64 Allowed = JsonConvert.DeserializeObject<Int64>(content);
+                    await DisplayAlert("ATISMobile", "ظرفیت مجاز بارگیری: " + Allowed.ToString() + " تن", "تایید");
+                }
+                else
+                { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
+            }
+            catch (System.Net.WebException ex)
+            { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
+            catch (Exception ex)
+            { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+
+    ((Button)sender).IsEnabled = true;
+        }
+
+        private async void BtnAttachement_ClickedEvent(Object sender, EventArgs e)
+        {
+            ((Button)sender).IsEnabled = false;
+            try
+            { await TakePhotoAsync(sender); }
+            catch (System.Net.WebException ex)
+            { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
+            catch (Exception ex)
+            { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+            ((Button)sender).IsEnabled = true;
+        }
 
         #endregion
 
@@ -128,6 +233,5 @@ namespace ATISMobile.DriverSelfDeclaration
 
         #region "Implemented Members"
         #endregion
-
     }
 }
