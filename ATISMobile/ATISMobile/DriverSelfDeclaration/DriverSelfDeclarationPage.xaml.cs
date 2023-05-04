@@ -15,6 +15,7 @@ using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
 
 
+
 using ATISMobile.PublicProcedures;
 using ATISMobile.SecurityAlgorithmsManagement;
 using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
