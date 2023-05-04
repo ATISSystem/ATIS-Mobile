@@ -7,7 +7,7 @@
 
     <ContentPage.Content>
         <StackLayout  BackgroundColor="White">
-            <Image x:Name="ImgAdvertising"  Aspect="Fill"    Source="TruckNewLightDark.jpg" VerticalOptions="StartAndExpand"   HorizontalOptions="FillAndExpand"  />
+            <Image x:Name="ImgAdvertising"  Aspect="Fill"    Source="TruckNewLightDark.jpg" VerticalOptions="CenterAndExpand"   HorizontalOptions="FillAndExpand"  />
             <StackLayout  Margin="3,0,3,5" HorizontalOptions="CenterAndExpand"    VerticalOptions="EndAndExpand" >
                 <Grid  x:Name="_Grid"  >
                     <Grid.RowDefinitions>
