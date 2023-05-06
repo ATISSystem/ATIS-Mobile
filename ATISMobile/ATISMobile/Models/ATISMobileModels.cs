@@ -105,6 +105,9 @@ namespace ATISMobile.Models
         public string DSDTitle { get; set; }
         public string DefaultValue { get; set; }
         public string DSDValue { get; set; }
+        public bool PersianKeyboard { get; set; }
+        public bool IsNumeric { get; set; }
+        public bool DecimalPoint { get; set; }
         public bool HasAttachement { get; set; }
     }
 

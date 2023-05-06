@@ -15,63 +15,90 @@
                     <DataTemplate>
                         <ViewCell  >
                             <Frame HasShadow="False"  Margin="5,0,5,5" BorderColor="Black" CornerRadius="15" BackgroundColor="White" >
-                                    <Grid  x:Name="_GridDetails"  >
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="50" />
-                                            <RowDefinition Height="30" />
-                                            <RowDefinition Height="40" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Row="0" Grid.Column="1" BackgroundColor="White" TextColor="Black"  FontSize="Small"   FontAttributes="Bold" Text = "{Binding DSDTitle}" >
-                                            <Label.FontFamily>
-                                                <OnPlatform x:TypeArguments="x:String">
-                                                    <On Platform="iOS" Value="Samim" />
-                                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                                                </OnPlatform>
-                                            </Label.FontFamily>
-                                        </Label>
-                                        <Label Grid.Row="1" Grid.Column="1" BackgroundColor="White"  TextColor="LightGray"  FontSize="Small"   Text = "{Binding DefaultValue}" >
-                                            <Label.FontFamily>
-                                                <OnPlatform x:TypeArguments="x:String">
-                                                    <On Platform="iOS" Value="Samim" />
-                                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                                                </OnPlatform>
-                                            </Label.FontFamily>
-                                        </Label>
-                                        <Button x:Name="BtnAttachement"  Grid.Row="0" Grid.Column="0" BorderWidth="0" BorderColor="White"  CornerRadius="5" FontSize="Small"  TextColor="Blue" BackgroundColor="White"  Text="بارگذاری تصویر" IsVisible="{Binding HasAttachement}" Clicked="BtnAttachement_ClickedEvent" >
-                                            <Button.FontFamily>
-                                                <OnPlatform x:TypeArguments="x:String">
-                                                    <On Platform="iOS" Value="Samim" />
-                                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                                                </OnPlatform>
-                                            </Button.FontFamily>
-                                        </Button>
-                                        <Entry x:Name="_EntryDSDValue" Grid.Row="2" Grid.Column="1" IsPassword="False"  Placeholder="اطلاعات مورد نظر را وارد کنید" TextColor="Black"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="Start"  FontSize="Small" Text = "{Binding DSDValue}">
-                                            <Entry.FontFamily>
-                                                <OnPlatform x:TypeArguments="x:String">
-                                                    <On Platform="iOS" Value="Samim" />
-                                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                                                </OnPlatform>
-                                            </Entry.FontFamily>
-                                        </Entry>
-                                        <Label x:Name="_LblDSDId" IsVisible="False"  BackgroundColor="Transparent"  TextColor="Yellow" FontSize="Small" FontAttributes="Bold"   Text = "{Binding DSDId}">
-                                            <Label.FontFamily>
-                                                <OnPlatform x:TypeArguments="x:String">
-                                                    <On Platform="iOS" Value="Samim" />
-                                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                                                </OnPlatform>
-                                            </Label.FontFamily>
-                                        </Label>
-                                    </Grid>
-                             </Frame>
+                                <Grid  x:Name="_GridDetails"  >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="40" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" Grid.Column="1" BackgroundColor="White" TextColor="Black"  FontSize="Small"   FontAttributes="Bold" Text = "{Binding DSDTitle}" >
+                                        <Label.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS" Value="Samim" />
+                                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                            </OnPlatform>
+                                        </Label.FontFamily>
+                                    </Label>
+                                    <Label Grid.Row="1" Grid.Column="1" BackgroundColor="White"  TextColor="LightGray"  FontSize="Small"   Text = "{Binding DefaultValue}" >
+                                        <Label.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS" Value="Samim" />
+                                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                            </OnPlatform>
+                                        </Label.FontFamily>
+                                    </Label>
+                                    <Button x:Name="BtnAttachement"  Grid.Row="0" Grid.Column="0" BorderWidth="0" BorderColor="White"  CornerRadius="5" FontSize="Small"  TextColor="Blue" BackgroundColor="White"  Text="بارگذاری تصویر" IsVisible="{Binding HasAttachement}" Clicked="BtnAttachement_ClickedEvent" >
+                                        <Button.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS" Value="Samim" />
+                                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                            </OnPlatform>
+                                        </Button.FontFamily>
+                                    </Button>
+                                    <Entry x:Name="_EntryDSDValue" Grid.Row="2" Grid.Column="1" TextChanged="_EntryDSDValue_TextChanged" IsPassword="False"  Placeholder="اطلاعات را وارد کنید" TextColor="Black"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="Start"  FontSize="Small" Text = "{Binding DSDValue}">
+                                        <Entry.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS" Value="Samim" />
+                                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                            </OnPlatform>
+                                        </Entry.FontFamily>
+                                    </Entry>
+                                    <Label x:Name="_LblDSDId" IsVisible="False"  BackgroundColor="Transparent"  TextColor="Yellow" FontSize="Small" FontAttributes="Bold"   Text = "{Binding DSDId}">
+                                        <Label.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS" Value="Samim" />
+                                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                            </OnPlatform>
+                                        </Label.FontFamily>
+                                    </Label>
+                                    <Label x:Name="_LblPersianKeyboard" IsVisible="False"  BackgroundColor="Transparent"  TextColor="Yellow" FontSize="Small" FontAttributes="Bold"   Text = "{Binding PersianKeyboard}">
+                                        <Label.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS" Value="Samim" />
+                                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                            </OnPlatform>
+                                        </Label.FontFamily>
+                                    </Label>
+                                    <Label x:Name="_LblIsNumeric" IsVisible="False"  BackgroundColor="Transparent"  TextColor="Yellow" FontSize="Small" FontAttributes="Bold"   Text = "{Binding IsNumeric}">
+                                        <Label.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS" Value="Samim" />
+                                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                            </OnPlatform>
+                                        </Label.FontFamily>
+                                    </Label>
+                                    <Label x:Name="_LblDecimalPoint" IsVisible="False"  BackgroundColor="Transparent"  TextColor="Yellow" FontSize="Small" FontAttributes="Bold"   Text = "{Binding DecimalPoint}">
+                                        <Label.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS" Value="Samim" />
+                                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                            </OnPlatform>
+                                        </Label.FontFamily>
+                                    </Label>
+                                </Grid>
+                            </Frame>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -85,7 +112,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="BtnGetAllowedLoadingCapacity" Margin="1,0,10,5" Grid.Row="0" Grid.Column="0" BorderWidth="1" BorderColor="Gray"  CornerRadius="10" FontSize="Small"   TextColor="White" BackgroundColor="Green" Text="مشاهده  ظرفیت مجاز بارگیر"  Clicked="BtnGetAllowedLoadingCapacity_ClickedEvent">
+                    <Button x:Name="BtnGetAllowedLoadingCapacity" Margin="1,0,10,5" Grid.Row="0" Grid.Column="0" BorderWidth="1" BorderColor="Gray"  CornerRadius="10" FontSize="Small"   TextColor="White" BackgroundColor="Green" Text="ظرفیت مجاز بارگیری"  Clicked="BtnGetAllowedLoadingCapacity_ClickedEvent">
                         <Button.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
@@ -106,6 +133,6 @@
                 </Grid>
             </StackLayout>
         </StackLayout>
-        
+
     </ContentPage.Content>
 </ContentPage>

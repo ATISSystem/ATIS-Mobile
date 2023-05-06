@@ -13,13 +13,12 @@ using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
-
+using Newtonsoft.Json;
 
 
 using ATISMobile.PublicProcedures;
 using ATISMobile.SecurityAlgorithmsManagement;
 using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
-using Newtonsoft.Json;
 using ATISMobile.HttpClientInstance;
 
 
@@ -70,20 +69,6 @@ namespace ATISMobile.DriverSelfDeclaration
                 }
                 else
                 { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
-
-                //request = new HttpRequestMessage(HttpMethod.Post, "/api/DriverSelfDeclaration/GetAllowedLoadingCapacity");
-                //Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce);
-                //request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
-                //response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
-                //if (response.IsSuccessStatusCode)
-                //{
-                //    var content = await response.Content.ReadAsStringAsync();
-                //    Int64 Allowed = JsonConvert.DeserializeObject<Int64>(content);
-                //    _LblAllowedLoadingCapacity.Text = "ظرفیت مجاز بارگیری: " + Allowed.ToString() + " تن";
-                //}
-                //else
-                //{ await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
-
             }
             catch (System.Net.WebException ex)
             { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
@@ -116,10 +101,10 @@ namespace ATISMobile.DriverSelfDeclaration
                 Stream.CopyTo(MS);
                 byte[] ImageDataTemp = MS.ToArray();
                 MonoAndroid.Android.Graphics.Bitmap originalImage = MonoAndroid.Android.Graphics.BitmapFactory.DecodeByteArray(ImageDataTemp, 0, ImageDataTemp.Length);
-                MonoAndroid.Android.Graphics.Bitmap resizedImage = MonoAndroid.Android.Graphics.Bitmap.CreateScaledBitmap(originalImage, (int)1000, (int)1000, true );
+                MonoAndroid.Android.Graphics.Bitmap resizedImage = MonoAndroid.Android.Graphics.Bitmap.CreateScaledBitmap(originalImage, (int)1000, (int)1000, true);
                 MemoryStream MSTemp = new MemoryStream();
-                resizedImage.Compress(MonoAndroid.Android.Graphics.Bitmap.CompressFormat.Jpeg,50, MSTemp);
-                
+                resizedImage.Compress(MonoAndroid.Android.Graphics.Bitmap.CompressFormat.Jpeg, 50, MSTemp);
+
                 var DSDImage = Convert.ToBase64String(MSTemp.ToArray());
                 var DSDId = ((Label)((Button)sender).Parent.FindByName("_LblDSDId")).Text;
 
@@ -183,8 +168,6 @@ namespace ATISMobile.DriverSelfDeclaration
             { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
             catch (Exception ex)
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
-
-            ((Button)sender).IsEnabled = true;
         }
 
         private async void BtnGetAllowedLoadingCapacity_ClickedEvent(Object sender, EventArgs e)
@@ -225,6 +208,45 @@ namespace ATISMobile.DriverSelfDeclaration
             ((Button)sender).IsEnabled = true;
         }
 
+        private async void _EntryDSDValue_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                var Entry = (Entry)sender;
+                var PersianKeyboard = ((Label)((Entry)sender).Parent.FindByName("_LblPersianKeyboard")).Text == "True" ? true : false;
+                var IsNumeric = ((Label)((Entry)sender).Parent.FindByName("_LblIsNumeric")).Text == "True" ? true : false;
+                var DecimalPoint = ((Label)((Entry)sender).Parent.FindByName("_LblDecimalPoint")).Text == "True" ? true : false;
+                var DSDId = ((Label)((Entry)sender).Parent.FindByName("_LblDSDId")).Text;
+                if (DSDId is null) { return; }
+                if (System.Text.Encoding.Default.GetBytes(Entry.Text).Count() < 1) { return; }
+                //کنترل تایپ فارسی
+                if (!PersianKeyboard)
+                {
+                    if (System.Text.Encoding.Default.GetBytes(Entry.Text)[0] > 128)
+                    { ((Entry)sender).Text = string.Empty; throw new Exception("از صفحه کلید لاتین استفاده کنید" + "\n" + "کد: " + DSDId); }
+                }
+                //تایپ اعداد
+                if (IsNumeric)
+                {
+                    if (DecimalPoint) //نقطه اعشار
+                    {
+                        if (e.NewTextValue.ToCharArray().Where(x => (x != '.') && (x != '0') && (x != '1') && (x != '2') && (x != '3') && (x != '4') && (x != '5') && (x != '6') && (x != '7') && (x != '8') && (x != '9')).Count() > 0)
+                        { ((Entry)sender).Text = string.Empty; throw new Exception("در این فیلد فقط از ارقام و نقطه اعشار استفاده نمایید" + "کد: " + DSDId); }
+                    }
+                    else
+                    {
+                        if (((Entry)sender).Text != string.Empty)
+                        {
+                            if (!(e.NewTextValue.ToCharArray().All(x => char.IsDigit(x))))
+                            { ((Entry)sender).Text = string.Empty; throw new Exception("در این فیلد فقط از ارقام استفاده نمایید" + "کد: " + DSDId); }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+        }
+
         #endregion
 
         #region "Override Methods"
@@ -235,5 +257,6 @@ namespace ATISMobile.DriverSelfDeclaration
 
         #region "Implemented Members"
         #endregion
+
     }
 }

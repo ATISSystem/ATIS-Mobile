@@ -40,7 +40,7 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                    <Entry x:Name="_EntryLast5DigitUserShenaseh" Text="" Keyboard="Numeric" IsPassword="False"    Placeholder="شناسه شخصی را وارد کنید" TextColor="Black"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="Start"  FontSize="Large"   >
+                    <Entry x:Name="_EntryLast5DigitUserShenaseh" Text="" Keyboard="Numeric"  IsPassword="False"    Placeholder="شناسه شخصی را وارد کنید" TextColor="Black"  HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand"  VerticalOptions="Start"  FontSize="Large"   >
                         <Entry.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS" Value="Samim" />
