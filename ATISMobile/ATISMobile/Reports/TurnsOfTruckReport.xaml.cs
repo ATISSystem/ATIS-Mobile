@@ -1,6 +1,6 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -9,19 +9,20 @@ using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+using ATISMobile.HttpClientInstance;
 using ATISMobile.Models;
 using ATISMobile.PublicProcedures;
-using ATISMobile.HttpClientInstance;
-using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
 using ATISMobile.SecurityAlgorithmsManagement;
+using ATISMobile.SecurityAlgorithmsManagement.HashingAlgorithms;
 
-namespace ATISMobile.MoneyWalletManagement
+
+namespace ATISMobile.Reports
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MoneyWalletChargingPage : ContentPage
+    public partial class TurnsOfTruckReport : ContentPage
     {
-        #region "General Properties"
 
+        #region "General Properties"
         private string _title;
         public new string Title
         {
@@ -32,11 +33,18 @@ namespace ATISMobile.MoneyWalletManagement
         #endregion
 
         #region "Subroutins And Functions"
-        public MoneyWalletChargingPage()
+
+        public TurnsOfTruckReport()
         {
             this.BindingContext = this;
             InitializeComponent();
+            _LPPelak.Focused += _LPPelak_Focused;
+            _LPSerial.Focused += _LPSerial_Focused;
+            BtnViewReport.Clicked += BtnViewReport_Clicked;
         }
+
+        private void ClearandReady(Entry Sender)
+        { Sender.Text = string.Empty; }
 
 
         #endregion
@@ -45,28 +53,34 @@ namespace ATISMobile.MoneyWalletManagement
         #endregion
 
         #region "Event Handlers"
-   
-        private async void _BtnGotoCharge_ClickedEvent(object sender, EventArgs e)
+
+        private void _LPSerial_Focused(object sender, FocusEventArgs e)
+        { ClearandReady((Entry)sender); }
+
+        private void _LPPelak_Focused(object sender, FocusEventArgs e)
+        { ClearandReady((Entry)sender); }
+
+        private async void BtnViewReport_Clicked(object sender, EventArgs e)
         {
             try
             {
-                Int64 Amount = System.Convert.ToInt64(_EntryAmount.Text.Replace(",", string.Empty));
-                if (Amount.ToString() == "0" || Amount.ToString() == string.Empty)
-                { throw new Exception("مبلغ مورد نظر خود را وارد نمایید"); }
+                ((Button)sender).IsEnabled = false;
+                var LPPelak = _LPPelak.Text.Trim();
+                var LPSerial = _LPSerial.Text.Trim();
 
                 await Nonce.GetNonce();
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/MoneyWalletChargingAPI/PaymentRequest");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + ATISMobileWebApiMClassManagement.UserLast5Digit + Amount.ToString()) + ";" + Amount.ToString();
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/Turns/GetTurnsOfTruck");
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + LPPelak + LPSerial) + ";" + LPPelak + ";" + LPSerial;
                 request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
-                    var myMS = JsonConvert.DeserializeObject<MessageStruct>(content);
-                    if (myMS.ErrorCode == false)
-                    { Device.OpenUri(new Uri(myMS.Message2 + myMS.Message1)); }
+                    var _List = JsonConvert.DeserializeObject<List<Turns>>(content);
+                    if (_List.Count == 0)
+                    { _ListView.IsVisible = false; _StackLayoutEmptyTurns.IsVisible = true; }
                     else
-                    { }
+                    { _StackLayoutEmptyTurns.IsVisible = false; _ListView.ItemsSource = _List; }
                 }
                 else
                 { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
@@ -75,7 +89,7 @@ namespace ATISMobile.MoneyWalletManagement
             { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
             catch (Exception ex)
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
-
+            ((Button)sender).IsEnabled = true;
         }
 
         #endregion
@@ -88,8 +102,6 @@ namespace ATISMobile.MoneyWalletManagement
 
         #region "Implemented Members"
         #endregion
-
-
 
     }
 }

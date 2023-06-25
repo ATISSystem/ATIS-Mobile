@@ -53,6 +53,9 @@
     <EmbeddedResource Update="Reports\LoadPermissionsIssuedViaLicensePlateReport.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Reports\TurnsOfTruckReport.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="SecurityManagement\Last5DigitEntryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

@@ -29,65 +29,7 @@
                     </OnPlatform>
                 </Label.FontFamily>
             </Label>
-            <ScrollView BackgroundColor="Transparent">
-                <StackLayout Padding="80,10,80,10" BackgroundColor="Transparent"  >
-                    <Button x:Name="_Btn5000" BorderWidth="2" BorderColor="Black"  CornerRadius="15" FontSize="Medium"   Text="5000 تومان" BackgroundColor="Yellow" TextColor="Black"  Clicked="_Btn5000_ClickedEvent" >
-                        <Button.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS" Value="Samim" />
-                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                            </OnPlatform>
-                        </Button.FontFamily>
-                    </Button>
-                    <Button x:Name="_Btn10000"  BorderWidth="2"  BorderColor="Black"    CornerRadius="15"  FontSize="Medium"  Text="10000 تومان" BackgroundColor="Yellow"   TextColor="Black" Clicked="_Btn10000_ClickedEvent"  >
-                        <Button.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS" Value="Samim" />
-                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                            </OnPlatform>
-                        </Button.FontFamily>
-                    </Button>
-                    <Button x:Name="_Btn20000"  BorderWidth="2"  BorderColor="Black"   CornerRadius="15"  FontSize="Medium" Text="20000 تومان" BackgroundColor="Yellow"    TextColor="Black" Clicked="_Btn20000_ClickedEvent" >
-                        <Button.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS" Value="Samim" />
-                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                            </OnPlatform>
-                        </Button.FontFamily>
-                    </Button>
-                    <Button x:Name="_Btn30000"  BorderWidth="2"  BorderColor="Black"   CornerRadius="15"  FontSize="Medium" Text="30000 تومان" BackgroundColor="Yellow"   TextColor="Black" Clicked="_Btn30000_ClickedEvent" >
-                        <Button.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS" Value="Samim" />
-                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                            </OnPlatform>
-                        </Button.FontFamily>
-                    </Button>
-                    <Button x:Name="_Btn40000"  BorderWidth="2"  BorderColor="Black"   CornerRadius="15"  FontSize="Medium" Text="40000 تومان" BackgroundColor="Yellow"    TextColor="Black" Clicked="_Btn40000_ClickedEvent" >
-                        <Button.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS" Value="Samim" />
-                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                            </OnPlatform>
-                        </Button.FontFamily>
-                    </Button>
-                    <Button x:Name="_Btn50000"  BorderWidth="2"  BorderColor="Black"   CornerRadius="15"  FontSize="Medium" Text="50000 تومان" BackgroundColor="Yellow"  TextColor="Black"  Clicked="_Btn50000_ClickedEvent" >
-                        <Button.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS" Value="Samim" />
-                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                            </OnPlatform>
-                        </Button.FontFamily>
-                    </Button>
-                </StackLayout>
-            </ScrollView>
-            <Label x:Name="_LblAmount" BackgroundColor="White"  TextColor="Black" HorizontalTextAlignment="Center" FontSize="Small"  FontAttributes="None" Text = "0" >
+            <Label Text="مبلغ شارژ"  BackgroundColor="White" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Start" FontSize="Large" >
                 <Label.FontFamily>
                     <OnPlatform x:TypeArguments="x:String">
                         <On Platform="iOS" Value="Samim" />
@@ -96,7 +38,16 @@
                     </OnPlatform>
                 </Label.FontFamily>
             </Label>
-            <Button x:Name="_BtnGotoCharge" Margin="80,10,80,10" BorderColor="Black"  BackgroundColor="Yellow" TextColor="Black" CornerRadius="10"  FontSize="Medium" FontAttributes="Bold" Text = "شارژ موجودی"  Clicked="_BtnGotoCharge_ClickedEvent">
+            <Entry x:Name="_EntryAmount" Text="" IsPassword="False" Keyboard="Numeric"  Placeholder="مبلغ شارژ را به تومان وارد کنید" TextColor="Black" HorizontalTextAlignment="Center"  HorizontalOptions="Center"  VerticalOptions="Start" FontSize="Large"   >
+                <Entry.FontFamily>
+                    <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="iOS" Value="Samim" />
+                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                    </OnPlatform>
+                </Entry.FontFamily>
+            </Entry>
+            <Button x:Name="_BtnGotoCharge" Margin="80,10,80,10" BorderColor="Black"  BackgroundColor="Yellow" TextColor="Black" CornerRadius="10"  FontSize="Medium" FontAttributes="Bold" Text = "شارژ موجودی کیف پول"  Clicked="_BtnGotoCharge_ClickedEvent">
                 <Button.FontFamily>
                     <OnPlatform x:TypeArguments="x:String">
                         <On Platform="iOS" Value="Samim" />

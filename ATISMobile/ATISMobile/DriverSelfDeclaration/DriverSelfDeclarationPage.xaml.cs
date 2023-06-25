@@ -223,7 +223,7 @@ namespace ATISMobile.DriverSelfDeclaration
                 if (!PersianKeyboard)
                 {
                     if (System.Text.Encoding.Default.GetBytes(Entry.Text)[0] > 128)
-                    { ((Entry)sender).Text = string.Empty; throw new Exception("از صفحه کلید لاتین استفاده کنید" + "\n" + "کد: " + DSDId); }
+                    { ((Entry)sender).Text = string.Empty; throw new Exception("از صفحه کلید لاتین استفاده کنید" ); }
                 }
                 //تایپ اعداد
                 if (IsNumeric)
@@ -231,14 +231,14 @@ namespace ATISMobile.DriverSelfDeclaration
                     if (DecimalPoint) //نقطه اعشار
                     {
                         if (e.NewTextValue.ToCharArray().Where(x => (x != '.') && (x != '0') && (x != '1') && (x != '2') && (x != '3') && (x != '4') && (x != '5') && (x != '6') && (x != '7') && (x != '8') && (x != '9')).Count() > 0)
-                        { ((Entry)sender).Text = string.Empty; throw new Exception("در این فیلد فقط از ارقام و نقطه اعشار استفاده نمایید" + "کد: " + DSDId); }
+                        { ((Entry)sender).Text = string.Empty; throw new Exception("در این فیلد فقط از ارقام و نقطه اعشار استفاده نمایید" ); }
                     }
                     else
                     {
                         if (((Entry)sender).Text != string.Empty)
                         {
                             if (!(e.NewTextValue.ToCharArray().All(x => char.IsDigit(x))))
-                            { ((Entry)sender).Text = string.Empty; throw new Exception("در این فیلد فقط از ارقام استفاده نمایید" + "کد: " + DSDId); }
+                            { ((Entry)sender).Text = string.Empty; throw new Exception("در این فیلد فقط از ارقام استفاده نمایید" ); }
                         }
                     }
                 }

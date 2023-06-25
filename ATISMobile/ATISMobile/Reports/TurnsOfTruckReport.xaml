@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ATISMobile.Reports.TurnsOfTruckReport"
+             BackgroundColor="White"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout Padding="20,5,20,10" BackgroundColor="Transparent"   >
+            <StackLayout Padding="20,0,20,10"  BackgroundColor="Transparent"  VerticalOptions="Start">
+                <Label Text="پلاک ناوگان را وارد کنید"  TextColor="Black" BackgroundColor="Transparent"    HorizontalOptions="Center" VerticalOptions="Start"   FontSize="Large"    >
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <StackLayout BackgroundColor="Transparent"   Padding="0,0,0,0" VerticalOptions="Start"   HorizontalOptions="Center"  >
+                    <Grid  BackgroundColor="Transparent"  VerticalOptions="Start"  >
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="20"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions >
+                            <RowDefinition Height="80"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Entry x:Name="_LPPelak" Grid.Column="0" Grid.Row="0" Placeholder="پلاک ناوگان" Text="" IsPassword="False" TextColor="Black"    BackgroundColor="Transparent"    HorizontalTextAlignment="Center"    HorizontalOptions="Center"      VerticalOptions="Center"   FontSize="Small"    >
+                            <Entry.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Entry.FontFamily>
+                        </Entry>
+                        <Label Text="-" Grid.Column ="1" Grid.Row="0" TextColor="Blue" BackgroundColor="Transparent"    HorizontalOptions="Center" HorizontalTextAlignment="Center"   VerticalOptions="Center"   FontSize="Large" >
+                            <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
+                        <Entry x:Name="_LPSerial" Grid.Column="2" Grid.Row="0" Placeholder="سریال" Text="" Keyboard="Numeric" IsPassword="False" TextColor="Black" BackgroundColor="Transparent"      HorizontalTextAlignment="Center"  HorizontalOptions="Center"    VerticalOptions="Center"   FontSize="Small"   >
+                            <Entry.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS" Value="Samim" />
+                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                </OnPlatform>
+                            </Entry.FontFamily>
+                        </Entry>
+                    </Grid>
+                </StackLayout>
+                <Button x:Name="BtnViewReport"  IsEnabled="true" BackgroundColor="OrangeRed"    TextColor="White"    BorderWidth="2" BorderColor="Black"  CornerRadius="10" FontSize="Small"     Text="مشاهده"  HorizontalOptions="CenterAndExpand" VerticalOptions="Start"   WidthRequest="100" HeightRequest="100" BorderRadius="50">
+                    <Button.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Button.FontFamily>
+                </Button>
+            </StackLayout>
+            <Label Text="" TextColor="Black" BackgroundColor="Transparent"  HorizontalOptions="CenterAndExpand" VerticalOptions="Center"    FontSize="Micro" >
+                <Label.FontFamily>
+                    <OnPlatform x:TypeArguments="x:String">
+                        <On Platform="iOS" Value="Samim" />
+                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                    </OnPlatform>
+                </Label.FontFamily>
+            </Label>
+            <StackLayout BackgroundColor="White" >
+                <StackLayout x:Name="_StackLayoutEmptyTurns" IsVisible="False"  BackgroundColor="White" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+                    <Label Text="نوبتی در سامانه موجود نیست" TextColor="Red" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Large" >
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS" Value="Samim" />
+                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                </StackLayout>
+                <ListView x:Name="_ListView" BackgroundColor="White"  Margin="15" HasUnevenRows = "True"   >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell  >
+                                <Frame HasShadow="true" Margin="1" BorderColor="BlueViolet"   CornerRadius="15" BackgroundColor="DodgerBlue" >
+                                    <StackLayout Orientation="Vertical" BackgroundColor="DodgerBlue"  Padding="1,0,1,0"  >
+                                        <Label  BackgroundColor="DodgerBlue"  TextColor="GreenYellow"   FontSize="Large" FontAttributes="Bold" Text = "{Binding OtaghdarTurnNumber}" >
+                                            <Label.FontFamily>
+                                                <OnPlatform x:TypeArguments="x:String">
+                                                    <On Platform="iOS" Value="Samim" />
+                                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                                </OnPlatform>
+                                            </Label.FontFamily>
+                                        </Label>
+                                        <Label  BackgroundColor="DodgerBlue"  TextColor="White"   FontSize="Medium"   FontAttributes="Bold" Text = "{Binding TurnDateTime}" >
+                                            <Label.FontFamily>
+                                                <OnPlatform x:TypeArguments="x:String">
+                                                    <On Platform="iOS" Value="Samim" />
+                                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                                </OnPlatform>
+                                            </Label.FontFamily>
+                                        </Label>
+                                        <Label   BackgroundColor="DodgerBlue"  TextColor="Black"  FontSize="Medium"   FontAttributes="Bold"   Text = "{Binding TurnStatusTitle}">
+                                            <Label.FontFamily>
+                                                <OnPlatform x:TypeArguments="x:String">
+                                                    <On Platform="iOS" Value="Samim" />
+                                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                                </OnPlatform>
+                                            </Label.FontFamily>
+                                        </Label>
+                                        <Label   BackgroundColor="DodgerBlue"  TextColor="Yellow"  FontSize="Large"  FontAttributes="Bold"  Text = "{Binding LPPString}" >
+                                            <Label.FontFamily>
+                                                <OnPlatform x:TypeArguments="x:String">
+                                                    <On Platform="iOS" Value="Samim" />
+                                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                                </OnPlatform>
+                                            </Label.FontFamily>
+                                        </Label>
+                                        <Label   BackgroundColor="DodgerBlue"  TextColor="White"  FontSize="Small"  FontAttributes="Bold"  Text = "{Binding TruckDriver}" >
+                                            <Label.FontFamily>
+                                                <OnPlatform x:TypeArguments="x:String">
+                                                    <On Platform="iOS" Value="Samim" />
+                                                    <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                    <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                                </OnPlatform>
+                                            </Label.FontFamily>
+                                        </Label>
+
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
