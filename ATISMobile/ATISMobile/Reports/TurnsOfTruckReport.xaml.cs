@@ -41,7 +41,9 @@ namespace ATISMobile.Reports
             _LPPelak.Focused += _LPPelak_Focused;
             _LPSerial.Focused += _LPSerial_Focused;
             BtnViewReport.Clicked += BtnViewReport_Clicked;
+            BtnExit.Clicked += BtnExit_Clicked;
         }
+
 
         private void ClearandReady(Entry Sender)
         { Sender.Text = string.Empty; }
@@ -75,12 +77,13 @@ namespace ATISMobile.Reports
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
+                    _SLTurns.IsVisible = true; _SLTruckInf.IsVisible = false;
                     var content = await response.Content.ReadAsStringAsync();
                     var _List = JsonConvert.DeserializeObject<List<Turns>>(content);
                     if (_List.Count == 0)
-                    { _ListView.IsVisible = false; _StackLayoutEmptyTurns.IsVisible = true; }
+                    { _ListView.IsVisible = false; }
                     else
-                    { _StackLayoutEmptyTurns.IsVisible = false; _ListView.ItemsSource = _List; }
+                    { _ListView.ItemsSource = _List; }
                 }
                 else
                 { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
@@ -91,6 +94,14 @@ namespace ATISMobile.Reports
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
             ((Button)sender).IsEnabled = true;
         }
+
+        private void BtnExit_Clicked(object sender, EventArgs e)
+        {
+            try { _SLTurns.IsVisible = false; _SLTruckInf.IsVisible = true; }
+            catch (Exception ex)
+            { throw ex; }
+        }
+
 
         #endregion
 
