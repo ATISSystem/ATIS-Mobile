@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Drawing;
 
 using ATISMobile.PublicProcedures;
 using ATISMobile.Models;
@@ -20,16 +21,21 @@ namespace ATISMobile.MoneyWalletManagement
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MoneyWalletMenuPage : ContentPage
     {
+
+
         #region "General Properties"
+
         private string _title;
         public new string Title
         {
             get { return _title; }
             set { _title = value; OnPropertyChanged(); }
         }
+
         #endregion
 
         #region "Subroutins And Functions"
+
         public MoneyWalletMenuPage()
         {
             this.BindingContext = this;
@@ -49,7 +55,7 @@ namespace ATISMobile.MoneyWalletManagement
             {
                 await Nonce.GetNonce();
                 HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/MoneyWalletReminderCharge/GetMoneyWalletReminderCharge");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce );
+                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce);
                 request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
@@ -75,8 +81,12 @@ namespace ATISMobile.MoneyWalletManagement
         #endregion
 
         #region "Event Handlers"
+
         private void MoneyWalletMenuPage_Appearing(object sender, EventArgs e)
-        { _BtnMoneyWalletCharging.IsEnabled = true; _BtnMoneyWalletTransactions.IsEnabled = true; }
+        {
+            _BtnMoneyWalletCharging.IsEnabled = true;
+            _BtnMoneyWalletTransactions.IsEnabled = true;
+        }
 
         private async void _BtnMoneyWalletTransactions_ClickedEvent(object sender, EventArgs e)
         {

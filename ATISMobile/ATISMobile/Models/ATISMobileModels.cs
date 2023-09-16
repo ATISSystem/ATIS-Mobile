@@ -111,5 +111,14 @@ namespace ATISMobile.Models
         public bool HasAttachement { get; set; }
     }
 
+    public class SMSOwnerCurrentState
+    {
+        public Boolean IsSendingActive { get; set; }
+        public string TextToView { get; set; }
+        public string TextToViewColor { get; set; }
+        public string SMSOwnerChargeMessage { get; set; }
+
+    }
+
 
 }

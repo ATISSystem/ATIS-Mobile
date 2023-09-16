@@ -121,18 +121,18 @@
     <value>Https://ATISMobile.ir/Downloads.aspx</value>
   </data>
   <data name="RestfulWebServicePortNumber" xml:space="preserve">
-    <value>8083</value>
+    <value>38468</value>
   </data>
   <data name="RestfulWebServiceProtocol" xml:space="preserve">
-    <value>Https</value>
+    <value>Http</value>
   </data>
   <data name="RestfulWebServiceURLFirst" xml:space="preserve">
-    <value>ATISMobile.ir</value>
+    <value>192.168.1.2</value>
   </data>
   <data name="RestfulWebServiceURLSecond" xml:space="preserve">
     <value>Esfterminals.ir</value>
   </data>
   <data name="SubVersion" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
 </root>

@@ -65,15 +65,6 @@
                     </Button.FontFamily>
                 </Button>
             </StackLayout>
-            <Label Text="" TextColor="Black" BackgroundColor="Transparent"  HorizontalOptions="CenterAndExpand" VerticalOptions="Center"    FontSize="Micro" >
-                <Label.FontFamily>
-                    <OnPlatform x:TypeArguments="x:String">
-                        <On Platform="iOS" Value="Samim" />
-                        <On Platform="Android" Value="Samim-Bold.otf#Samim" />
-                        <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
-                    </OnPlatform>
-                </Label.FontFamily>
-            </Label>
             <StackLayout  x:Name="_SLTurns" BackgroundColor="White"  IsVisible="False" >
                 <ListView x:Name="_ListView" BackgroundColor="White"  Margin="15" HasUnevenRows = "True"   >
                     <ListView.ItemTemplate>
@@ -133,7 +124,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button x:Name="BtnExit" WidthRequest="250" Margin="5,0,5,0" HorizontalOptions="Start"  BorderWidth="1" BorderColor="Gray"  CornerRadius="10" FontSize="Small"  TextColor="White" BackgroundColor="DodgerBlue"  Text="بازگشت" Clicked="BtnExit_Clicked" >
+                <Button x:Name="BtnExit" WidthRequest="250" Margin="5,0,5,0" HorizontalOptions="CenterAndExpand"  BorderWidth="1" BorderColor="Gray"  CornerRadius="10" FontSize="Small"  TextColor="White" BackgroundColor="DodgerBlue"  Text="بازگشت" Clicked="BtnExit_Clicked" >
                     <Button.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS" Value="Samim" />
