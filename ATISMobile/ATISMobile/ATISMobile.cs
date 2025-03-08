@@ -103,10 +103,14 @@ namespace ATISMobile
             {
                 try
                 {
+                    //HttpClientHandler clientHandler = new HttpClientHandler();
+                    //clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+                    //HttpClient _HttpClient = new HttpClient(clientHandler);
                     HttpClient _HttpClient = new HttpClient();
 
-                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get , GetATISMobileWebApiHostUrlFirst() + "/api/ATISMobileWebApi/ISWebApiLive");
-                    HttpResponseMessage response = await _HttpClient.SendAsync(request);
+                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, GetATISMobileWebApiHostUrlFirst() + "/api/ATISMobileWebApi/ISWebApiLive");
+                    System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                    HttpResponseMessage response = await _HttpClient.SendAsync (request);
 
                     //HttpResponseMessage response = await _HttpClient.GetAsync(GetATISMobileWebApiHostUrlFirst() + "/api/ATISMobileWebApi/ISWebApiLive");
                     if (response.IsSuccessStatusCode)
@@ -337,6 +341,11 @@ namespace ATISMobile
                     if (_HttpClient is null)
                     {
                         Uri baseUri = new Uri(ATISMobileWebApiMClassManagement.ATISMobileWebApiHostUrlHolder);
+
+                        //HttpClientHandler clientHandler = new HttpClientHandler();
+                        //clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+                        //HttpClient _HttpClient = new HttpClient(clientHandler);
+
                         _HttpClient = new HttpClient();
                         _HttpClient.BaseAddress = baseUri;
                         _HttpClient.DefaultRequestHeaders.Clear();

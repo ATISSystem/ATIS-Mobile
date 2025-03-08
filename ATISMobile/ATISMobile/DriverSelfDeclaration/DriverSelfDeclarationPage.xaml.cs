@@ -1,5 +1,5 @@
 ﻿
-extern alias MonoAndroid;
+//extern alias  MonoAndroid;
 
 using System;
 using System.Collections.Generic;
@@ -76,51 +76,51 @@ namespace ATISMobile.DriverSelfDeclaration
             { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
         }
 
-        async Task TakePhotoAsync(Object sender)
-        {
-            try
-            {
-                var photo = await Xamarin.Essentials.MediaPicker.CapturePhotoAsync();
-                await LoadPhotoAsync(photo, sender);
-            }
-            catch (FeatureNotSupportedException ex)
-            { throw ex; }
-            catch (PermissionException ex)
-            { throw ex; }
-            catch (Exception ex)
-            { throw ex; }
-        }
+        //async Task TakePhotoAsync(Object sender)
+        //{
+        //    try
+        //    {
+        //        var photo = await Xamarin.Essentials.MediaPicker.CapturePhotoAsync();
+        //        await LoadPhotoAsync(photo, sender);
+        //    }
+        //    catch (FeatureNotSupportedException ex)
+        //    { throw ex; }
+        //    catch (PermissionException ex)
+        //    { throw ex; }
+        //    catch (Exception ex)
+        //    { throw ex; }
+        //}
 
-        async Task LoadPhotoAsync(FileResult Photo, Object sender)
-        {
-            try
-            {
-                if (Photo == null) { throw new Exception("خطا در بارگذاری تصویر"); }
-                var Stream = await Photo.OpenReadAsync();
-                MemoryStream MS = new MemoryStream();
-                Stream.CopyTo(MS);
-                byte[] ImageDataTemp = MS.ToArray();
-                MonoAndroid.Android.Graphics.Bitmap originalImage = MonoAndroid.Android.Graphics.BitmapFactory.DecodeByteArray(ImageDataTemp, 0, ImageDataTemp.Length);
-                MonoAndroid.Android.Graphics.Bitmap resizedImage = MonoAndroid.Android.Graphics.Bitmap.CreateScaledBitmap(originalImage, (int)1000, (int)1000, true);
-                MemoryStream MSTemp = new MemoryStream();
-                resizedImage.Compress(MonoAndroid.Android.Graphics.Bitmap.CompressFormat.Jpeg, 50, MSTemp);
+        //async Task LoadPhotoAsync(FileResult Photo, Object sender)
+        //{
+        //    try
+        //    {
+        //        if (Photo == null) { throw new Exception("خطا در بارگذاری تصویر"); }
+        //        var Stream = await Photo.OpenReadAsync();
+        //        MemoryStream MS = new MemoryStream();
+        //        Stream.CopyTo(MS);
+        //        byte[] ImageDataTemp = MS.ToArray();
+        //        MonoAndroid.Android.Graphics.Bitmap originalImage = MonoAndroid.Android.Graphics.BitmapFactory.DecodeByteArray(ImageDataTemp, 0, ImageDataTemp.Length);
+        //        MonoAndroid.Android.Graphics.Bitmap resizedImage = MonoAndroid.Android.Graphics.Bitmap.CreateScaledBitmap(originalImage, (int)1000, (int)1000, true);
+        //        MemoryStream MSTemp = new MemoryStream();
+        //        resizedImage.Compress(MonoAndroid.Android.Graphics.Bitmap.CompressFormat.Jpeg, 50, MSTemp);
 
-                var DSDImage = Convert.ToBase64String(MSTemp.ToArray());
-                var DSDId = ((Label)((Button)sender).Parent.FindByName("_LblDSDId")).Text;
+        //        var DSDImage = Convert.ToBase64String(MSTemp.ToArray());
+        //        var DSDId = ((Label)((Button)sender).Parent.FindByName("_LblDSDId")).Text;
 
-                await Nonce.GetNonce();
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/DriverSelfDeclaration/SaveDSDImage");
-                var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + ATISMobileWebApiMClassManagement.UserLast5Digit) + ";" + DSDId + ";" + DSDImage;
-                request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
-                if (response.IsSuccessStatusCode)
-                { await DisplayAlert("ATISMobile", "بارگذاری تصویر با موفقیت انجام شد", "تایید"); }
-                else
-                { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
-            }
-            catch (Exception ex)
-            { throw ex; }
-        }
+        //        await Nonce.GetNonce();
+        //        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/DriverSelfDeclaration/SaveDSDImage");
+        //        var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + ATISMobileWebApiMClassManagement.UserLast5Digit) + ";" + DSDId + ";" + DSDImage;
+        //        request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
+        //        HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
+        //        if (response.IsSuccessStatusCode)
+        //        { await DisplayAlert("ATISMobile", "بارگذاری تصویر با موفقیت انجام شد", "تایید"); }
+        //        else
+        //        { await DisplayAlert("ATISMobile-Failed", JsonConvert.DeserializeObject<string>(response.Content.ReadAsStringAsync().Result), "تایید"); }
+        //    }
+        //    catch (Exception ex)
+        //    { throw ex; }
+        //}
 
         #endregion
 
@@ -198,14 +198,14 @@ namespace ATISMobile.DriverSelfDeclaration
 
         private async void BtnAttachement_ClickedEvent(Object sender, EventArgs e)
         {
-            ((Button)sender).IsEnabled = false;
-            try
-            { await TakePhotoAsync(sender); }
-            catch (System.Net.WebException ex)
-            { await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
-            catch (Exception ex)
-            { await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
-            ((Button)sender).IsEnabled = true;
+            //((Button)sender).IsEnabled = false;
+            //try
+            //{ await TakePhotoAsync(sender); }
+            //catch (System.Net.WebException ex)
+            //{ await DisplayAlert("ATISMobile-Error", ATISMobilePredefinedMessages.ATISWebApiNotReachedMessage, "OK"); }
+            //catch (Exception ex)
+            //{ await DisplayAlert("ATISMobile-Error", ex.Message, "OK"); }
+            //((Button)sender).IsEnabled = true;
         }
 
         private async void _EntryDSDValue_TextChanged(object sender, TextChangedEventArgs e)
