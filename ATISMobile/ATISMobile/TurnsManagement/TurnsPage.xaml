@@ -30,13 +30,24 @@
                     </Label.FontFamily>
                 </Label>
             </StackLayout>
+            <StackLayout x:Name="_StackLayoutTurnCancellation" IsVisible="False"  BackgroundColor="White" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+                <Label  BackgroundColor="White"  TextColor="White"   FontSize="Large" FontAttributes="Bold" Text = "" >
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS" Value="Samim" />
+                            <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                            <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+            </StackLayout>
             <ListView x:Name="_ListView" BackgroundColor="White"  Margin="15" HasUnevenRows = "True"   >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell  >
                             <Frame HasShadow="true" Margin="1" BorderColor="BlueViolet"   CornerRadius="15" BackgroundColor="DodgerBlue" >
                                 <StackLayout Orientation="Vertical" BackgroundColor="DodgerBlue"  Padding="1,0,1,0"  >
-                                    <Label  BackgroundColor="DodgerBlue"  TextColor="GreenYellow"   FontSize="Large" FontAttributes="Bold" Text = "{Binding OtaghdarTurnNumber}" >
+                                    <Label x:Name="_OtaghdarTurnNumber" BackgroundColor="DodgerBlue"  TextColor="GreenYellow"   FontSize="Large" FontAttributes="Bold" Text = "{Binding OtaghdarTurnNumber}" >
                                         <Label.FontFamily>
                                             <OnPlatform x:TypeArguments="x:String">
                                                 <On Platform="iOS" Value="Samim" />
@@ -81,7 +92,15 @@
                                             </OnPlatform>
                                         </Label.FontFamily>
                                     </Label>
-
+                                    <Button x:Name="BtnSelect" BorderWidth="2" BorderColor="BlueViolet"    CornerRadius="10" FontSize="Small"  Text="درخواست ابطال نوبت" BackgroundColor="CornflowerBlue" TextColor="White" HorizontalOptions="Start" Clicked="BtnSelect_ClickedEvent" >
+                                        <Button.FontFamily>
+                                            <OnPlatform x:TypeArguments="x:String">
+                                                <On Platform="iOS" Value="Samim" />
+                                                <On Platform="Android" Value="Samim-Bold.otf#Samim" />
+                                                <On Platform="UWP" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
+                                            </OnPlatform>
+                                        </Button.FontFamily>
+                                    </Button>
                                 </StackLayout>
                             </Frame>
                         </ViewCell>

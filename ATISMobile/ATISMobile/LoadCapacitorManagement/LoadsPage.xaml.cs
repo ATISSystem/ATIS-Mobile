@@ -47,7 +47,7 @@ namespace ATISMobile.LoadCapacitorManagement
             try
             {
                 await Nonce.GetNonce();
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/LoadCapacitor/GetLoadCapacitorLoads");
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/LoadCapacitor/GetLoadCapacitorLoadsExtended");
                 var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + YourAHId.ToString() + YourAHSGId.ToString() + Int64.MinValue.ToString() + LoadCapacitorLoadsListType.NotSedimented.ToString()) + ";" + YourAHId.ToString() + ";" + YourAHSGId.ToString() + ";" + Int64.MinValue.ToString() + ";" + LoadCapacitorLoadsListType.NotSedimented.ToString();
                 request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
@@ -75,15 +75,15 @@ namespace ATISMobile.LoadCapacitorManagement
             try
             {
                 await Nonce.GetNonce();
-                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/LoadCapacitor/GetLoadCapacitorLoads");
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, "/api/LoadCapacitor/GetLoadCapacitorLoadsExtended");
                 var Content = ATISMobileWebApiMClassManagement.GetMobileNumber() + ";" + Hashing.GetSHA256Hash(ATISMobileWebApiMClassManagement.GetApiKey() + Nonce.CurrentNonce + YourAHId.ToString() + YourAHSGId.ToString() + YourProvinceId.ToString() + ((int)YourLoadCapacitorLoadsListType).ToString()) + ";" + YourAHId.ToString() + ";" + YourAHSGId.ToString() + ";" + YourProvinceId.ToString() + ";" + ((int)YourLoadCapacitorLoadsListType).ToString();
                 request.Content = new StringContent(JsonConvert.SerializeObject(Content), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await HttpClientOnlyInstance.HttpClientInstance().SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
-                    List<LoadCapacitorLoad> _List = new List<LoadCapacitorLoad>();
-                    _List = JsonConvert.DeserializeObject<List<LoadCapacitorLoad>>(content);
+                    List<LoadCapacitorLoadExtended> _List = new List<LoadCapacitorLoadExtended>();
+                    _List = JsonConvert.DeserializeObject<List<LoadCapacitorLoadExtended>>(content);
                     if (_List.Count == 0)
                     { _ListView.IsVisible = false; _StackLayoutEmptyAnnounce.IsVisible = true; }
                     else

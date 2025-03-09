@@ -52,13 +52,13 @@
                     </Label.FontFamily>
                 </Label>
             </StackLayout>
-            <ListView x:Name="_ListView" BackgroundColor="White"  Margin="15" HasUnevenRows = "True"   >
+            <ListView x:Name="_ListView" BackgroundColor="White"   Margin="15" HasUnevenRows = "True"   >
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell  >
-                            <Frame HasShadow="true" Margin="5" BorderColor="Red" CornerRadius="15" BackgroundColor="OrangeRed" >
-                                <StackLayout Orientation="Vertical" BackgroundColor="OrangeRed" Padding="1,0,1,0"  >
-                                    <Label x:Name="LblnEstelamId" BackgroundColor="OrangeRed"  TextColor="GreenYellow"   FontSize="Large" FontAttributes="Bold" Text = "{Binding LoadnEstelamId}" >
+                            <Frame HasShadow="true" Margin="5" BorderColor="{Binding TurnCancellationLoadColor}" CornerRadius="15" BackgroundColor="{Binding TurnCancellationLoadColor}" >
+                                <StackLayout Orientation="Vertical" BackgroundColor="{Binding TurnCancellationLoadColor}" Padding="1,0,1,0"  >
+                                    <Label x:Name="LblnEstelamId" BackgroundColor="{Binding TurnCancellationLoadColor}"  TextColor="White"   FontSize="Large" FontAttributes="Bold" Text = "{Binding LoadnEstelamId}" >
                                         <Label.FontFamily>
                                             <OnPlatform x:TypeArguments="x:String">
                                                 <On Platform="iOS" Value="Samim" />
@@ -67,7 +67,7 @@
                                             </OnPlatform>
                                         </Label.FontFamily>
                                     </Label>
-                                    <Label  BackgroundColor="OrangeRed"  TextColor="White"  FontSize="Large" FontAttributes="Bold" Text = "{Binding LoadCapacitorLoadTitleTargetCityTotalAmount}" >
+                                    <Label  BackgroundColor="{Binding TurnCancellationLoadColor}"  TextColor="White"  FontSize="Large" FontAttributes="Bold" Text = "{Binding LoadCapacitorLoadTitleTargetCityTotalAmount}" >
                                         <Label.FontFamily>
                                             <OnPlatform x:TypeArguments="x:String">
                                                 <On Platform="iOS" Value="Samim" />
@@ -76,7 +76,7 @@
                                             </OnPlatform>
                                         </Label.FontFamily>
                                     </Label>
-                                    <Label   BackgroundColor="OrangeRed"  TextColor="Yellow" FontSize="Small" FontAttributes="Bold"   Text = "{Binding TransportCompanyTarrifPrice}">
+                                    <Label   BackgroundColor="{Binding TurnCancellationLoadColor}"  TextColor="Yellow" FontSize="Small" FontAttributes="Bold"   Text = "{Binding TransportCompanyTarrifPrice}">
                                         <Label.FontFamily>
                                             <OnPlatform x:TypeArguments="x:String">
                                                 <On Platform="iOS" Value="Samim" />
@@ -85,7 +85,7 @@
                                             </OnPlatform>
                                         </Label.FontFamily>
                                     </Label>
-                                    <Label   BackgroundColor="OrangeRed"  TextColor="Blue"  FontSize="Medium" FontAttributes="Bold"  Text = "{Binding Description}" >
+                                    <Label   BackgroundColor="{Binding TurnCancellationLoadColor}"  TextColor="White"  FontSize="Medium" FontAttributes="Bold"  Text = "{Binding Description}" >
                                         <Label.FontFamily>
                                             <OnPlatform x:TypeArguments="x:String">
                                                 <On Platform="iOS" Value="Samim" />
@@ -94,7 +94,7 @@
                                             </OnPlatform>
                                         </Label.FontFamily>
                                     </Label>
-                                    <Button x:Name="BtnSelect" BorderWidth="2"  WidthRequest="150" BorderColor="Yellow"   CornerRadius="13" FontSize="Medium"  Text="انتخاب" BackgroundColor="YellowGreen" TextColor="Black" HorizontalOptions="Start"   Clicked="BtnSelect_ClickedEvent" >
+                                    <Button x:Name="BtnSelect" BorderWidth="2"  WidthRequest="150" BorderColor="Yellow"   CornerRadius="13" FontSize="Medium"  Text="انتخاب" BackgroundColor="White" TextColor="Black" HorizontalOptions="Start"   Clicked="BtnSelect_ClickedEvent" >
                                         <Button.FontFamily>
                                             <OnPlatform x:TypeArguments="x:String">
                                                 <On Platform="iOS" Value="Samim" />

@@ -93,10 +93,10 @@
     <EmbeddedResource Update="TurnsManagement\RealTimeTurnRegisterRequest.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="TurnsManagement\TurnsCancellation.xaml">
+    <EmbeddedResource Update="TurnsManagement\TurnIssueRequest.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="TurnsManagement\TurnsMenuPage.xaml">
+    <EmbeddedResource Update="TurnsManagement\TurnsCancellation.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="TurnsManagement\TurnsPage.xaml">

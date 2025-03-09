@@ -3,12 +3,21 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 
 
 namespace ATISMobile.Models
 {
+    public class SequentialTurns
+    {
+        public Int64 SeqTId { get; set; }
+        public string SeqTTitle { get; set; }
+        public string SeqTColor { get; set; }
+        public string SeqTKeyWord { get; set; }
+    }
+
     public class LoadCapacitorLoad
     {
         public string LoadnEstelamId { get; set; }
@@ -16,6 +25,16 @@ namespace ATISMobile.Models
         public string TransportCompanyTarrifPrice { get; set; }
         public string Description { get; set; }
     }
+
+    public class LoadCapacitorLoadExtended
+    {
+        public string LoadnEstelamId { get; set; }
+        public string LoadCapacitorLoadTitleTargetCityTotalAmount { get; set; }
+        public string TransportCompanyTarrifPrice { get; set; }
+        public string Description { get; set; }
+        public Color TurnCancellationLoadColor { get; set; }
+    }
+
 
     public class MessageStruct
     {

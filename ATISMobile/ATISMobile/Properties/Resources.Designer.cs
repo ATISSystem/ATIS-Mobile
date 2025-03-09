@@ -70,7 +70,7 @@ namespace ATISMobile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 38468.
+        ///   Looks up a localized string similar to 8083.
         /// </summary>
         public static string RestfulWebServicePortNumber {
             get {
@@ -79,7 +79,7 @@ namespace ATISMobile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Http.
+        ///   Looks up a localized string similar to Https.
         /// </summary>
         public static string RestfulWebServiceProtocol {
             get {
@@ -88,7 +88,7 @@ namespace ATISMobile.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 192.168.1.2.
+        ///   Looks up a localized string similar to ATISMobile.ir.
         /// </summary>
         public static string RestfulWebServiceURLFirst {
             get {
